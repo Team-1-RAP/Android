@@ -70,6 +70,9 @@ coroutines_test = {group="org.jetbrains.kotlinx",name="kotlinx-coroutines-test",
 arch-testing = {group="androidx.arch.core",name="core-testing",version.ref="arch"}
 coil = {group="io.coil-kt",name="coil",version.ref = "coil"}
 android-material = {group="com.google.android.material",name="material",version.ref="android_material"}
+android-material-two = {group="com.google.android.material",name="material",version.ref="android_material"}
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
