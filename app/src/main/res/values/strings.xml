@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">Simple Bank</string>
     <string name="login_title">Log In akun Simple Bankmu</string>
+    <!--login page-->
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="forgot_password">Lupa Password?</string>
     <string name="login">Log In</string>
     <string name="biometric">Biometrik</string>
+    <!--End login page-->
+    <!--Beranda-->
     <string name="home_page">Beranda</string>
     <string name="account_mutation">Mutasi</string>
     <string name="qris_title">QRIS</string>
@@ -23,14 +26,16 @@
     <string name="change_account">Ganti rekening lain</string>
     <string name="digital_service_title">Layanan Digital</string>
     <string name="digital_service_search">Cari layanan</string>
-    <string name="cash_withdrawal">Tarik tunai</string>
-    <string name="cah_deposit">Setor tunai</string>
-    <string name="transfer">Transfer</string>
-    <string name="virtual_account">Virtual account</string>
-    <string name="gold_tube">Tabung emas</string>
-    <string name="pay">Bayar</string>
-    <string name="top_up_e_wallet">Top Up e wallet</string>
+    <string name="cash_withdrawal_title">Tarik tunai</string>
+    <string name="cash_deposit_title">Setor tunai</string>
+    <string name="transfer_title">Transfer</string>
+    <string name="virtual_account_title">Virtual account</string>
+    <string name="gold_tube_title">Tabung emas</string>
+    <string name="pay_title">Bayar</string>
+    <string name="top_up_e_wallet_title">Top Up e wallet</string>
     <string name="etc_title">Lain-Lain</string>
+    <!--End Beranda-->
+    <!--Profile-->
     <string name="card_holder_name_title">Card Holder Name</string>
     <string name="card_holder_name">Adilla Wulandari</string>
     <string name="expired_date_title">Expired Date</string>
@@ -47,5 +52,32 @@
     <string name="whoops">Whoops!!!!</string>
     <string name="logout_question">Apakah Anda benar benar ingin Logout dari akun anda?</string>
     <string name="back">Kembali</string>
+    <!--End profile-->
 
+    <string name="another_bank">Bank lain</string>
+    <string name="fellow_banks">Sesama BCA</string>
+    <string name="favorite_transaction_title">Transaksi Favorite</string>
+    <string name="favorite_transaction_account_number">2101210210</string>
+    <string name="favorite_transaction_account_name">BCA Mch. Yusuf</string>
+    <string name="last_transaction_title">Transaksi Terakhir</string>
+    <string name="last_transaction_account_number">2101210210</string>
+    <string name="last_transaction_account_name">BCA Mch. Yusuf</string>
+    <string name="choose_source_account_title">Pilih Rekening Sumber</string>
+    <string name="choose_destination_account_title">Pilih Bank Tujuan</string>
+    <string name="enter_account_data_title">Masukkan rekening</string>
+    <string name="enter_account_data">Nomor Rekening</string>
+    <string name="choose_amount_title">Pilih Jumlah</string>
+    <string name="choose_amount">Jumlah</string>
+    <string name="enter_description_title">Masukkan Keterangan</string>
+    <string name="enter_description">Keterangan</string>
+    <string name="choose_withdraw_line_title">Pilih Jalur Tarik Tunai</string>
+    <string name="enter_nominal_title">Masukkan nominal</string>
+    <string name="enter_nominal">Nominal</string>
+    <string name="next_title">Selanjutnya</string>
+    <string name="choose_e_wallet_title">Pilih e wallet</string>
+    <string name="choose_e_wallet">Pilih E Wallet</string>
+    <string name="enter_number_account_title">Masukkan Nomor</string>
+    <string name="enter_number_account">Nomor Rekening</string>
+
+    <!--bagian virtual account-->
 </resources>
