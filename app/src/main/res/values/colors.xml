@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+<!--    background colors   -->
+    <color name="blue_light_pastel">#8CACF9</color>
+    <color name="white_blue_light">#E7EDFB</color>
+
+<!--    button colors   -->
+    <color name="cyan">#27DFFA</color>
+    <color name="blue_metalic">#0C32FB</color>
 </resources>
