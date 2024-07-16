@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.qris.QrisFragment"
+android:background="@drawable/home_page_background">
+
+
+<com.google.android.material.imageview.ShapeableImageView
+    android:id="@+id/simple_bank_logo"
+    android:layout_width="84dp"
+    android:layout_height="84dp"
+    android:layout_marginStart="13dp"
+    android:layout_marginTop="12dp"
+    android:scaleType="fitXY"
+    android:src="@drawable/simple_bank_logo"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<com.google.android.material.textview.MaterialTextView
+    android:id="@+id/hey_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/Hey"
+    android:textSize="16sp"
+    app:layout_constraintBottom_toBottomOf="@+id/username_title"
+    app:layout_constraintStart_toEndOf="@id/simple_bank_logo"
+    app:layout_constraintTop_toTopOf="@id/simple_bank_logo" />
+
+<com.google.android.material.textview.MaterialTextView
+    android:id="@+id/username_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:maxLength="20"
+    android:maxLines="1"
+    android:text="@string/user_full_name"
+    android:textSize="16sp"
+    app:layout_constraintBottom_toBottomOf="@id/simple_bank_logo"
+    app:layout_constraintStart_toEndOf="@id/simple_bank_logo"
+    app:layout_constraintTop_toTopOf="@id/hey_title" />
+
+<com.google.android.material.button.MaterialButton
+    android:id="@+id/btn_helpdesk"
+    style="@style/button_faq_color"
+    android:layout_width="107dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corner"
+    android:lines="2"
+    android:padding="4dp"
+    android:text="@string/helpdesk"
+    android:textAllCaps="false"
+    android:textSize="13sp"
+    app:icon="@drawable/question_logo"
+    app:layout_constraintBottom_toBottomOf="@+id/username_title"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/hey_title" />
+
+<Space
+    android:id="@+id/space_view"
+    android:layout_width="5dp"
+    android:layout_height="5dp"
+    android:layout_marginTop="50dp"
+    android:layout_marginEnd="50dp"
+    app:layout_constraintEnd_toEndOf="@id/cardview_beranda"
+    app:layout_constraintStart_toStartOf="@id/cardview_beranda"
+    app:layout_constraintTop_toTopOf="@id/cardview_beranda" />
+
+<ImageView
+    android:id="@+id/shadow_logo_simple_bank"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:src="@drawable/shadow_logo_simple_bank_2"
+    app:layout_constraintBottom_toBottomOf="@id/space_view"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/space_view"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/cardview_beranda"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    app:cardCornerRadius="15dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/simple_bank_logo"
+
+    >
+
+
+
+
+</com.google.android.material.card.MaterialCardView>
+
+<com.google.android.material.textview.MaterialTextView
+    android:id="@+id/digital_service_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:text="@string/digital_service_title"
+    android:textSize="20sp"
+    app:layout_constraintStart_toStartOf="@id/cardview_beranda"
+    app:layout_constraintTop_toBottomOf="@id/cardview_beranda" />
+
+<SearchView
+    android:id="@+id/search_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:iconifiedByDefault="false"
+    android:padding="4dp"
+    android:queryHint="Cari layanan digital"
+    app:layout_constraintTop_toBottomOf="@id/digital_service_title" />
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_menu"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="20dp"
+    android:clipToPadding="false"
+    app:spanCount="4"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/search_view"
+    tools:listitem="@layout/item_button_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
