@@ -9,7 +9,17 @@
         android:id="@+id/navigation_home"
         android:name="com.team1.simplebank.ui.home.HomeFragment"
         android:label="@string/home_page"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_cashWithDrawlFragment"
+            app:destination="@id/cashWithDrawlFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_virtualAccountFragment"
+            app:destination="@id/virtualAccountFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_topUpEWalletFragment"
+            app:destination="@id/topUpEWalletFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_account_mutation"
@@ -28,4 +38,19 @@
         android:name="com.team1.simplebank.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/cashWithDrawlFragment"
+        android:name="com.team1.simplebank.ui.home.cash_withdrawal.CashWithDrawlFragment"
+        android:label="fragment_cash_withdrawal"
+        tools:layout="@layout/fragment_cash_withdrawal" />
+    <fragment
+        android:id="@+id/virtualAccountFragment"
+        android:name="com.team1.simplebank.ui.home.virtual_account.VirtualAccountFragment"
+        android:label="fragment_virtual_account"
+        tools:layout="@layout/fragment_virtual_account" />
+    <fragment
+        android:id="@+id/topUpEWalletFragment"
+        android:name="com.team1.simplebank.ui.home.top_up_e_wallet.TopUpEWalletFragment"
+        android:label="fragment_top_up_e_wallet"
+        tools:layout="@layout/fragment_top_up_e_wallet" />
 </navigation>

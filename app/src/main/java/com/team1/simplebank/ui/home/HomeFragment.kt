@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.team1.simplebank.R
 import com.team1.simplebank.adapter.MenuBerandaAdapter
@@ -52,13 +54,22 @@ class HomeFragment : Fragment() {
             binding.rvMenu.adapter = adapter
         }
 
+        binding.btnShowLess2.setOnClickListener {
+
+        }
 
     }
 
     private fun clicked(idMenu: Menu) {
         when (idMenu.id) {
-            1 -> Toast.makeText(requireContext(), "tarik tunai", Toast.LENGTH_SHORT).show()
-            else -> Toast.makeText(requireContext(), "selain tarik tunai", Toast.LENGTH_SHORT)
+            1 -> findNavController().navigate(R.id.action_navigation_home_to_cashWithDrawlFragment)
+            2 -> Toast.makeText(requireContext(), R.string.cash_deposit_title, Toast.LENGTH_SHORT).show()
+            3 -> Toast.makeText(requireContext(), R.string.transfer_title, Toast.LENGTH_SHORT).show()
+            4 -> findNavController().navigate(R.id.action_navigation_home_to_virtualAccountFragment)
+            5 -> Toast.makeText(requireContext(), R.string.gold_tube_title, Toast.LENGTH_SHORT).show()
+            6 -> Toast.makeText(requireContext(), R.string.pay_title, Toast.LENGTH_SHORT).show()
+            7 -> findNavController().navigate(R.id.action_navigation_home_to_topUpEWalletFragment)
+            8 -> Toast.makeText(requireContext(), R.string.etc_title, Toast.LENGTH_SHORT)
                 .show()
 
         }
