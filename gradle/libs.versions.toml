@@ -35,6 +35,9 @@ coil = "2.6.0"
 android_material = "1.12.0"
 ui = "1.6.8"
 composeBom = "2024.06.00"
+lifecycleLivedataKtx = "2.8.3"
+navigationFragmentKtx = "2.7.7"
+legacySupportV4 = "1.0.0"
 
 
 
@@ -44,7 +47,6 @@ composeBom = "2024.06.00"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
-androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "nav_version" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -64,7 +66,6 @@ androidx-lifecycle-viewmodel = {group="androidx.lifecycle",name="lifecycle-viewm
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 androidx-recyclerview = {group="androidx.recyclerview",name="recyclerview",version.ref="recyclerview"}
 androidx-recyclerview-selection = {group="androidx.recyclerview",name="recyclerview-selection",version.ref="recyclerview_selection"}
-androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle_viewmodel" }
 
 ### compose ###
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -106,6 +107,9 @@ coil = {group="io.coil-kt",name="coil",version.ref = "coil"}
 android-material = {group="com.google.android.material",name="material",version.ref="android_material"}
 android-material-two = {group="com.google.android.material",name="material",version.ref="android_material"}
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
 
 
 [plugins]

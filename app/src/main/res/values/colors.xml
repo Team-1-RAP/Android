@@ -15,4 +15,6 @@
 <!--    button colors   -->
     <color name="cyan">#27DFFA</color>
     <color name="blue_metalic">#0C32FB</color>
+    <color name="faq_color">#FF121F59</color>
+
 </resources>
