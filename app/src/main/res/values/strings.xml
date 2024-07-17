@@ -81,5 +81,7 @@
     <string name="enter_number_account_title">Masukkan Nomor</string>
     <string name="enter_number_account">Nomor Rekening</string>
 
+    <string name="title_activity_home">HomeActivity</string>
+
     <!--bagian virtual account-->
 </resources>
