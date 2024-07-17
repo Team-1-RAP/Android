@@ -12,6 +12,8 @@ android {
     defaultConfig {
         minSdk = 26
 
+        buildConfigField("String", "BASE_URL", "\"https://cautious-noelyn-ridho-71c54445.koyeb.app/api/\"",)
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -25,6 +27,9 @@ android {
             )
         }
     }
+    buildFeatures{
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -35,7 +40,25 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":xdomain"))
+    implementation(project(":common"))
+
+    //api : retrofit - okhttp
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
+    //dataStore
+    implementation(libs.androidx.datastore)
+
+    //coroutines
+    implementation(libs.coroutines.android)
+    implementation(libs.coroutines.test)
+
+    //jwtDecoder
+    implementation (libs.jwtdecode)
 
 
     implementation(libs.androidx.core.ktx)
