@@ -30,6 +30,10 @@ android {
             )
         }
     }
+    buildFeatures{
+        compose = true
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -40,7 +44,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":xdomain"))
     implementation(project(":di"))
     implementation(project(":common"))
 
@@ -57,12 +61,22 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material.icons.extended.android)
 
-    //navigations /added_by: rian
+    //navigation /added_by: rian
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.compose)
 
+    //di - koin //added_by: rian
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation (libs.koin.androidx.workmanager)
+    implementation (libs.koin.androidx.compose)
 
+    //koin //added_by: rian
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation (libs.koin.androidx.workmanager)
+    implementation (libs.koin.androidx.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

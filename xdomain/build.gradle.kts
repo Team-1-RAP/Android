@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-parcelize")
-    id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "com.team1.simplebank.common"
+    namespace = "com.synrgy.xdomain"
     compileSdk = 34
 
     defaultConfig {
@@ -35,6 +33,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":common"))
+
+    // coroutines
+    implementation(libs.coroutines.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

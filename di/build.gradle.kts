@@ -34,8 +34,25 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":xdomain"))
     implementation(project(":data"))
+
+    //di - koin
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation (libs.koin.androidx.workmanager)
+    implementation (libs.koin.androidx.compose)
+
+    //dataStore
+    implementation(libs.androidx.datastore)
+
+    //api : retrofit - okhttp
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -43,4 +60,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 }
