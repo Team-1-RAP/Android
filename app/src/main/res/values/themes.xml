@@ -17,4 +17,8 @@
     <style name="button_faq_color" parent="TextAppearance.AppCompat.Widget.Button.Colored">
         <item name="backgroundTint">@color/faq_color</item>
     </style>
+
+    <style name="button_logout_color" parent="TextAppearance.AppCompat.Widget.Button.Colored">
+        <item name="backgroundTint">@color/light_blue</item>
+    </style>
 </resources>
