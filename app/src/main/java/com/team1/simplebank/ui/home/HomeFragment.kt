@@ -1,20 +1,19 @@
 package com.team1.simplebank.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.synrgy.xdomain.model.Menu
 import com.team1.simplebank.R
 import com.team1.simplebank.adapter.MenuBerandaAdapter
 import com.team1.simplebank.databinding.FragmentHomeBinding
-import com.team1.simplebank.domain.model.dataclass.Menu
 import com.team1.simplebank.viewmodel.HomeActivityViewModel
 
 
@@ -24,7 +23,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeActivityViewModel by activityViewModels<HomeActivityViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         return FragmentHomeBinding.inflate(inflater, container, false).also {
@@ -63,10 +62,16 @@ class HomeFragment : Fragment() {
     private fun clicked(idMenu: Menu) {
         when (idMenu.id) {
             1 -> findNavController().navigate(R.id.action_navigation_home_to_cashWithDrawlFragment)
-            2 -> Toast.makeText(requireContext(), R.string.cash_deposit_title, Toast.LENGTH_SHORT).show()
-            3 -> Toast.makeText(requireContext(), R.string.transfer_title, Toast.LENGTH_SHORT).show()
+            2 -> Toast.makeText(requireContext(), R.string.cash_deposit_title, Toast.LENGTH_SHORT)
+                .show()
+
+            3 -> Toast.makeText(requireContext(), R.string.transfer_title, Toast.LENGTH_SHORT)
+                .show()
+
             4 -> findNavController().navigate(R.id.action_navigation_home_to_virtualAccountFragment)
-            5 -> Toast.makeText(requireContext(), R.string.gold_tube_title, Toast.LENGTH_SHORT).show()
+            5 -> Toast.makeText(requireContext(), R.string.gold_tube_title, Toast.LENGTH_SHORT)
+                .show()
+
             6 -> Toast.makeText(requireContext(), R.string.pay_title, Toast.LENGTH_SHORT).show()
             7 -> findNavController().navigate(R.id.action_navigation_home_to_topUpEWalletFragment)
             8 -> Toast.makeText(requireContext(), R.string.etc_title, Toast.LENGTH_SHORT)

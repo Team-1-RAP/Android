@@ -10,8 +10,8 @@ import org.koin.dsl.module
 
 val dataStoreModule = module {
 
-    singleOf(::provideDatastore)
-    singleOf(::Auth)
+    single { provideDatastore(get()) }
+    single { Auth(get()) }
 }
 
 

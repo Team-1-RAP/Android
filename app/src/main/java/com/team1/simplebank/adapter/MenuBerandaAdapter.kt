@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.synrgy.xdomain.model.Menu
 import com.team1.simplebank.databinding.ItemButtonMenuBinding
-import com.team1.simplebank.domain.model.dataclass.Menu
 
-class MenuBerandaAdapter(val listItem: List<Menu>, val clickListener: (Menu) -> Unit) :
+class MenuBerandaAdapter(private val listItem: List<Menu>, val clickListener: (Menu) -> Unit) :
     RecyclerView.Adapter<MenuBerandaAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemButtonMenuBinding) :
+    inner class ViewHolder(private val binding: ItemButtonMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Menu) {
             binding.iconItem.setImageResource(data.image)

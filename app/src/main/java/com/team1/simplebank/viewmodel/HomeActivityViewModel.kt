@@ -4,8 +4,8 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.synrgy.xdomain.model.Menu
 import com.team1.simplebank.R
-import com.team1.simplebank.domain.model.dataclass.Menu
 
 class HomeActivityViewModel : ViewModel() {
     private val _listDataItem = MutableLiveData<List<Menu>>()

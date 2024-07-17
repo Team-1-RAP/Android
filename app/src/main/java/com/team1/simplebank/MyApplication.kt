@@ -11,9 +11,11 @@ import org.koin.core.context.startKoin
 class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+
+        val module = listOf(koinModule, dataStoreModule, apiModule, viewModelModule)
         startKoin{
             androidContext(this@MyApplication)
-            modules(koinModule, dataStoreModule, apiModule, viewModelModule)
+            modules(module)
         }
     }
 }

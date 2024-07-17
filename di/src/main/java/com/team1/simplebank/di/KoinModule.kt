@@ -16,12 +16,12 @@ val koinModule = module {
     single { androidContext() }
 
     //repo
-    singleOf(::AuthRepositoryImpl) { bind<AuthRepository>() }
+    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
 
     //useCase
-    singleOf(::LoginUseCase)
-    singleOf(::GetSessionUseCase)
-    singleOf(::ClearSessionUseCase)
+    single { LoginUseCase(get()) }
+    single { GetSessionUseCase(get()) }
+    single { ClearSessionUseCase(get()) }
 
 
 }

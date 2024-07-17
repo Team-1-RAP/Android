@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val apiModule = module {
-    singleOf(::provideApiService)
+    single { provideApiService(get()) }
 }
 
 fun provideApiService(auth: Auth): ApiService {
