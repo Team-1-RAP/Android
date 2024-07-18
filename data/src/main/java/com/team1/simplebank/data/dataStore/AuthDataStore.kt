@@ -9,7 +9,7 @@ import com.synrgy.xdomain.model.AuthModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class Auth(
+class AuthDataStore(
     private val dataStore: DataStore<Preferences>,
 ) {
     fun getUserSession(): Flow<AuthModel> {
