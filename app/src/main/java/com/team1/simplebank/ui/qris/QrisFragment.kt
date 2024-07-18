@@ -22,9 +22,6 @@ class QrisFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val qrisViewModel =
-            ViewModelProvider(this).get(QrisViewModel::class.java)
-
         _binding = FragmentQrisBinding.inflate(inflater, container, false)
         val root: View = binding.root
 

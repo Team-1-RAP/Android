@@ -1,11 +1,12 @@
-package com.team1.simplebank.viewmodel
+package com.team1.simplebank.ui
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.synrgy.xdomain.model.Menu
 import com.team1.simplebank.R
-import com.team1.simplebank.domain.model.dataclass.Menu
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 class HomeActivityViewModel : ViewModel() {
     private val _listDataItem = MutableLiveData<List<Menu>>()

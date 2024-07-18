@@ -39,15 +39,17 @@
     <string name="card_holder_name_title">Card Holder Name</string>
     <string name="card_holder_name">Adilla Wulandari</string>
     <string name="expired_date_title">Expired Date</string>
-    <string name="expired_date">12/2024</string>
-    <string name="card_information">Informasi KArtu Simple Bank</string>
+    <string name="expired_date">10/28</string>
+    <string name="card_information">Informasi Kartu Simple Bank</string>
     <string name="account_type_title">Jenis Rekening</string>
-    <string name="account_type">Tabungan</string>
+    <string name="account_type">Deposito</string>
     <string name="account_owner_title">Nama Pemilik</string>
     <string name="account_owner">Adilla Wulandari</string>
     <string name="account_number_title">Nomor Rekening</string>
     <string name="account_number">37376565</string>
-    <string name="account_setting_ttile">Pengaturan Kartu</string>
+    <string name="full_account_number">373 76565 98213 567</string>
+    <string name="censored_account_number">**********</string>
+    <string name="account_setting_title">Pengaturan Kartu</string>
     <string name="logout">Logout</string>
     <string name="whoops">Whoops!!!!</string>
     <string name="logout_question">Apakah Anda benar benar ingin Logout dari akun anda?</string>
@@ -80,6 +82,8 @@
     <string name="enter_number_account">Nomor Rekening</string>
 
     <string name="title_activity_home">HomeActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--bagian virtual account-->
 </resources>
