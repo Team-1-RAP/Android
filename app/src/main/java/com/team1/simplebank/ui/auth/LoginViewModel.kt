@@ -7,11 +7,14 @@ import com.synrgy.xdomain.model.AuthModel
 import com.synrgy.xdomain.useCase.auth.GetSessionUseCase
 import com.synrgy.xdomain.useCase.auth.LoginUseCase
 import com.team1.simplebank.common.handler.ResourceState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel (
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val getSessionUseCase: GetSessionUseCase,
 ) : ViewModel() {

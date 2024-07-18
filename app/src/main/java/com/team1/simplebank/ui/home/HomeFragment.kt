@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.synrgy.xdomain.model.Menu
 import com.team1.simplebank.R
 import com.team1.simplebank.adapter.MenuBerandaAdapter
 import com.team1.simplebank.databinding.FragmentHomeBinding
-import com.team1.simplebank.viewmodel.HomeActivityViewModel
+import com.team1.simplebank.ui.HomeActivityViewModel
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: HomeActivityViewModel by activityViewModels<HomeActivityViewModel>()
+    private val viewModel: HomeActivityViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,

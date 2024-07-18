@@ -6,6 +6,8 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
 
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -68,17 +70,11 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.compose)
 
-    //di - koin //added_by: rian
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation (libs.koin.androidx.workmanager)
-    implementation (libs.koin.androidx.compose)
-
-    //koin //added_by: rian
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation (libs.koin.androidx.workmanager)
-    implementation (libs.koin.androidx.compose)
+    //di-hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

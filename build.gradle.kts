@@ -7,6 +7,9 @@ plugins {
     alias(libs.plugins.kspPlugins) apply false
     alias(libs.plugins.compose.compiler) apply false
 
+    id("org.jetbrains.kotlin.kapt") version "1.9.24" apply false
+    id("com.google.dagger.hilt.android") version "2.51" apply false
+
     id("land.sungbin.dependency.graph.plugin") version "1.1.0"
 }
 
@@ -15,5 +18,11 @@ dependencyGraphConfig{
     outputFormat = OutputFormat.PNG
     dependencyBuilder {
         null
+    }
+}
+
+buildscript {
+    dependencies {
+        classpath (libs.hilt.android.gradle.plugin)
     }
 }

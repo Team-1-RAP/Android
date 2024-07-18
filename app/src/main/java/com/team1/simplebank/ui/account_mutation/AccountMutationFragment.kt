@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.team1.simplebank.databinding.FragmentAccountMutationBinding
 
@@ -22,8 +23,8 @@ class AccountMutationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val accountMutationViewModel =
-            ViewModelProvider(this).get(AccountMutationViewModel::class.java)
+
+        val accountMutationViewModel : AccountMutationViewModel by viewModels()
 
         _binding = FragmentAccountMutationBinding.inflate(inflater, container, false)
         val root: View = binding.root
