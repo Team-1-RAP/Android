@@ -1,13 +1,13 @@
 package com.synrgy.xdomain.useCase.auth
 
-import com.synrgy.xdomain.repositoryInterface.AuthRepository
+import com.synrgy.xdomain.repositoryInterface.IAuthRepository
 import javax.inject.Inject
 
 class ClearSessionUseCase @Inject constructor (
-    private val authRepository: AuthRepository
+    private val IAuthRepository: IAuthRepository
 ) {
     suspend operator fun invoke() {
-        authRepository.clearSession()
+        IAuthRepository.clearSession()
 
     }
 }

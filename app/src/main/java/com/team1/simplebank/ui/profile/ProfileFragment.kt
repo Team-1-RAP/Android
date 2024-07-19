@@ -31,8 +31,6 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
-//            Log.d("ProfileFragment", "$viewModel")
-            Log.d("ProfileFragment", "Logout button clicked")
         }
     }
 

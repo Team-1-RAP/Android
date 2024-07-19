@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.synrgy.xdomain.repositoryInterface.AuthRepository
-import com.synrgy.xdomain.useCase.auth.ClearSessionUseCase
+import com.synrgy.xdomain.repositoryInterface.IAuthRepository
+import com.synrgy.xdomain.repositoryInterface.IUserRepository
 import com.team1.simplebank.data.BuildConfig
 import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.remote.api.ApiService
 import com.team1.simplebank.data.repositoryImpl.AuthRepositoryImpl
+import com.team1.simplebank.data.repositoryImpl.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -93,7 +94,15 @@ object AppModule {
     fun provideAuthRepository(
         apiService: ApiService,
         authDataStore: AuthDataStore,
-    ): AuthRepository {
+    ): IAuthRepository {
         return AuthRepositoryImpl(apiService, authDataStore)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserRepository(
+        apiService: ApiService
+    ) : IUserRepository {
+        return UserRepositoryImpl(apiService)
     }
 }

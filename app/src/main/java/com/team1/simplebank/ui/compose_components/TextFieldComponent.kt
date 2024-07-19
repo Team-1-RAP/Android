@@ -91,7 +91,7 @@ fun TextFieldComponent(
             if (isPassword) {
                 val image =
                     if (passwordVisibility) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff
-                val description = if (passwordVisibility) "Hide password" else "Show password"
+                val description = if (passwordVisibility) "sembunyikan password" else "lihat password"
 
                 IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                     Icon(

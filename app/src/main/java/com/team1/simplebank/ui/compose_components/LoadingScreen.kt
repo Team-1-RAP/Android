@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
+import com.team1.simplebank.colors_for_composable.BlueNormal
 
 @Composable
 fun LoadingScreen(
@@ -23,8 +24,8 @@ fun LoadingScreen(
         contentAlignment = Alignment.Center,
     ){
         CircularProgressIndicator(
-            modifier = modifier.size(24.dp),
-            color = Color.Gray,
+            modifier = modifier.size(32.dp),
+            color = BlueNormal,
             trackColor = Color.White,
             strokeWidth = 4.dp,
             strokeCap = StrokeCap.Round,
