@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.synrgy.xdomain.repositoryInterface.AuthRepository
+import com.synrgy.xdomain.useCase.auth.ClearSessionUseCase
 import com.team1.simplebank.data.BuildConfig
 import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.remote.api.ApiService

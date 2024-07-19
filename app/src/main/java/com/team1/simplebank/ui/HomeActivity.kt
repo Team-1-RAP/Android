@@ -21,6 +21,13 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel.checkSession().observe(this) { loginData ->
+            if (loginData.accessToken == "") {
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                finish()
+            }
+        }
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -28,12 +35,6 @@ class HomeActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_home)
         navView.setupWithNavController(navController)
 
-        viewModel.checkSession().observe(this) { loginData ->
-            if (loginData.accessToken == "") {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            }
-        }
     }
 
     override fun onDestroy() {
