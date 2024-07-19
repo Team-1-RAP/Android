@@ -1,5 +1,7 @@
 package com.team1.simplebank.ui.auth
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,28 +24,40 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.team1.simplebank.R
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.colors_for_composable.DarkBlue
+import com.team1.simplebank.common.handler.ResourceState
+import com.team1.simplebank.ui.HomeActivity
 import com.team1.simplebank.ui.compose_components.ButtonComponent
 import com.team1.simplebank.ui.compose_components.GradientBackground
+import com.team1.simplebank.ui.compose_components.LoadingScreen
 import com.team1.simplebank.ui.compose_components.OnBoardDecoration
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
@@ -53,128 +67,179 @@ import com.team1.simplebank.ui.compose_components.TextFieldComponent
 fun LoginScreen(
     modifier: Modifier = Modifier,
 ) {
-
+    val context = LocalContext.current
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showBiometricLoginBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
+    val viewModel: LoginViewModel = hiltViewModel()
+    val authData by viewModel.authData.collectAsState()
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
 
-    GradientBackground(
-        modifier = modifier.fillMaxSize(),
-        startColor = Color(0xFF8CACF9),
-        endColor = Color(0xFFE7EDFB)
-    ) {
-        OnBoardDecoration()
-        Column(
-            verticalArrangement = Arrangement.Center,
-            modifier = modifier
-                .fillMaxSize()
-                .padding(horizontal = 24.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo",
-                modifier = Modifier
-                    .size(140.dp)
-                    .background(Color.Transparent)
-                    .align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = modifier.height(32.dp))
-            Text(
-                text = "Login akun Simple Bankmu",
-                modifier = modifier.padding(bottom = 8.dp),
-                color = DarkBlue,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight(400),
-                )
-            )
-            TextFieldComponent(
-                modifier = modifier,
-                placeholder = "Username",
-                textValue = username,
-                onValueChange = { username = it },
-                isPassword = false,
-                leadingIcon = {
-                    Image(
-                        painter = painterResource(id = R.drawable.user_icon),
-                        contentDescription = "User Icon",
-                        modifier = modifier.size(24.dp)
-                    )
-                }
-            )
-            TextFieldComponent(
-                modifier = modifier,
-                placeholder = "Password",
-                textValue = password,
-                onValueChange = { password = it },
-                isPassword = true,
-                leadingIcon = {
-                    Image(
-                        painter = painterResource(id = R.drawable.password_icon),
-                        contentDescription = "Password Icon",
-                        modifier = modifier.size(24.dp)
-                    )
-                }
-            )
-            Text(
-                text = "Lupa Password?",
-                color = DarkBlue,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight(500),
-                ),
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(vertical = 16.dp)
-            )
-            HorizontalDivider(modifier = modifier.fillMaxWidth(), color = BlueNormal)
-            Spacer(modifier = modifier.height(120.dp))
-            Row(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                ButtonComponent(
-                    onClick = { /*TODO*/ },
-                    label = "Login",
-                    buttonColor = ButtonDefaults.buttonColors(
-                        containerColor = BlueNormal,
-                        contentColor = Color.White
-                    ),
-                    modifier = modifier
-                        .fillMaxWidth(fraction = 0.5f)
-                )
-                Spacer(modifier = modifier.width(8.dp))
-                ButtonComponent(
-                    onClick = { showBiometricLoginBottomSheet = true },
-                    label = "Biometric",
-                    buttonColor = ButtonDefaults.buttonColors(
-                        containerColor = Color.White,
-                        contentColor = BlueNormal
-                    ),
-                    leadingIcon = {
-                        Icon(
-                            Icons.Outlined.Fingerprint,
-                            contentDescription = "Fingerprint Icon",
-                            modifier = modifier.size(24.dp).fillMaxWidth(fraction = 0.5f),
-                        )
-                    }
+    fun login(usrname: String, pass: String) {
+        viewModel.login(usrname, pass)
+    }
+
+    LaunchedEffect(authData) {
+        when (authData) {
+            is ResourceState.Loading -> {
+                // Show loading screen
+            }
+
+            is ResourceState.Success -> {
+                context.startActivity(Intent(context, HomeActivity::class.java))
+                (context as Activity).finish()
+            }
+
+            is ResourceState.Error -> {
+                snackbarHostState.showSnackbar(
+                    message = (authData as ResourceState.Error).exception ?: "An error occurred",
+                    duration = SnackbarDuration.Short
                 )
             }
 
-            if (showBiometricLoginBottomSheet) {
-                BiometricLoginBottomSheet(
-                    onDismissRequest = { showBiometricLoginBottomSheet = false },
-                    sheetState = sheetState,
-                    modifier = modifier,
-                )
+            else -> {}
+        }
+    }
+
+    if (authData is ResourceState.Loading) {
+        LoadingScreen() // Your loading screen composable
+    } else {
+        Scaffold(
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+            modifier = Modifier.fillMaxSize()
+        ) { paddingValues ->
+            GradientBackground(
+                modifier = Modifier
+                    .fillMaxSize(),
+                startColor = Color(0xFF8CACF9),
+                endColor = Color(0xFFE7EDFB)
+            ) {
+                OnBoardDecoration()
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(paddingValues)
+                        .padding(horizontal = 24.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.logo),
+                        contentDescription = "Logo",
+                        modifier = Modifier
+                            .size(140.dp)
+                            .background(Color.Transparent)
+                            .align(Alignment.CenterHorizontally)
+                    )
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = "Login akun Simple Bankmu",
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        color = DarkBlue,
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight(400),
+                        )
+                    )
+                    TextFieldComponent(
+                        modifier = Modifier,
+                        placeholder = "Username",
+                        textValue = username,
+                        onValueChange = { username = it },
+                        isPassword = false,
+                        leadingIcon = {
+                            Image(
+                                painter = painterResource(id = R.drawable.user_icon),
+                                contentDescription = "User Icon",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    )
+                    TextFieldComponent(
+                        modifier = Modifier,
+                        placeholder = "Password",
+                        textValue = password,
+                        onValueChange = { password = it },
+                        isPassword = true,
+                        leadingIcon = {
+                            Image(
+                                painter = painterResource(id = R.drawable.password_icon),
+                                contentDescription = "Password Icon",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    )
+                    Text(
+                        text = "Lupa Password?",
+                        color = DarkBlue,
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight(500),
+                        ),
+                        modifier = Modifier
+                            .align(Alignment.End)
+                            .padding(vertical = 16.dp)
+                    )
+                    HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = BlueNormal)
+                    Spacer(modifier = Modifier.height(120.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        ButtonComponent(
+                            onClick = {
+                                if (username.isNotEmpty() && password.isNotEmpty()) {
+                                    login(username, password)
+                                } else {
+                                    // Handle empty fields TODO
+                                }
+                            },
+                            label = "Login",
+                            buttonColor = ButtonDefaults.buttonColors(
+                                containerColor = BlueNormal,
+                                contentColor = Color.White
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth(fraction = 0.5f)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        ButtonComponent(
+                            onClick = { showBiometricLoginBottomSheet = true },
+                            label = "Biometric",
+                            buttonColor = ButtonDefaults.buttonColors(
+                                containerColor = Color.White,
+                                contentColor = BlueNormal
+                            ),
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.Fingerprint,
+                                    contentDescription = "Fingerprint Icon",
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .fillMaxWidth(fraction = 0.5f),
+                                )
+                            }
+                        )
+                    }
+
+                    if (showBiometricLoginBottomSheet) {
+                        BiometricLoginBottomSheet(
+                            onDismissRequest = { showBiometricLoginBottomSheet = false },
+                            sheetState = sheetState,
+                            modifier = Modifier,
+                        )
+                    }
+                }
             }
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

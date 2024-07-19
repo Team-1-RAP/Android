@@ -6,7 +6,8 @@ import javax.inject.Inject
 class ClearSessionUseCase @Inject constructor (
     private val authRepository: AuthRepository
 ) {
-    suspend fun execute() {
+    suspend operator fun invoke() {
         authRepository.clearSession()
+
     }
 }
