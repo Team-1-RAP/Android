@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,8 @@ import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -95,7 +98,7 @@ fun LoginScreen(
 
             is ResourceState.Error -> {
                 snackbarHostState.showSnackbar(
-                    message = (authData as ResourceState.Error).exception ?: "An error occurred",
+                    message = "Silakan periksa kembali username dan password anda",
                     duration = SnackbarDuration.Short
                 )
             }
@@ -105,7 +108,7 @@ fun LoginScreen(
     }
 
     if (authData is ResourceState.Loading) {
-        LoadingScreen() // Your loading screen composable
+        LoadingScreen()
     } else {
         Scaffold(
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -137,7 +140,7 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
                         text = "Login akun Simple Bankmu",
-                        modifier = Modifier.padding(bottom = 8.dp),
+                        modifier = Modifier.padding(bottom = 8.dp).semantics { contentDescription = "login akun simple bankmu" },
                         color = DarkBlue,
                         style = TextStyle(
                             fontSize = 16.sp,
@@ -145,7 +148,8 @@ fun LoginScreen(
                         )
                     )
                     TextFieldComponent(
-                        modifier = Modifier,
+                        modifier = Modifier.focusable()
+                            .semantics { contentDescription = "username" },
                         placeholder = "Username",
                         textValue = username,
                         onValueChange = { username = it },
@@ -159,7 +163,8 @@ fun LoginScreen(
                         }
                     )
                     TextFieldComponent(
-                        modifier = Modifier,
+                        modifier = Modifier.focusable()
+                            .semantics { contentDescription = "Password Field" },
                         placeholder = "Password",
                         textValue = password,
                         onValueChange = { password = it },
@@ -182,6 +187,7 @@ fun LoginScreen(
                         modifier = Modifier
                             .align(Alignment.End)
                             .padding(vertical = 16.dp)
+                            .semantics { contentDescription = "lupa password" }
                     )
                     HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = BlueNormal)
                     Spacer(modifier = Modifier.height(120.dp))
@@ -206,6 +212,7 @@ fun LoginScreen(
                             ),
                             modifier = Modifier
                                 .fillMaxWidth(fraction = 0.5f)
+                                .semantics { contentDescription = "Tombol Login" }
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         ButtonComponent(
@@ -221,7 +228,8 @@ fun LoginScreen(
                                     contentDescription = "Fingerprint Icon",
                                     modifier = Modifier
                                         .size(24.dp)
-                                        .fillMaxWidth(fraction = 0.5f),
+                                        .fillMaxWidth(fraction = 0.5f)
+                                        .semantics { contentDescription = "Tombol login biometrik" },
                                 )
                             }
                         )
@@ -262,7 +270,7 @@ fun BiometricLoginBottomSheet(
                 text = "Konfirmasi Sidik Jari",
                 fontWeight = FontWeight(700),
                 fontSize = 20.sp,
-                color = BlueNormal
+                color = BlueNormal,
             )
             Text(
                 text = "Sentuh sensor sidik jari",
@@ -286,7 +294,9 @@ fun BiometricLoginBottomSheet(
                 buttonColor = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
                     contentColor = Color.Gray,
-                )
+                ),
+                modifier = modifier
+                    .semantics { contentDescription = "Tombol Batalkan Biometric Login" }
             )
         }
     }

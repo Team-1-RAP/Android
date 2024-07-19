@@ -4,13 +4,36 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.synrgy.xdomain.model.AccountModel
 import com.synrgy.xdomain.model.Menu
+import com.synrgy.xdomain.useCase.auth.GetSessionUseCase
+import com.synrgy.xdomain.useCase.user.GetUserAccountUseCase
 import com.team1.simplebank.R
+import com.team1.simplebank.common.handler.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeActivityViewModel : ViewModel() {
+@HiltViewModel
+class HomeActivityViewModel @Inject constructor(
+    private val getSessionUseCase: GetSessionUseCase,
+    private val getUserAccountUseCase: GetUserAccountUseCase,
+) : ViewModel() {
     private val _listDataItem = MutableLiveData<List<Menu>>()
     val listData: LiveData<List<Menu>> = _listDataItem
+
+    private val _userAccount = MutableStateFlow<ResourceState<List<AccountModel>>>(ResourceState.Idle)
+    val userAccount: StateFlow<ResourceState<List<AccountModel>>> = _userAccount
+
+    private fun getUserAccount() {
+        viewModelScope.launch {
+            getUserAccountUseCase.invoke()
+        }
+    }
 
     private fun listItemMenu(resources: Resources): List<Menu> {
         return listOf(
@@ -28,6 +51,8 @@ class HomeActivityViewModel : ViewModel() {
     fun addDataRecyclerView(resources: Resources) {
         _listDataItem.value = listItemMenu(resources)
     }
+
+    fun getSession() = getSessionUseCase.execute().asLiveData()
 
 
 }

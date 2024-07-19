@@ -19,7 +19,14 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        viewModel.checkSession().observe(this) { loginData ->
+            if (loginData.accessToken == "") {
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                finish()
+            }
+        }
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -28,16 +35,17 @@ class HomeActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_home)
         navView.setupWithNavController(navController)
 
-        viewModel.checkSession().observe(this) { loginData ->
-            if (loginData.accessToken == "") {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            }
-        }
     }
 
+    //clear session when app is idle for 10 minutes
+    override fun onStop() {
+        super.onStop()
+        //TODO: implements
+    }
+
+    //clear session when app is closed
     override fun onDestroy() {
-        viewModel.clearDataStore()
         super.onDestroy()
+        viewModel.clearDataStore()
     }
 }
