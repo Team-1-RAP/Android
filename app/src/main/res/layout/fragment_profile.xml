@@ -6,7 +6,7 @@
     android:paddingHorizontal="24dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/global_background"
-    tools:context=".ui.ProfileFragment">
+    tools:context=".ui.profile.ProfileFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/btn_back"

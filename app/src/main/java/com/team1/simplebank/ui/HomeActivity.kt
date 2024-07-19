@@ -35,4 +35,9 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onDestroy() {
+        viewModel.clearDataStore()
+        super.onDestroy()
+    }
 }

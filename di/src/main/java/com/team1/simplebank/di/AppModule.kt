@@ -53,22 +53,29 @@ object AppModule {
         val loggingInterceptor = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val authInterceptor = Interceptor {
+        val authInterceptor = Interceptor { chain ->
+            val request = chain.request()
+            // Skip authInterceptor for login request
+            if (request.url.encodedPath.contains("v1/auth/login")) {
+                return@Interceptor chain.proceed(request)
+            }
+
             val token = runBlocking {
                 authDataStore.getUserSession().first().accessToken
             }
-            val requestHeaders = it.request().newBuilder()
+            val requestHeaders = request.newBuilder()
+                .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer $token")
                 .build()
-            it.proceed(requestHeaders)
+            chain.proceed(requestHeaders)
         }
 
         val client: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(authInterceptor)
-            .connectTimeout(5, TimeUnit.SECONDS)
-            .readTimeout(5, TimeUnit.SECONDS)
-            .writeTimeout(5, TimeUnit.SECONDS)
+            .connectTimeout(0, TimeUnit.SECONDS)
+            .readTimeout(0, TimeUnit.SECONDS)
+            .writeTimeout(0, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
