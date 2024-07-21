@@ -19,13 +19,15 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+
         viewModel.checkSession().observe(this) { loginData ->
             if (loginData.accessToken == "") {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
             }
         }
-        super.onCreate(savedInstanceState)
 
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -46,6 +48,5 @@ class HomeActivity : AppCompatActivity() {
     //clear session when app is closed
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.clearDataStore()
     }
 }

@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toTopOf="@id/full_account_number"
                 app:layout_constraintBottom_toBottomOf="@id/full_account_number"
                 android:background="@android:color/transparent"
-                android:src="@drawable/show_or_hide"/>
+                android:src="@drawable/hide_logo"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/card_holder_name_title"

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/home_page_background"
+    android:layout_height="match_parent"
 
-    android:layout_height="match_parent">
+    android:background="@drawable/home_page_background">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,37 +32,14 @@
             android:layout_height="wrap_content"
             android:text="@string/Hey"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/username_title"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/simple_bank_logo"
             app:layout_constraintStart_toEndOf="@id/simple_bank_logo"
-            app:layout_constraintTop_toTopOf="@id/simple_bank_logo" />
+            app:layout_constraintTop_toTopOf="@+id/simple_bank_logo" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/username_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="20"
-            android:maxLines="1"
-            android:text="@string/user_full_name"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/simple_bank_logo"
-            app:layout_constraintStart_toEndOf="@id/simple_bank_logo"
-            app:layout_constraintTop_toTopOf="@id/hey_title" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_helpdesk"
-            style="@style/button_faq_color"
-            android:layout_width="107dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corner"
-            android:lines="2"
-            android:padding="4dp"
-            android:text="@string/helpdesk"
-            android:textAllCaps="false"
-            android:textSize="13sp"
-            app:icon="@drawable/question_logo"
-            app:layout_constraintBottom_toBottomOf="@+id/username_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/hey_title" />
+
+
 
         <Space
             android:id="@+id/space_view"
@@ -83,6 +60,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/space_view"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_helpdesk"
+            style="@style/button_faq_color"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner"
+            android:lines="2"
+            android:padding="4dp"
+            android:text="@string/helpdesk"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            app:icon="@drawable/question_logo"
+            app:layout_constraintBottom_toBottomOf="@+id/simple_bank_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/simple_bank_logo" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview_beranda"
@@ -111,22 +104,85 @@
                     android:layout_marginTop="16.5dp"
                     android:text="@string/balance_title" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/number_account_2"
+                <ProgressBar
+                    android:indeterminateDrawable="@drawable/progressbar_custom"
+                    android:id="@+id/progressbar"
                     android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+                <LinearLayout
+                    android:id="@+id/layout_account_number"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="@string/number_account"
-                    app:layout_constraintStart_toStartOf="@id/account_balance_title_2"
-                    app:layout_constraintTop_toBottomOf="@id/account_balance_title_2" />
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    >
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/number_account_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:hint="@string/number_account"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:maxLength="13"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="@id/account_balance_title_2"
+                        app:layout_constraintTop_toBottomOf="@id/account_balance_title_2" />
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_copy_number_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/copy_logo"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        />
+                </LinearLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/account_balance_2"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/layout_account_balance"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/balance_amount" />
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/account_balance_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:hint="@string/balance_amount"
+                            android:visibility="gone"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/hide_account_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:text="*******"
+                            android:visibility="visible"
+                            android:textSize="16sp" />
+
+
+
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_show_or_hide_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/hide_logo" />
+
+
+                </LinearLayout>
+
+
 
                 <LinearLayout
                     android:id="@+id/view_group_layout_more_2"
@@ -145,15 +201,16 @@
                         android:insetBottom="0dp"
                         android:text="Tampilkan lebih"
                         android:textAllCaps="false"
-                        android:visibility="gone"
                         app:iconGravity="end"
                         app:strokeWidth="0dp"
                         tools:ignore="TouchTargetSizeCheck" />
 
                     <LinearLayout
+                        android:id="@+id/income_expense_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <RelativeLayout
@@ -237,6 +294,7 @@
                         android:text="Tampilkan Sedikit"
                         android:textAllCaps="false"
                         app:iconGravity="end"
+                        android:visibility="gone"
                         app:strokeWidth="0dp"
                         tools:ignore="TouchTargetSizeCheck" />
 
