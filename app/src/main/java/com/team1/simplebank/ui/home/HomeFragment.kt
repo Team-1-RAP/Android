@@ -185,10 +185,6 @@ class HomeFragment : Fragment() {
 
     //menampilkan tombol tampilkan lebih dan sedikit
     private fun showMoreOrLessInformation(visible: Boolean) {
-        /*TransitionManager.beginDelayedTransition(
-            binding.viewGroupLayoutMore2,
-            AutoTransition()
-        )*/
         with(binding) {
             btnShowMore2.visibility = if (visible) View.GONE else View.VISIBLE
             incomeExpenseLayout.visibility = if (visible) View.VISIBLE else View.GONE

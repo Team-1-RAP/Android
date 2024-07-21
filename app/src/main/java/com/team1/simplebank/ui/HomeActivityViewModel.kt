@@ -119,7 +119,7 @@ class HomeActivityViewModel @Inject constructor(
         _listDataItem.value = listItemMenu(resources)
     }
 
-    fun getSession() = getSessionUseCase.execute().asLiveData()
+    fun getSession() = getSessionUseCase.execute()
 
 
 }
