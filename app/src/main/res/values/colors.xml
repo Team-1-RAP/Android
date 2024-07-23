@@ -22,5 +22,8 @@
     <color name="light_red">#FFFC6A57</color>
     <color name="dark_red">#FF851001</color>
 
+    <color name="dark_shade_of_blue">#121f59</color>
+    <color name="shadow_of_blue">#1454FB</color>
+
 
 </resources>

@@ -15,7 +15,7 @@ android {
     defaultConfig {
         minSdk = 26
 
-        buildConfigField("String", "BASE_URL", "\"https://cautious-noelyn-ridho-71c54445.koyeb.app/api/\"",)
+        buildConfigField("String", "BASE_URL", "\"https://simplebank-stg.koyeb.app/api/\"",)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
