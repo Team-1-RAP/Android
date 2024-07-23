@@ -149,10 +149,10 @@ class HomeFragment : Fragment() {
         listData.let {
             binding.apply {
                 progressbar.visibility = View.GONE
-
-                heyTitle.apply {
+                heyTitle.visibility=View.VISIBLE
+                userFullName.apply {
                     visibility = View.VISIBLE
-                    text = getString(R.string.Hey, listData.fullName)
+                    text = listData.fullName
                 }
                 layoutAccountNumber.visibility = View.VISIBLE
                 numberAccount2.text = getString(R.string.number_account, listData.cardNumber)
@@ -161,10 +161,6 @@ class HomeFragment : Fragment() {
 
             }
         }
-
-        binding.heyTitle.text = getString(R.string.Hey, listData.fullName)
-        binding.numberAccount2.text = getString(R.string.number_account, listData.cardNumber)
-        binding.accountBalance2.text = listData.balance.toRupiah()
     }
 
 

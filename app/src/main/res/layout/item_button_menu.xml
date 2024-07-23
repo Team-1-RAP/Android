@@ -42,15 +42,12 @@
 
         <TextView
             android:id="@+id/text_icon"
+            style="@style/TextContent.TitleSmall.Black"
             android:layout_width="65dp"
-            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-
             android:maxLines="2"
             android:text="@string/cash_withdrawal_title"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
