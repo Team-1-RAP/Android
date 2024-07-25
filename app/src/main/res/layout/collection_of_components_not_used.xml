@@ -48,7 +48,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="show or hide"
         android:padding="5dp"
-        android:src="@drawable/show_or_hide"
+        android:src="@drawable/show_logo"
         android:tooltipText="tex"
         app:layout_constraintBottom_toBottomOf="@+id/account_balance"
         app:layout_constraintStart_toEndOf="@+id/account_balance"

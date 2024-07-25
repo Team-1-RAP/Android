@@ -17,4 +17,91 @@
     <style name="button_faq_color" parent="TextAppearance.AppCompat.Widget.Button.Colored">
         <item name="backgroundTint">@color/faq_color</item>
     </style>
+
+    <style name="button_logout_color" parent="TextAppearance.AppCompat.Widget.Button.Colored">
+        <item name="backgroundTint">@color/light_blue</item>
+    </style>
+
+    <!--    parent text content-->
+    <style name="TextContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+<!--    Super Small-->
+    <style name="TextContent.SuperSmall">
+        <item name="android:textSize">13sp</item>
+    </style>
+    <style name="TextContent.SuperSmall.ShadowBlue">
+        <item name="android:textColor">@color/shadow_of_blue</item>
+    </style>
+    <style name="TextContent.SuperSmall.ShadowBlue.Bold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.12</item>
+    </style>
+    <!--    Small-->
+    <style name="TextContent.TitleSmall">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextContent.TitleSmall.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextContent.TitleSmall.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextContent.TitleSmall.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextContent.TitleSmall.Bold.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--Medium-->
+    <style name="TextContent.TitleMedium">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextContent.TitleMedium.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextContent.TitleMedium.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextContent.TitleMedium.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextContent.TitleMedium.Bold.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!--Large-->
+    <style name="TextContent.TitleLarge">
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="TextContent.TitleLarge.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextContent.TitleLarge.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextContent.TitleLarge.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextContent.TitleLarge.Bold.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TextContent.TitleLarge.Bold.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
 </resources>
