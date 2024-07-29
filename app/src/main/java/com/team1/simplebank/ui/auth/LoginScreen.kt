@@ -164,7 +164,7 @@ fun LoginScreen(
                     )
                     TextFieldComponent(
                         modifier = Modifier.focusable()
-                            .semantics { contentDescription = "Password Field" },
+                            .semantics { contentDescription = "password" },
                         placeholder = "Password",
                         textValue = password,
                         onValueChange = { password = it },
@@ -217,19 +217,19 @@ fun LoginScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         ButtonComponent(
                             onClick = { showBiometricLoginBottomSheet = true },
-                            label = "Biometric",
+                            label = "Biometrik",
                             buttonColor = ButtonDefaults.buttonColors(
                                 containerColor = Color.White,
                                 contentColor = BlueNormal
                             ),
+                            modifier = Modifier.semantics { contentDescription = "Tombol login biometrik"},
                             leadingIcon = {
                                 Icon(
                                     Icons.Outlined.Fingerprint,
                                     contentDescription = "Fingerprint Icon",
                                     modifier = Modifier
                                         .size(24.dp)
-                                        .fillMaxWidth(fraction = 0.5f)
-                                        .semantics { contentDescription = "Tombol login biometrik" },
+                                        .fillMaxWidth(fraction = 0.5f),
                                 )
                             }
                         )
