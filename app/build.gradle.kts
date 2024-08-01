@@ -98,4 +98,6 @@ dependencies {
     implementation(libs.androidx.recyclerview.selection)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.navigation.fragment)
+
+    implementation(libs.androidx.paging)
 }
