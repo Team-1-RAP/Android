@@ -16,19 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-
-        viewModel.checkSession().observe(this) { loginData ->
-            if (loginData.accessToken == "") {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            }
-        }
-
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)

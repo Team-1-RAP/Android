@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_item_recyclerview"
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:layout_marginHorizontal="16dp">
+
+    <ImageView
+        android:id="@+id/icon_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Icon Transaksi"
+        android:src="@drawable/expense_icon_mutation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/transfer_title"
+        android:layout_width="0dp"
+        style="@style/TextContent.TitleSmall.Black"
+        android:layout_marginStart="11dp"
+        android:text="Transer"
+        app:layout_constraintBottom_toTopOf="@id/transfer_detail"
+        app:layout_constraintEnd_toStartOf="@+id/amount_expense_or_income"
+        app:layout_constraintStart_toEndOf="@id/icon_item"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/transfer_detail"
+        style="@style/TextContent.TitleSmall.Black"
+        android:layout_width="0dp"
+        android:maxLines="1"
+        android:text="BCA- KIKY KOKO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/amount_expense_or_income"
+        app:layout_constraintStart_toStartOf="@id/transfer_title"
+        app:layout_constraintTop_toBottomOf="@id/transfer_title"
+        app:textAllCaps="true" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/amount_expense_or_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp. 87.000"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

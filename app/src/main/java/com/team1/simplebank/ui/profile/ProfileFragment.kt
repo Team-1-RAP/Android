@@ -1,5 +1,6 @@
 package com.team1.simplebank.ui.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.fragment.app.viewModels
 import com.synrgy.xdomain.model.AccountModel
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.databinding.FragmentProfileBinding
+import com.team1.simplebank.ui.WelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +36,9 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
+            val intent = Intent(requireContext(), WelcomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
         binding.btnChangeAccount.setOnClickListener{
             Toast.makeText(requireContext(), "Ganti Akun", Toast.LENGTH_SHORT).show()
