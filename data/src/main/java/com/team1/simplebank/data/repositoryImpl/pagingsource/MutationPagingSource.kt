@@ -21,7 +21,7 @@ class MutationPagingSource @Inject constructor(
 ) : PagingSource<Int, MutationDataUI>() {
 
     companion object {
-        const val INITIAL_PAGE_INDEX = 1
+        const val INITIAL_PAGE_INDEX = 0
     }
 
     /*init{

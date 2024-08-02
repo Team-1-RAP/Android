@@ -1,5 +1,7 @@
 package com.team1.simplebank.adapter
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -107,15 +109,18 @@ class MutationPagerAdapter :
 
     inner class ItemViewHolder(private val binding: LayoutItemRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(item: MutationDataUI.Item) {
             binding.transferDetail.text = item.transactionType
             binding.transferDetail.text = item.recipientName
-            binding.amountExpenseOrIncome.text = item.amount.toString()
+            binding.amountExpenseOrIncome.text = "Rp. ${item.amount}"
             val mutationType = item.mutationType
             if (mutationType == "PENGELUARAN") {
                 binding.iconItem.setImageResource(R.drawable.expense_icon_mutation)
+                binding.amountExpenseOrIncome.setTextColor(Color.RED)
             } else if (mutationType == "PEMASUKAN") {
                 binding.iconItem.setImageResource(R.drawable.income_icon_mutation)
+                binding.amountExpenseOrIncome.setTextColor(Color.GREEN)
             }
         }
     }
