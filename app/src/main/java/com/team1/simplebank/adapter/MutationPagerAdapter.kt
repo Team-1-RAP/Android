@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.R
 import com.team1.simplebank.databinding.LayoutHeaderRecyclerviewBinding
 import com.team1.simplebank.databinding.LayoutItemRecyclerviewBinding
-
+//Rubah Kembali ke bentuk pagingAdapter apabila sudah selesai debugging
 class MutationPagerAdapter :
-    PagingDataAdapter<MutationDataUI, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<MutationDataUI, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
     companion object {
 
         private const val ITEM_VIEW_TYPE_HEADER = 0

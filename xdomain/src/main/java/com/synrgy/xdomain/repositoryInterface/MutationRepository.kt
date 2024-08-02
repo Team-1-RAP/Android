@@ -10,4 +10,10 @@ interface MutationRepository {
         inputDataMonth: Int,
         inputType: String? = null,
     ): Flow<PagingData<MutationDataUI>>
+
+    fun getDataWithoutPagination(
+        inputDataNoAccount: String,
+        inputDataMonth: Int,
+        inputType: String? = null,
+    ): Flow<List<MutationDataUI>>
 }

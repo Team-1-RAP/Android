@@ -23,7 +23,7 @@ interface ApiService {
 
     @GET("v1/mutations/{noAccount}")
     suspend fun getMutations(
-        @Path("noAccount") noAccount: String = "3737657598213562",
+        @Path("noAccount") noAccount: String,
         @Query("month") month: Int,
         @Query("type") type: String?=null,
         @Query("page") page: Int? = 0,

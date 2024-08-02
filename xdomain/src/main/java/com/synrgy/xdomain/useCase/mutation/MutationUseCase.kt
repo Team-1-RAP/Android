@@ -7,8 +7,7 @@ import com.synrgy.xdomain.repositoryInterface.MutationRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MutationUseCase @Inject constructor
-    (private val mutationRepository: MutationRepository) {
+class MutationUseCase @Inject constructor(private val mutationRepository: MutationRepository) {
     fun getDataMutation(
         inputDataNoAccount: String,
         inputDataMonth: Int,
@@ -19,5 +18,13 @@ class MutationUseCase @Inject constructor
             inputDataMonth = inputDataMonth,
             inputType = inputType,
         )
+    }
+
+    fun getDataWithoutPagination(
+        inputDataNoAccount: String,
+        inputDataMont: Int,
+        inputType: String? = null
+    ): Flow<List<MutationDataUI>> {
+        return mutationRepository.getDataWithoutPagination(inputDataNoAccount, inputDataMont, inputType)
     }
 }
