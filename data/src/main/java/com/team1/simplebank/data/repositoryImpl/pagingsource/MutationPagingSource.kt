@@ -21,7 +21,7 @@ class MutationPagingSource @Inject constructor(
 ) : PagingSource<Int, MutationDataUI>() {
 
     companion object {
-        const val INITIAL_PAGE_INDEX = 0
+        const val INITIAL_PAGE_INDEX = 1
     }
 
     /*init{
@@ -55,7 +55,7 @@ class MutationPagingSource @Inject constructor(
                 noAccount = inputDataNoAccount,
                 page = position,
                 month = inputDataMonth,
-                size = params.loadSize,
+                size = 10,
                 type = inputType,
             )
 
@@ -67,8 +67,8 @@ class MutationPagingSource @Inject constructor(
 
             LoadResult.Page(
                 data = result,
-                prevKey = if (position == INITIAL_PAGE_INDEX) null else -1,
-                nextKey = if (responseData.data.pagingData.isEmpty()) null else +1,
+                prevKey = null,
+                nextKey = if (data.isEmpty()) null else position+1,
             )
 
         } catch (exception: Exception) {

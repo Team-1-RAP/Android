@@ -28,6 +28,8 @@ class AccountMutationViewModel @Inject constructor(
 ) : ViewModel() {
     private val _dataMutationUI = MutableStateFlow<List<MutationDataUI>>(emptyList())
     val dataMutationUI: StateFlow<List<MutationDataUI>> = _dataMutationUI.asStateFlow()
+
+
     fun dataMutationUI(
         inputDataNoAccount: String,
         inputDataMont: Int,
@@ -36,6 +38,8 @@ class AccountMutationViewModel @Inject constructor(
         return useCase.getDataMutation(inputDataNoAccount, inputDataMont, inputType)
             .cachedIn(viewModelScope)
     }
+
+
 
     fun getDataWithoutPagination(
         inputDataNoAccount: String,
@@ -48,6 +52,8 @@ class AccountMutationViewModel @Inject constructor(
             }
         }
     }
+
+
     val userAccountsData: LiveData<ResourceState<List<AccountModel>>> = liveData {
         getUserAccountUseCase.getUserAccounts().collect {
             when (it) {

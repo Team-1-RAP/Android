@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.R
 import com.team1.simplebank.adapter.MutationPagerAdapter
+import com.team1.simplebank.adapter.MutationPagerAdapterV2
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.databinding.FragmentAccountMutationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,7 @@ class AccountMutationFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountMutationBinding
     private val accountMutationViewModel: AccountMutationViewModel by viewModels()
-    private var adapter: MutationPagerAdapter? = null
+    private var adapter: MutationPagerAdapterV2? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,20 +45,23 @@ class AccountMutationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //collectDataUI("3737657598213562", 1)
-        accountMutationViewModel.userAccountsData.observe(viewLifecycleOwner){
-            when(it) {
+
+        initRecyclerview()
+        setUpSpinner()
+
+
+        accountMutationViewModel.userAccountsData.observe(viewLifecycleOwner) {
+            when (it) {
                 is ResourceState.Success -> {
                     val data = it.data[0]
-                    accountMutationViewModel.getDataWithoutPagination(data.noAccount,7)
-                }
+                    collectDataUIWithoutPagination(data.noAccount, 7)                }
+
                 else -> {}
             }
         }
 
 //            .getDataWithoutPagination("3737657598213562", 7)
-        collectDataUIWithoutPagination()
-        initRecyclerview()
-        setUpSpinner()
+
     }
 
     private fun setUpSpinner() {
@@ -84,8 +88,8 @@ class AccountMutationFragment : Fragment() {
         binding.rvResultTransaction.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        adapter = MutationPagerAdapter()
-        binding.rvResultTransaction.adapter = adapter
+        this.adapter = MutationPagerAdapterV2()
+        binding.rvResultTransaction.adapter = this.adapter
         //adapter?.submitList(provideDataManual())
 
     }
@@ -103,11 +107,15 @@ class AccountMutationFragment : Fragment() {
         }
     }*/
 
-    private fun collectDataUIWithoutPagination() {
+    private fun collectDataUIWithoutPagination(
+        inputDataNoAccount: String,
+        inputDataMont: Int,
+        inputType: String? = null
+    ) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                accountMutationViewModel.dataMutationUI.collect {
-                    adapter?.submitList(it)
+                accountMutationViewModel.dataMutationUI(inputDataNoAccount = inputDataNoAccount, inputDataMont = inputDataMont).collect {
+                    adapter?.submitData(it)
                 }
             }
         }
@@ -160,7 +168,7 @@ class AccountMutationFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        accountMutationViewModel.getDataWithoutPagination("3737657598213562", 1)
+        //accountMutationViewModel.getDataWithoutPagination("3737657598213562", 1)
     }
 
     override fun onDestroyView() {
