@@ -1,5 +1,6 @@
 package com.synrgy.xdomain.model
 
+//gaperlu
 data class ItemPagingDataUI(
     val amount: Int,
     val date: String,

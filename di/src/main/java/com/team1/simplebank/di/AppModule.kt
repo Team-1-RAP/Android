@@ -6,11 +6,14 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.synrgy.xdomain.repositoryInterface.IAuthRepository
 import com.synrgy.xdomain.repositoryInterface.IUserRepository
+import com.synrgy.xdomain.repositoryInterface.MutationRepository
 import com.team1.simplebank.data.BuildConfig
 import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.remote.api.ApiService
 import com.team1.simplebank.data.repositoryImpl.AuthRepositoryImpl
+import com.team1.simplebank.data.repositoryImpl.MutationRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.UserRepositoryImpl
+import com.team1.simplebank.data.repositoryImpl.pagingsource.MutationPagingSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -105,4 +108,15 @@ object AppModule {
     ) : IUserRepository {
         return UserRepositoryImpl(apiService)
     }
+
+    @Singleton
+    @Provides
+    fun provideMutationRepository(
+        apiService: ApiService
+    ):MutationRepository{
+        return MutationRepositoryImpl(apiService)
+    }
+
+
+
 }

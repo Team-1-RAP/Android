@@ -5,33 +5,32 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.synrgy.xdomain.model.ItemPagingDataUI
+import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.R
-import com.team1.simplebank.common.handler.ListItemMutationPaging
 import com.team1.simplebank.databinding.LayoutHeaderRecyclerviewBinding
 import com.team1.simplebank.databinding.LayoutItemRecyclerviewBinding
 
-class MutationPagerAdapter() :
-    PagingDataAdapter<ListItemMutationPaging, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class MutationPagerAdapter :
+    PagingDataAdapter<MutationDataUI, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
     companion object {
 
         private const val ITEM_VIEW_TYPE_HEADER = 0
         private const val ITEM_VIEW_TYPE_ITEM = 1
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListItemMutationPaging>() {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MutationDataUI>() {
 
             //perlu id yang unik untuk menampilkan datanya ini nanti okeh
             override fun areItemsTheSame(
-                oldItem: ListItemMutationPaging,
-                newItem: ListItemMutationPaging
+                oldItem: MutationDataUI,
+                newItem: MutationDataUI
             ): Boolean {
                 return when {
-                    oldItem is ListItemMutationPaging.Header && newItem is ListItemMutationPaging.Header -> {
-                        oldItem.title == newItem.title
+                    oldItem is MutationDataUI.Header && newItem is MutationDataUI.Header -> {
+                        oldItem.date == newItem.date
                     }
 
-                    oldItem is ListItemMutationPaging.Item && newItem is ListItemMutationPaging.Item -> {
-                        oldItem.data.date == newItem.data.date
+                    oldItem is MutationDataUI.Item && newItem is MutationDataUI.Item -> {
+                        oldItem.recipientTargetAccount == newItem.recipientTargetAccount
                     }
 
                     else -> false
@@ -39,8 +38,8 @@ class MutationPagerAdapter() :
             }
 
             override fun areContentsTheSame(
-                oldItem: ListItemMutationPaging,
-                newItem: ListItemMutationPaging
+                oldItem: MutationDataUI,
+                newItem: MutationDataUI
             ): Boolean {
                 return oldItem == newItem
             }
@@ -49,8 +48,8 @@ class MutationPagerAdapter() :
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is ListItemMutationPaging.Header -> ITEM_VIEW_TYPE_HEADER
-            is ListItemMutationPaging.Item -> ITEM_VIEW_TYPE_ITEM
+            is MutationDataUI.Header -> ITEM_VIEW_TYPE_HEADER
+            is MutationDataUI.Item -> ITEM_VIEW_TYPE_ITEM
             else -> throw UnsupportedOperationException("Unknown View")
         }
     }
@@ -84,11 +83,11 @@ class MutationPagerAdapter() :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            is ListItemMutationPaging.Header -> {
+            is MutationDataUI.Header -> {
                 (holder as HeaderViewHolder).bind(item)
             }
 
-            is ListItemMutationPaging.Item -> {
+            is MutationDataUI.Item -> {
                 (holder as ItemViewHolder).bind(item)
             }
 
@@ -98,19 +97,20 @@ class MutationPagerAdapter() :
 
 
     //untuk dataclass menggunakan sealed class yang memiliki 2 dataclass
-    inner class HeaderViewHolder(val binding: LayoutHeaderRecyclerviewBinding) :
+    inner class HeaderViewHolder(private val binding: LayoutHeaderRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(header: ListItemMutationPaging.Header) {
-            binding.headersTitle.text = header.title
+        fun bind(header: MutationDataUI.Header) {
+            binding.headersTitle.text = header.date
         }
     }
 
-    inner class ItemViewHolder(val binding: LayoutItemRecyclerviewBinding) :
+    inner class ItemViewHolder(private val binding: LayoutItemRecyclerviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListItemMutationPaging.Item) {
-            binding.transferDetail.text = item.data.recipientName
-            binding.amountExpenseOrIncome.text = item.data.amount.toString()
-            val mutationType = item.data.mutationType
+        fun bind(item: MutationDataUI.Item) {
+            binding.transferDetail.text = item.transactionType
+            binding.transferDetail.text = item.recipientName
+            binding.amountExpenseOrIncome.text = item.amount.toString()
+            val mutationType = item.mutationType
             if (mutationType == "PENGELUARAN") {
                 binding.iconItem.setImageResource(R.drawable.expense_icon_mutation)
             } else if (mutationType == "PEMASUKAN") {
