@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.team1.simplebank.colors_for_composable.Blue
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.colors_for_composable.DarkBlue
 import com.team1.simplebank.colors_for_composable.LightBlue
@@ -51,11 +52,11 @@ fun TextFieldComponent(
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = Color.White,
             unfocusedContainerColor = Color.White,
-            focusedTextColor = BlueNormal,
+            focusedTextColor = Blue,
             unfocusedTextColor = LightBlue,
-            cursorColor = BlueNormal,
+            cursorColor = Blue,
             focusedBorderColor = BlueNormal,
-            unfocusedBorderColor = Color.Transparent,
+            unfocusedBorderColor = BlueNormal,
         ),
         shape = RoundedCornerShape(16.dp),
         value = textValue,

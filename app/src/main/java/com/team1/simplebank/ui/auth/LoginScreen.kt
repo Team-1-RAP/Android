@@ -117,8 +117,8 @@ fun LoginScreen(
             GradientBackground(
                 modifier = Modifier
                     .fillMaxSize(),
-                startColor = Color(0xFF8CACF9),
-                endColor = Color(0xFFE7EDFB)
+                startColor = Color.White,
+                endColor = Color.White
             ) {
                 OnBoardDecoration()
                 Column(
@@ -139,12 +139,12 @@ fun LoginScreen(
                     )
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
-                        text = "Login akun Simple Bankmu",
+                        text = "LOGIN akun Simple Bankmu",
                         modifier = Modifier.padding(bottom = 8.dp).semantics { contentDescription = "login akun simple bankmu" },
-                        color = DarkBlue,
+                        color = BlueNormal,
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontWeight = FontWeight(400),
+                            fontWeight = FontWeight(500),
                         )
                     )
                     TextFieldComponent(
@@ -179,10 +179,10 @@ fun LoginScreen(
                     )
                     Text(
                         text = "Lupa Password?",
-                        color = DarkBlue,
+                        color = BlueNormal,
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontWeight = FontWeight(500),
+                            fontWeight = FontWeight(600),
                         ),
                         modifier = Modifier
                             .align(Alignment.End)
@@ -220,8 +220,9 @@ fun LoginScreen(
                             label = "Biometrik",
                             buttonColor = ButtonDefaults.buttonColors(
                                 containerColor = Color.White,
-                                contentColor = BlueNormal
+                                contentColor = BlueNormal,
                             ),
+                            isBordered = true,
                             modifier = Modifier.semantics { contentDescription = "Tombol login biometrik"},
                             leadingIcon = {
                                 Icon(
