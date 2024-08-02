@@ -96,7 +96,7 @@
 
 <!--    spinner -->
     <string-array name="months_array">
-        <item> </item>
+        <item>Pilih Bulan</item>
         <item>January</item>
         <item>February</item>
         <item>March</item>
@@ -112,7 +112,7 @@
     </string-array>
 
     <string-array name="transaction_types_array">
-        <item> </item>
+        <item>Tipe Transaksi</item>
         <item>PEMASUKAN</item>
         <item>PENGELUARAN</item>
     </string-array>
