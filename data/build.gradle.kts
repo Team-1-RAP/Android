@@ -15,8 +15,7 @@ android {
     defaultConfig {
         minSdk = 26
 
-
-        buildConfigField("String", "BASE_URL", "\"https://simple-bank-server-stg.up.railway.app/api/\"",)
+        buildConfigField("String", "BASE_URL", "\"https://simple-bank-server-avi4q6gcnq-uc.a.run.app/api/\"",)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

@@ -21,7 +21,7 @@ class MutationPagingSource @Inject constructor(
 ) : PagingSource<Int, MutationDataUI>() {
 
     companion object {
-        const val INITIAL_PAGE_INDEX = 1
+        const val INITIAL_PAGE_INDEX = 0
     }
 
     /*init{
@@ -48,7 +48,6 @@ class MutationPagingSource @Inject constructor(
     //load data berdasarkan posisi
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MutationDataUI> {
         return try {
-            Log.d("MutationSource", "Creating PagingSource with noAccount: $inputDataNoAccount, month: $inputDataMonth, type: $inputType")
 
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getMutations(
@@ -61,13 +60,16 @@ class MutationPagingSource @Inject constructor(
 
             val data = responseData.data.pagingData
 
+            Log.d("MutationSource", "Creating PagingSource with index: $position, noAccount: $inputDataNoAccount, month: $inputDataMonth, type: $inputType")
+
             Log.d("Response", "getUserAccount: $responseData")
 
             val result = mapperMutationResponseApiToMutationDataUI(data)
+            Log.d("MutationSource", "Result: $result")
 
             LoadResult.Page(
                 data = result,
-                prevKey = null,
+                prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
                 nextKey = if (data.isEmpty()) null else position+1,
             )
 

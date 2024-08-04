@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.R
+import com.team1.simplebank.common.utils.Converter.toRupiah
 import com.team1.simplebank.databinding.LayoutHeaderRecyclerviewBinding
 import com.team1.simplebank.databinding.LayoutItemRecyclerviewBinding
 
@@ -131,7 +132,7 @@ class MutationPagerAdapterV2 :
         fun bind(item: MutationDataUI.Item) {
             binding.transferDetail.text = item.transactionType
             binding.transferDetail.text = item.recipientName
-            binding.amountExpenseOrIncome.text = "Rp. ${item.amount}"
+            binding.amountExpenseOrIncome.text = item.amount.toRupiah()
             val mutationType = item.mutationType
             if (mutationType == "PENGELUARAN") {
                 binding.iconItem.setImageResource(R.drawable.expense_icon_mutation)

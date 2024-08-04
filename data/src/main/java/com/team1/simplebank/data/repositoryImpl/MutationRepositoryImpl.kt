@@ -27,9 +27,9 @@ class MutationRepositoryImpl @Inject constructor(
             "Creating PagingSource with noAccount: $index $inputDataNoAccount, month: $inputDataMonth, type: $inputType"
         )
         return Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = 5),
             pagingSourceFactory = {
-                MutationPagingSource(apiService, inputDataNoAccount, inputDataMonth)
+                MutationPagingSource(apiService, inputDataNoAccount, inputDataMonth, inputType)
             }
         ).flow
     }
