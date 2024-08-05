@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/custom_alert_dialog"
+    android:padding="16.dp"
+    android:layout_margin="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/alertTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16.dp"
+        tools:text="@string/konfirmasi"
+        android:textSize="24.sp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_blue_primary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/alertMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16.dp"
+        android:layout_marginHorizontal="24.dp"
+        android:textAlignment="center"
+        tools:text="@string/apakah_anda_benar_benar_ingin_logout_dari_akun_anda"
+        android:textSize="14.sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/alertTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/action_button_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="54.dp"
+        android:layout_marginVertical="16.dp"
+        android:layout_marginHorizontal="32.dp"
+        app:strokeWidth="2.dp"
+        app:strokeColor="@color/dark_blue_primary"
+        app:cornerRadius="8.dp"
+        tools:text="@string/actionButtonLabel"
+        android:textAllCaps="false"
+        android:textColor="@color/dark_blue_primary"
+        android:textSize="14.sp"
+        app:layout_constraintTop_toBottomOf="@id/alertMessage"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/dismiss_button_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="54.dp"
+        android:layout_marginVertical="16.dp"
+        android:layout_marginHorizontal="32.dp"
+        app:cornerRadius="8.dp"
+        tools:text="@string/dismisButtonLabel"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/dark_blue_primary"
+        android:textColor="@color/white"
+        android:textSize="14.sp"
+        app:layout_constraintTop_toBottomOf="@id/alertMessage"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

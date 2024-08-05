@@ -1,5 +1,6 @@
 package com.team1.simplebank.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.synrgy.xdomain.model.AccountModel
+import com.team1.simplebank.R
 import com.team1.simplebank.common.handler.ResourceState
+import com.team1.simplebank.databinding.CustomAlertDialogBinding
 import com.team1.simplebank.databinding.FragmentProfileBinding
 import com.team1.simplebank.ui.WelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,24 +30,19 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
-
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btnLogout.setOnClickListener {
-            viewModel.logout()
-            val intent = Intent(requireContext(), WelcomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            showLogOutConfirmationDialog()
         }
         binding.btnChangeAccount.setOnClickListener{
             Toast.makeText(requireContext(), "Ganti Akun", Toast.LENGTH_SHORT).show()
         }
-
 
         viewModel.userAccountsDetailsInProfileFragment.observe(viewLifecycleOwner){value->
             when(value){
@@ -96,4 +95,31 @@ class ProfileFragment : Fragment() {
         }
     }
 
+
+    private fun showLogOutConfirmationDialog() {
+        val dialogView = CustomAlertDialogBinding.inflate(LayoutInflater.from(requireContext()))
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView.root)
+            .create()
+
+        dialogView.alertTitle.text = getString(R.string.konfirmasi)
+        dialogView.alertMessage.text = getString(R.string.apakah_anda_benar_benar_ingin_logout_dari_akun_anda)
+        dialogView.dismissButtonDialog.apply {
+            contentDescription = getString(R.string.dismisButtonLabel)
+            text = getString(R.string.dismisButtonLabel)
+            setOnClickListener { alertDialog.dismiss() }
+        }
+        dialogView.actionButtonDialog.apply {
+            contentDescription = getString(R.string.actionButtonLabel)
+            text = getString(R.string.actionButtonLabel)
+            setOnClickListener {
+                viewModel.logout()
+                startActivity(Intent(requireContext(), WelcomeActivity::class.java))
+                requireActivity().finish()
+                alertDialog.dismiss()
+            }
+        }
+
+        alertDialog.show()
+    }
 }
