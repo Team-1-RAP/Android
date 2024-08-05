@@ -91,6 +91,10 @@
     <string name ="balance_format">Rp. %s</string>
     <string name="hide_balance">*****</string>
     <string name="show_more">Tampilkan lebih</string>
+    <string name="konfirmasi">Konfirmasi</string>
+    <string name="apakah_anda_benar_benar_ingin_logout_dari_akun_anda">Apakah Anda benar-benar ingin logout dari akun Anda?</string>
+    <string name="actionButtonLabel">Iya</string>
+    <string name="dismisButtonLabel">Tidak</string>
 
     <!--bagian virtual account-->
 
