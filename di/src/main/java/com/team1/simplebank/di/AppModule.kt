@@ -104,17 +104,18 @@ object AppModule {
     @Singleton
     @Provides
     fun provideUserRepository(
-        apiService: ApiService
+        apiService: ApiService,
+        authDataStore: AuthDataStore
     ) : IUserRepository {
-        return UserRepositoryImpl(apiService)
+        return UserRepositoryImpl(apiService,authDataStore)
     }
 
     @Singleton
     @Provides
     fun provideMutationRepository(
-        apiService: ApiService
+        apiService: ApiService, authDataStore: AuthDataStore
     ):MutationRepository{
-        return MutationRepositoryImpl(apiService)
+        return MutationRepositoryImpl(apiService,authDataStore)
     }
 
 
