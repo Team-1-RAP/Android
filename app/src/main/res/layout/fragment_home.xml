@@ -208,6 +208,14 @@
                         android:text="@string/income_amount" />
                 </RelativeLayout>
 
+                <ProgressBar
+                    android:id="@+id/progressbar_income_expense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:visibility="gone"
+                    android:indeterminateDrawable="@drawable/progressbar_custom_income_expense"
+                    />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

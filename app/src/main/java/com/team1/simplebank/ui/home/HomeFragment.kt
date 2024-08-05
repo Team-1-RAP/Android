@@ -96,9 +96,36 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.amounts.collect{
+                    when(it){
+                        ResourceState.Loading -> {
+                            binding.progressbarIncomeExpense.visibility = View.VISIBLE
+                        }
+                        is ResourceState.Success -> {
+                            val data = it.data
+                            binding.apply {
+                                binding.progressbarIncomeExpense.visibility = View.GONE
+                                incomeAmount2.text = data.income.toRupiah()
+                                expenseAmount2.text = data.expense.toRupiah()
+                            }
+                        }
+                        is ResourceState.Error -> {
+                            Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT).show()
+                        }
+                        ResourceState.Idle -> {}
+
+                    }
+                }
+            }
+        }
+
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.noAccount.collect{
                     if (it!=null){
-                        Log.d("noAccount Value", "onViewCreated: $it")
+                        viewModel.getAmounts(it)
                     }
                 }
             }

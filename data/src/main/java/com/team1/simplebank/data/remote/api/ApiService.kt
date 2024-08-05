@@ -2,6 +2,7 @@ package com.team1.simplebank.data.remote.api
 
 import com.team1.simplebank.data.remote.request.LoginRequest
 import com.team1.simplebank.data.remote.response.AccountResponse
+import com.team1.simplebank.data.remote.response.GetAmountsMutation
 import com.team1.simplebank.data.remote.response.LoginResponse
 import com.team1.simplebank.data.remote.response.MutationResponse
 import retrofit2.http.Body
@@ -25,9 +26,14 @@ interface ApiService {
     suspend fun getMutations(
         @Path("noAccount") noAccount: String,
         @Query("month") month: Int,
-        @Query("type") type: String?=null,
+        @Query("type") type: String? = null,
         @Query("page") page: Int? = 0,
         @Query("size") size: Int? = 10
     ): MutationResponse
+
+    @GET("v1/mutations/{noAccount}/amounts")
+    suspend fun getMutationsAmount(
+        @Path("noAccount") noAccount: String,
+    ): GetAmountsMutation
 
 }

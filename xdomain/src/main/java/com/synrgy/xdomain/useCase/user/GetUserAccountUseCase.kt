@@ -1,6 +1,7 @@
 package com.synrgy.xdomain.useCase.user
 
 import com.synrgy.xdomain.model.AccountModel
+import com.synrgy.xdomain.model.GetAmountsMutationUI
 import com.synrgy.xdomain.repositoryInterface.IUserRepository
 import com.team1.simplebank.common.handler.ResourceState
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +25,10 @@ class GetUserAccountUseCase @Inject constructor(
 
     fun getNoAccount():Flow<String?>{
         return iUserRepository.getNoAccount()
+    }
+
+    suspend fun getAmounts(noAccount:String):Flow<ResourceState<GetAmountsMutationUI>>{
+        return iUserRepository.getAmounts(noAccount)
     }
 
 }

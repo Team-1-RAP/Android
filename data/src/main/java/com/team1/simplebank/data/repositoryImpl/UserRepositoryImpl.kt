@@ -1,10 +1,11 @@
 package com.team1.simplebank.data.repositoryImpl
 
-import android.util.Log
+import com.synrgy.xdomain.model.GetAmountsMutationUI
 import com.synrgy.xdomain.repositoryInterface.IUserRepository
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.mapper.mapUserAccountResponseToUserAccountModel
+import com.team1.simplebank.data.mapper.mapperGetAmountsMutationToGetAmountsUI
 import com.team1.simplebank.data.remote.api.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -43,4 +44,21 @@ class UserRepositoryImpl @Inject constructor(
         return authDataStore.getNoAccount()
     }
 
+
+    override suspend fun getAmounts(noAccount: String): Flow<ResourceState<GetAmountsMutationUI>> {
+        return flow{
+            emit(ResourceState.Loading)
+            try {
+                val responseGetAmounts = apiService.getMutationsAmount(noAccount)
+                if (responseGetAmounts!=null){
+                    val data = mapperGetAmountsMutationToGetAmountsUI(responseGetAmounts)
+                    emit(ResourceState.Success(data))
+                }else{
+                    emit(ResourceState.Error("Tidak ada data yang tersedia"))
+                }
+            }catch (exception:Exception){
+                emit(ResourceState.Error(exception.localizedMessage?:"An unexpected error occured"))
+            }
+        }
+    }
 }
