@@ -18,4 +18,12 @@ class GetUserAccountUseCase @Inject constructor(
         return iUserRepository.getUserAccount()
     }
 
+    suspend fun saveNoAccount(noAccountInput:String){
+        iUserRepository.saveNoAccount(noAccountInput)
+    }
+
+    fun getNoAccount():Flow<String?>{
+        return iUserRepository.getNoAccount()
+    }
+
 }

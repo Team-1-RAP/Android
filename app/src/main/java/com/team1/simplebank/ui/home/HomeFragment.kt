@@ -4,14 +4,16 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.transition.AutoTransition
@@ -26,6 +28,7 @@ import com.team1.simplebank.common.utils.Converter.toRupiah
 import com.team1.simplebank.databinding.FragmentHomeBinding
 import com.team1.simplebank.ui.HomeActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -80,6 +83,7 @@ class HomeFragment : Fragment() {
                     val data = it.data[0]
                     isDataSuccess(data)
                     copyNumberAccount(data.cardNumber)
+                    viewModel.saveNoAccount(data.noAccount)
                 }
 
                 is ResourceState.Error -> {
@@ -89,6 +93,17 @@ class HomeFragment : Fragment() {
                 is ResourceState.Idle -> {}
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.noAccount.collect{
+                    if (it!=null){
+                        Log.d("noAccount Value", "onViewCreated: $it")
+                    }
+                }
+            }
+        }
+
         //state UI untuk tombol tampilkan lebih dan sedikit
 
         viewModel.isShowOrHideBalanceValue.observe(viewLifecycleOwner){
@@ -111,7 +126,6 @@ class HomeFragment : Fragment() {
                 viewModel.toggleShowOrHideBalance(isState)
             }
         }
-
     }
 
     private fun showOrHideBalance(input:Boolean){

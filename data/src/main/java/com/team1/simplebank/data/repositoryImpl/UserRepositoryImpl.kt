@@ -3,8 +3,10 @@ package com.team1.simplebank.data.repositoryImpl
 import android.util.Log
 import com.synrgy.xdomain.repositoryInterface.IUserRepository
 import com.team1.simplebank.common.handler.ResourceState
+import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.mapper.mapUserAccountResponseToUserAccountModel
 import com.team1.simplebank.data.remote.api.ApiService
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -12,6 +14,7 @@ import javax.inject.Inject
 //hilangkan data storenya ya nanti kalo error
 class UserRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
+    private val authDataStore: AuthDataStore
 ) : IUserRepository {
 
     override suspend fun getUserAccount() = flow {
@@ -31,6 +34,13 @@ class UserRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             emit(ResourceState.Error(e.localizedMessage ?: "An unexpected error occured"))
         }
+    }
+    override suspend fun saveNoAccount(noAccountInput: String){
+        authDataStore.saveNoAccount(noAccountInput)
+    }
+
+    override fun getNoAccount(): Flow<String?> {
+        return authDataStore.getNoAccount()
     }
 
 }

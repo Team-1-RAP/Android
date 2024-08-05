@@ -52,12 +52,22 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
         initRecyclerview()
         setUpSpinner()
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                accountMutationViewModel.noAccount.collectLatest {value->
+                    if (value!=null){
+                        accountMutationViewModel.inputFiltering(FilterInput.NoAccount(value))
+                    }
+                }
+            }
+        }
+
         accountMutationViewModel.userAccountsData.observe(viewLifecycleOwner) {
             when (it) {
                 is ResourceState.Success -> {
                     val data = it.data[0]
                     //collectDataUIWithoutPagination(data.noAccount, 7)
-                    accountMutationViewModel.inputFiltering(FilterInput.NoAccount(data.noAccount))
+                    //accountMutationViewModel.inputFiltering(FilterInput.NoAccount(data.noAccount))
                 }
 
                 else -> {}

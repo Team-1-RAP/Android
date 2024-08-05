@@ -1,6 +1,7 @@
 package com.team1.simplebank.ui
 
 import android.content.res.Resources
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,25 +23,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeActivityViewModel @Inject constructor(
-    private val getSessionUseCase: GetSessionUseCase,
     private val getUserAccountUseCase: GetUserAccountUseCase,
 ) : ViewModel() {
     private val _listDataItem = MutableLiveData<List<Menu>>()
     val listData: LiveData<List<Menu>> = _listDataItem
 
-    private val _userAccount =
-        MutableStateFlow<ResourceState<List<AccountModel>>>(ResourceState.Idle)
+    private val _userAccount = MutableStateFlow<ResourceState<List<AccountModel>>>(ResourceState.Idle)
     val userAccount: StateFlow<ResourceState<List<AccountModel>>> = _userAccount
 
-    private val _isShowMoreOrLessVisible: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-    val isShowMoreOrLessVisible: LiveData<Boolean> = _isShowMoreOrLessVisible
+    private val _noAccount : Flow<String?> = getUserAccountUseCase.getNoAccount()
+    val noAccount = _noAccount
 
     private val _isShowOrHideBalanceValue: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val isShowOrHideBalanceValue: LiveData<Boolean> = _isShowOrHideBalanceValue
-
-    fun toggleShowMoreOrLessInformation(input: Boolean) {
-        _isShowMoreOrLessVisible.value = input
-    }
 
     fun toggleShowOrHideBalance(input: Boolean) {
         _isShowOrHideBalanceValue.value = input
@@ -68,7 +63,6 @@ class HomeActivityViewModel @Inject constructor(
         }
     }
 
-
     val userAccountsDetails: LiveData<ResourceState<List<AccountModel>>> = liveData {
         getUserAccountUseCase.getUserAccounts().collect {
             when (it) {
@@ -87,6 +81,13 @@ class HomeActivityViewModel @Inject constructor(
                 else -> {}
             }
         }
+    }
+
+    fun saveNoAccount(noAccount:String){
+        viewModelScope.launch {
+            getUserAccountUseCase.saveNoAccount(noAccount)
+        }
+        Log.d("SaveNoAccount", "saveNoAccount: triggered")
     }
 
 
@@ -118,8 +119,5 @@ class HomeActivityViewModel @Inject constructor(
     fun addDataRecyclerView(resources: Resources) {
         _listDataItem.value = listItemMenu(resources)
     }
-
-    fun getSession() = getSessionUseCase.execute()
-
 
 }

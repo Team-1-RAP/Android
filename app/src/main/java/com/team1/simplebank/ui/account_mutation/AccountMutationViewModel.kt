@@ -45,6 +45,10 @@ class AccountMutationViewModel @Inject constructor(
     val dataMutationUI: StateFlow<List<MutationDataUI>> = _dataMutationUI.asStateFlow()
 
 
+    private val _noAccount:Flow<String?> = useCase.getNoAccount()
+    val noAccount = _noAccount
+
+
     fun inputFiltering(filterInput: FilterInput){
         _stateFiltering.update {currentFilter->
             when(filterInput){
@@ -64,6 +68,8 @@ class AccountMutationViewModel @Inject constructor(
              )
          }.cachedIn(viewModelScope)
     }
+
+
 
 
 
