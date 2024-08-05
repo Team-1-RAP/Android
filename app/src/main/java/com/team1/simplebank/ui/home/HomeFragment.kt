@@ -90,9 +90,6 @@ class HomeFragment : Fragment() {
             }
         }
         //state UI untuk tombol tampilkan lebih dan sedikit
-        viewModel.isShowMoreOrLessVisible.observe(viewLifecycleOwner) {
-            showMoreOrLessInformation(it)
-        }
 
         viewModel.isShowOrHideBalanceValue.observe(viewLifecycleOwner){
             showOrHideBalance(it)
@@ -107,14 +104,6 @@ class HomeFragment : Fragment() {
     private fun setUpClickListener() {
         binding.btnHelpdesk.setOnClickListener {
             Toast.makeText(requireContext(), "Helpdesk", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.btnShowMore2.setOnClickListener {
-            viewModel.toggleShowMoreOrLessInformation(true)
-        }
-
-        binding.btnShowLess2.setOnClickListener {
-            viewModel.toggleShowMoreOrLessInformation(false)
         }
         binding.btnShowOrHideBalance.setOnClickListener{
             with(binding){
@@ -176,15 +165,6 @@ class HomeFragment : Fragment() {
                 clicked(it)
             }
             binding.rvMenu.adapter = adapter
-        }
-    }
-
-    //menampilkan tombol tampilkan lebih dan sedikit
-    private fun showMoreOrLessInformation(visible: Boolean) {
-        with(binding) {
-            btnShowMore2.visibility = if (visible) View.GONE else View.VISIBLE
-            incomeExpenseLayout.visibility = if (visible) View.VISIBLE else View.GONE
-            btnShowLess2.visibility = if (visible) View.VISIBLE else View.GONE
         }
     }
 

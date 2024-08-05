@@ -41,7 +41,7 @@ navigationFragmentKtx = "2.7.7"
 legacySupportV4 = "1.0.0"
 hiltNavigationCompose = "1.2.0"
 hiltAndroidCompiler = "2.51"
-pagingRuntimeKtx = "3.1.0"
+pagingRuntimeKtx = "3.3.1"
 
 
 

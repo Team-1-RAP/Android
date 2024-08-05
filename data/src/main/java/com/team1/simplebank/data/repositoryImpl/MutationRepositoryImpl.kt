@@ -29,7 +29,7 @@ class MutationRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(pageSize = 5),
             pagingSourceFactory = {
-                MutationPagingSource(apiService, inputDataNoAccount, inputDataMonth)
+                MutationPagingSource(apiService, inputDataNoAccount, inputDataMonth, inputType)
             }
         ).flow
     }

@@ -15,9 +15,8 @@ import com.team1.simplebank.colors_for_composable.WhiteBlueLight
 @Composable
 fun GradientBackground(
     modifier: Modifier = Modifier,
-    startColor: Color = BlueLightPastel,
-    midColor: Color = WhiteBlueLight,
-    endColor: Color = BlueLightPastel,
+    startColor: Color = Color.White,
+    endColor: Color = Color.White,
     content: @Composable BoxScope.() -> Unit,
 ) {
     BoxWithConstraints(
@@ -30,7 +29,7 @@ fun GradientBackground(
             modifier = Modifier
                 .background(
                     brush = Brush.linearGradient(
-                        colors = listOf(startColor, midColor, endColor),
+                        colors = listOf(startColor, endColor),
                         start = Offset.Zero,
                         end = Offset(width, height)
                     )

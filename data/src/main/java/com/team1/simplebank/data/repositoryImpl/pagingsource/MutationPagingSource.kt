@@ -6,10 +6,8 @@ import androidx.paging.PagingState
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.data.mapper.mapperMutationResponseApiToMutationDataUI
 import com.team1.simplebank.data.remote.api.ApiService
-import com.team1.simplebank.data.remote.response.ItemPagingData
-import com.team1.simplebank.data.remote.response.MutationResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -21,7 +19,7 @@ class MutationPagingSource @Inject constructor(
 ) : PagingSource<Int, MutationDataUI>() {
 
     companion object {
-        const val INITIAL_PAGE_INDEX = 1
+        const val INITIAL_PAGE_INDEX = 0
     }
 
     /*init{
@@ -48,27 +46,27 @@ class MutationPagingSource @Inject constructor(
     //load data berdasarkan posisi
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MutationDataUI> {
         return try {
-            Log.d("MutationSource", "Creating PagingSource with noAccount: $inputDataNoAccount, month: $inputDataMonth, type: $inputType")
 
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getMutations(
                 noAccount = inputDataNoAccount,
                 page = position,
                 month = inputDataMonth,
-                size = params.loadSize,
+                size = 10,
                 type = inputType,
             )
 
             val data = responseData.data.pagingData
-
-            Log.d("Response", "getUserAccount: $responseData")
-
+            val parsedData = withContext(Dispatchers.Default){
+                mapperMutationResponseApiToMutationDataUI(data)
+            }
             val result = mapperMutationResponseApiToMutationDataUI(data)
+            Log.d("MutationSource", "Result: $result")
 
             LoadResult.Page(
                 data = result,
-                prevKey = if (position == INITIAL_PAGE_INDEX) null else -1,
-                nextKey = if (responseData.data.pagingData.isEmpty()) null else +1,
+                prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
+                nextKey = if (data.isEmpty()) null else position+1,
             )
 
         } catch (exception: Exception) {

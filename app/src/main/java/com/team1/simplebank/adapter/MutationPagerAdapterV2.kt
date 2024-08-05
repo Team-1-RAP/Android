@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.R
+import com.team1.simplebank.common.utils.Converter.toRupiah
 import com.team1.simplebank.databinding.LayoutHeaderRecyclerviewBinding
 import com.team1.simplebank.databinding.LayoutItemRecyclerviewBinding
+
 //Rubah Kembali ke bentuk pagingAdapter apabila sudah selesai debugging
-class MutationPagerAdapter :
-    ListAdapter<MutationDataUI, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class MutationPagerAdapterV2 :
+    PagingDataAdapter<MutationDataUI, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
     companion object {
 
         private const val ITEM_VIEW_TYPE_HEADER = 0
@@ -22,21 +24,25 @@ class MutationPagerAdapter :
 
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MutationDataUI>() {
 
-            //perlu id yang unik untuk menampilkan datanya ini nanti okeh
+
             override fun areItemsTheSame(
                 oldItem: MutationDataUI,
                 newItem: MutationDataUI
             ): Boolean {
-                return when {
-                    oldItem is MutationDataUI.Header && newItem is MutationDataUI.Header -> {
-                        oldItem.date == newItem.date
+                return when (oldItem) {
+                    is MutationDataUI.Header -> {
+                        when (newItem) {
+                            is MutationDataUI.Header -> oldItem == newItem
+                            is MutationDataUI.Item -> false
+                        }
                     }
 
-                    oldItem is MutationDataUI.Item && newItem is MutationDataUI.Item -> {
-                        oldItem.recipientTargetAccount == newItem.recipientTargetAccount
+                    is MutationDataUI.Item -> {
+                        when(newItem){
+                            is MutationDataUI.Header -> false
+                            is MutationDataUI.Item -> oldItem == newItem
+                        }
                     }
-
-                    else -> false
                 }
             }
 
@@ -44,7 +50,20 @@ class MutationPagerAdapter :
                 oldItem: MutationDataUI,
                 newItem: MutationDataUI
             ): Boolean {
-                return oldItem == newItem
+                return when (oldItem) {
+                    is MutationDataUI.Header -> {
+                        when(newItem){
+                            is MutationDataUI.Header -> oldItem.date == newItem.date
+                            is MutationDataUI.Item -> false
+                        }
+                    }
+                    is MutationDataUI.Item -> {
+                        when(newItem){
+                            is MutationDataUI.Header -> false
+                            is MutationDataUI.Item -> oldItem.toString() == newItem.toString()
+                        }
+                    }
+                }
             }
         }
     }
@@ -113,7 +132,7 @@ class MutationPagerAdapter :
         fun bind(item: MutationDataUI.Item) {
             binding.transferDetail.text = item.transactionType
             binding.transferDetail.text = item.recipientName
-            binding.amountExpenseOrIncome.text = "Rp. ${item.amount}"
+            binding.amountExpenseOrIncome.text = item.amount.toRupiah()
             val mutationType = item.mutationType
             if (mutationType == "PENGELUARAN") {
                 binding.iconItem.setImageResource(R.drawable.expense_icon_mutation)

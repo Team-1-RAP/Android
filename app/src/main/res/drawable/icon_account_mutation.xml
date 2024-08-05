@@ -8,9 +8,9 @@
                   
             <gradient android:endX="0.5" android:endY="0" android:startX="26.19" android:startY="0" android:type="linear">
                         
-                <item android:color="#FF235697" android:offset="0"/>
+                <item android:color="@color/white" android:offset="0"/>
                         
-                <item android:color="#FF114280" android:offset="1"/>
+                <item android:color="@color/white" android:offset="1"/>
                       
             </gradient>
                 
@@ -26,9 +26,9 @@
                   
             <gradient android:endX="3.75" android:endY="5.688" android:startX="23.017" android:startY="5.688" android:type="linear">
                         
-                <item android:color="#FF235697" android:offset="0"/>
+                <item android:color="@color/white" android:offset="0"/>
                         
-                <item android:color="#FF114280" android:offset="1"/>
+                <item android:color="@color/white" android:offset="1"/>
                       
             </gradient>
                 
