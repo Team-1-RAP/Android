@@ -80,17 +80,17 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
         val spinnerMonthAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.months_array,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_list_item
         )
 
         val spinnerTransactionAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.transaction_types_array,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_list_item
         )
 
-        spinnerMonthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerTransactionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerMonthAdapter.setDropDownViewResource(R.layout.spinner_list_item)
+        spinnerTransactionAdapter.setDropDownViewResource(R.layout.spinner_list_item)
 
         binding.spinnerItemMonth.adapter = spinnerMonthAdapter
         binding.spinnerItemTypeTransaction.adapter = spinnerTransactionAdapter
@@ -142,9 +142,11 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
                     "Tipe Transaksi" -> {
                         accountMutationViewModel.inputFiltering(FilterInput.Type(null))
                     }
+
                     "PEMASUKAN" -> {
                         accountMutationViewModel.inputFiltering(FilterInput.Type("PEMASUKAN"))
                     }
+
                     "PENGELUARAN" -> {
                         accountMutationViewModel.inputFiltering(FilterInput.Type("PENGELUARAN"))
                     }

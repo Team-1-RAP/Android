@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="2 Juli 2024"
-        style="@style/TextContent.TitleSmall.Black"
+        android:textColor="@color/black"
+        style="@style/TextContent.TitleSmall"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

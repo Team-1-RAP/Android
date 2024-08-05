@@ -9,14 +9,19 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+suspend fun convertToDateUI(date: String):String{
+    return withContext(Dispatchers.Default){
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+        val outputDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("in", "ID"))
+        val dateConvert = outputDateFormat.format(inputDateFormat.parse(date))
+        dateConvert
+    }
+}
+
 suspend fun mapperMutationResponseApiToMutationDataUI(dataPaging: List<ItemPagingData>): List<MutationDataUI> {
     return withContext(Dispatchers.Default) {
-
-
         val items = mutableListOf<MutationDataUI>()
         val localeID = Locale("in", "ID")
-        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-        val outputDateFormat = SimpleDateFormat("dd MMMM yyyy", localeID)
 
         items.clear()
         var currentDate: String? = null
@@ -24,31 +29,10 @@ suspend fun mapperMutationResponseApiToMutationDataUI(dataPaging: List<ItemPagin
             Log.d("mapperMutationResponseApiToMutationDataUI", "empty")
             emptyList()
         } else {
-            /*dataPaging.groupBy { it.date }.forEach { (date, transaction) ->
-                Log.d("mapperMutationResponseApiToMutationDataUI", "di casting")
-
-                items.add(MutationDataUI.Header(date = date))
-                items.addAll(transaction.map { detailItem ->
-                    MutationDataUI.Item(
-                        transactionType = detailItem.transactionType,
-                        mutationType = detailItem.mutationType,
-                        recipientName = detailItem.recipientName,
-                        type = detailItem.type,
-                        amount = detailItem.amount,
-                        recipientTargetAccount = detailItem.recipientTargetAccount,
-                        transactionStatus = detailItem.transactionStatus
-
-                    )
-                })
-            }
-            return items*/
-
             for (item in dataPaging) {
                 //casting date menjadi format tanggal yang sesuai dengan UI
                 val itemDate = item.date
-                val itemDateConvert =
-                    outputDateFormat.format(inputDateFormat.parse(itemDate) as Date)
-                //val itemDateConvert = itemDate.toTransactionDate()
+                val itemDateConvert = convertToDateUI(itemDate)
                 Log.d("before", "original date: $itemDate, converted date: $itemDateConvert")
                 if (itemDateConvert != currentDate) {
                     currentDate = itemDateConvert
