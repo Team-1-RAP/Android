@@ -6,10 +6,8 @@ import androidx.paging.PagingState
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.data.mapper.mapperMutationResponseApiToMutationDataUI
 import com.team1.simplebank.data.remote.api.ApiService
-import com.team1.simplebank.data.remote.response.ItemPagingData
-import com.team1.simplebank.data.remote.response.MutationResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -59,11 +57,9 @@ class MutationPagingSource @Inject constructor(
             )
 
             val data = responseData.data.pagingData
-
-            Log.d("MutationSource", "Creating PagingSource with index: $position, noAccount: $inputDataNoAccount, month: $inputDataMonth, type: $inputType")
-
-            Log.d("Response", "getUserAccount: $responseData")
-
+            val parsedData = withContext(Dispatchers.Default){
+                mapperMutationResponseApiToMutationDataUI(data)
+            }
             val result = mapperMutationResponseApiToMutationDataUI(data)
             Log.d("MutationSource", "Result: $result")
 
