@@ -27,8 +27,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -41,7 +39,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -55,10 +52,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.team1.simplebank.R
 import com.team1.simplebank.colors_for_composable.BlueNormal
-import com.team1.simplebank.colors_for_composable.DarkBlue
+import com.team1.simplebank.colors_for_composable.RedError
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.ui.HomeActivity
 import com.team1.simplebank.ui.compose_components.ButtonComponent
+import com.team1.simplebank.ui.compose_components.CustomSnackbar
 import com.team1.simplebank.ui.compose_components.GradientBackground
 import com.team1.simplebank.ui.compose_components.LoadingScreen
 import com.team1.simplebank.ui.compose_components.OnBoardDecoration
@@ -77,9 +75,9 @@ fun LoginScreen(
     val sheetState = rememberModalBottomSheetState()
     val viewModel: LoginViewModel = hiltViewModel()
     val authData by viewModel.authData.collectAsState()
-    val snackbarHostState = remember {
-        SnackbarHostState()
-    }
+
+    var showErrorSnackbar by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
 
     fun login(usrname: String, pass: String) {
         viewModel.login(usrname, pass)
@@ -97,10 +95,8 @@ fun LoginScreen(
             }
 
             is ResourceState.Error -> {
-                snackbarHostState.showSnackbar(
-                    message = "Silakan periksa kembali username dan password anda",
-                    duration = SnackbarDuration.Short
-                )
+                errorMessage = "${(authData as ResourceState.Error).exception} : Silakan periksa kembali username dan password Anda"
+                showErrorSnackbar = true
             }
 
             else -> {}
@@ -111,7 +107,6 @@ fun LoginScreen(
         LoadingScreen()
     } else {
         Scaffold(
-            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             modifier = Modifier.fillMaxSize()
         ) { paddingValues ->
             GradientBackground(
@@ -140,7 +135,9 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
                         text = "LOGIN akun Simple Bankmu",
-                        modifier = Modifier.padding(bottom = 8.dp).semantics { contentDescription = "login akun simple bankmu" },
+                        modifier = Modifier
+                            .padding(bottom = 8.dp)
+                            .semantics { contentDescription = "login akun simple bankmu" },
                         color = BlueNormal,
                         style = TextStyle(
                             fontSize = 16.sp,
@@ -148,7 +145,8 @@ fun LoginScreen(
                         )
                     )
                     TextFieldComponent(
-                        modifier = Modifier.focusable()
+                        modifier = Modifier
+                            .focusable()
                             .semantics { contentDescription = "username" },
                         placeholder = "Username",
                         textValue = username,
@@ -163,7 +161,8 @@ fun LoginScreen(
                         }
                     )
                     TextFieldComponent(
-                        modifier = Modifier.focusable()
+                        modifier = Modifier
+                            .focusable()
                             .semantics { contentDescription = "password" },
                         placeholder = "Password",
                         textValue = password,
@@ -202,7 +201,8 @@ fun LoginScreen(
                                 if (username.isNotEmpty() && password.isNotEmpty()) {
                                     login(username, password)
                                 } else {
-                                    // Handle empty fields TODO
+                                    showErrorSnackbar = true
+                                    errorMessage = "Username dan password tidak boleh kosong"
                                 }
                             },
                             label = "Login",
@@ -223,7 +223,9 @@ fun LoginScreen(
                                 contentColor = BlueNormal,
                             ),
                             isBordered = true,
-                            modifier = Modifier.semantics { contentDescription = "Tombol login biometrik"},
+                            modifier = Modifier.semantics {
+                                contentDescription = "Tombol login biometrik"
+                            },
                             leadingIcon = {
                                 Icon(
                                     Icons.Outlined.Fingerprint,
@@ -243,6 +245,14 @@ fun LoginScreen(
                             modifier = Modifier,
                         )
                     }
+
+                }
+                if (showErrorSnackbar) {
+                    CustomSnackbar(
+                        message = errorMessage,
+                        onDismiss = { showErrorSnackbar = false },
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                    )
                 }
             }
         }
@@ -271,7 +281,7 @@ fun BiometricLoginBottomSheet(
                 text = "Konfirmasi Sidik Jari",
                 fontWeight = FontWeight(700),
                 fontSize = 20.sp,
-                color = BlueNormal,
+                color = RedError,
             )
             Text(
                 text = "Sentuh sensor sidik jari",
@@ -283,7 +293,7 @@ fun BiometricLoginBottomSheet(
             Icon(
                 imageVector = Icons.Rounded.Fingerprint,
                 contentDescription = "Fingerprint Icon",
-                tint = BlueNormal,
+                tint = Color.Gray,
                 modifier = modifier
                     .size(160.dp)
                     .align(Alignment.CenterHorizontally)
