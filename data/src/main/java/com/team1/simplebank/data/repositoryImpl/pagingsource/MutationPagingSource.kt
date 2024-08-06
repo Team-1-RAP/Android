@@ -57,14 +57,14 @@ class MutationPagingSource @Inject constructor(
             )
 
             val data = responseData.data.pagingData
+            val sortedData = data.sortedByDescending { it.date }
             val parsedData = withContext(Dispatchers.Default){
-                mapperMutationResponseApiToMutationDataUI(data)
+                mapperMutationResponseApiToMutationDataUI(sortedData)
             }
-            val result = mapperMutationResponseApiToMutationDataUI(data)
-            Log.d("MutationSource", "Result: $result")
+            Log.d("MutationSource", "Result: $parsedData")
 
             LoadResult.Page(
-                data = result,
+                data = parsedData,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
                 nextKey = if (data.isEmpty()) null else position+1,
             )
