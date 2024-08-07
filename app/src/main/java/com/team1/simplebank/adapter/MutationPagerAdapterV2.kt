@@ -131,7 +131,7 @@ class MutationPagerAdapterV2 :
         @SuppressLint("SetTextI18n")
         fun bind(item: MutationDataUI.Item) {
             binding.transferDetail.text = item.transactionType
-            binding.transferDetail.text = item.recipientName
+            binding.transferDetail.text = "${item.type} - ${item.recipientName}"
             binding.amountExpenseOrIncome.text = item.amount.toRupiah()
             val mutationType = item.mutationType
             if (mutationType == "PENGELUARAN") {
