@@ -6,7 +6,6 @@ import com.team1.simplebank.data.remote.response.ItemPagingData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 suspend fun convertToDateUI(date: String):String{
