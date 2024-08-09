@@ -226,6 +226,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/account_type_title"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/card_information_title"
         app:layout_constraintTop_toBottomOf="@id/card_information_title" />
 
@@ -235,6 +236,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="6dp"
+        android:textColor="@color/black"
         android:text="@string/account_type"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/account_name"
@@ -246,6 +248,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="@string/account_owner_title"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/card_information_title"
         app:layout_constraintTop_toBottomOf="@id/account_type_title" />
 
@@ -255,6 +258,7 @@
         android:layout_height="wrap_content"
         android:text="@string/card_holder_name"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/account_name_title"
         app:layout_constraintEnd_toEndOf="@+id/account_type"
         app:layout_constraintTop_toTopOf="@id/account_name_title" />
@@ -265,6 +269,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="@string/account_number_title"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/card_information_title"
         app:layout_constraintTop_toBottomOf="@id/account_name_title" />
 
@@ -273,6 +278,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
+        android:textColor="@color/black"
         android:text="@string/account_number"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/account_type"
@@ -285,6 +291,7 @@
         android:layout_marginTop="30dp"
         android:text="@string/account_setting_title"
         android:textColor="@color/blue_title"
+        android:textStyle="bold"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/account_number_title" />
