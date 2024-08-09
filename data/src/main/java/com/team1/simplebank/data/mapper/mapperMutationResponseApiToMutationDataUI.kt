@@ -11,7 +11,7 @@ import java.util.Locale
 
 suspend fun convertToDateUI(date: String):String{
     return withContext(Dispatchers.Default){
-        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
         val outputDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("in", "ID"))
         val dateConvert = outputDateFormat.format(inputDateFormat.parse(date))
         dateConvert
@@ -21,7 +21,6 @@ suspend fun convertToDateUI(date: String):String{
 suspend fun mapperMutationResponseApiToMutationDataUI(dataPaging: List<ItemPagingData>): List<MutationDataUI> {
     return withContext(Dispatchers.Default) {
         val items = mutableListOf<MutationDataUI>()
-        val localeID = Locale("in", "ID")
 
         items.clear()
         var currentDate: String? = null
