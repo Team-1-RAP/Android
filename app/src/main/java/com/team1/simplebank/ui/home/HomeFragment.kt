@@ -100,11 +100,15 @@ class HomeFragment : Fragment() {
                     when(it){
                         ResourceState.Loading -> {
                             binding.progressbarIncomeExpense.visibility = View.VISIBLE
+                            binding.layoutIncomeAmount.visibility = View.INVISIBLE
+                            binding.layoutExpenseAmount.visibility = View.INVISIBLE
                         }
                         is ResourceState.Success -> {
                             val data = it.data
                             binding.apply {
-                                binding.progressbarIncomeExpense.visibility = View.GONE
+                                progressbarIncomeExpense.visibility = View.GONE
+                                layoutIncomeAmount.visibility = View.VISIBLE
+                                layoutExpenseAmount.visibility = View.VISIBLE
                                 incomeAmount2.text = data.income.toRupiah()
                                 expenseAmount2.text = data.expense.toRupiah()
                             }
