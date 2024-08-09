@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.synrgy.xdomain.model.FilterInput
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.R
-import com.team1.simplebank.adapter.MutationPagerAdapter
 import com.team1.simplebank.adapter.MutationPagerAdapterV2
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.common.utils.Converter.toMonthNumber
@@ -51,6 +50,7 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
 
         initRecyclerview()
         setUpSpinner()
+        spinnerClicked()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
@@ -62,18 +62,6 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
             }
         }
 
-        accountMutationViewModel.userAccountsData.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResourceState.Success -> {
-                    val data = it.data[0]
-                    //collectDataUIWithoutPagination(data.noAccount, 7)
-                    //accountMutationViewModel.inputFiltering(FilterInput.NoAccount(data.noAccount))
-                }
-
-                else -> {}
-            }
-        }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 accountMutationViewModel.dataMutationOnUIWithFiltering().collectLatest {
@@ -82,8 +70,6 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
             }
         }
 
-
-        spinnerClicked()
     }
 
     private fun setUpSpinner() {
@@ -120,23 +106,6 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
         //adapter?.submitList(provideDataManual())
 
     }
-
-    /*private fun collectDataUIWithoutPagination(
-        inputDataNoAccount: String,
-        inputDataMont: Int,
-        inputType: String? = null
-    ) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                accountMutationViewModel.dataMutationUI(
-                    inputDataNoAccount = inputDataNoAccount,
-                    inputDataMont = inputDataMont
-                ).collect {
-                    adapter?.submitData(it)
-                }
-            }
-        }
-    }*/
 
     // fungsi untuk spinner ketika ditekan
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

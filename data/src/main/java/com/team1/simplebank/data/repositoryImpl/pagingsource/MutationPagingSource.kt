@@ -57,9 +57,7 @@ class MutationPagingSource @Inject constructor(
             )
 
             val data = responseData.data.pagingData
-
             Log.d("pagingnya", "data: $data")
-
             val result = mapperMutationResponseApiToMutationDataUI(data)
             Log.d("MutationSource", "Result: $result")
             Log.d("Mutation Paging source", "ke trigger ko")

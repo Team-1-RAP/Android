@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.R
@@ -27,7 +26,7 @@ class MutationPagerAdapterV2 :
 
             override fun areItemsTheSame(
                 oldItem: MutationDataUI,
-                newItem: MutationDataUI
+                newItem: MutationDataUI,
             ): Boolean {
                 return when (oldItem) {
                     is MutationDataUI.Header -> {
@@ -38,7 +37,7 @@ class MutationPagerAdapterV2 :
                     }
 
                     is MutationDataUI.Item -> {
-                        when(newItem){
+                        when (newItem) {
                             is MutationDataUI.Header -> false
                             is MutationDataUI.Item -> oldItem == newItem
                         }
@@ -48,17 +47,18 @@ class MutationPagerAdapterV2 :
 
             override fun areContentsTheSame(
                 oldItem: MutationDataUI,
-                newItem: MutationDataUI
+                newItem: MutationDataUI,
             ): Boolean {
                 return when (oldItem) {
                     is MutationDataUI.Header -> {
-                        when(newItem){
+                        when (newItem) {
                             is MutationDataUI.Header -> oldItem.date == newItem.date
                             is MutationDataUI.Item -> false
                         }
                     }
+
                     is MutationDataUI.Item -> {
-                        when(newItem){
+                        when (newItem) {
                             is MutationDataUI.Header -> false
                             is MutationDataUI.Item -> oldItem.toString() == newItem.toString()
                         }
@@ -78,7 +78,7 @@ class MutationPagerAdapterV2 :
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> {
