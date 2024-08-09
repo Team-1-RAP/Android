@@ -199,8 +199,7 @@ class HomeFragment : Fragment() {
             )
                 .show()
 
-            3 -> Toast.makeText(requireContext(), R.string.transfer_title, Toast.LENGTH_SHORT)
-                .show()
+            3 -> findNavController().navigate(R.id.action_navigation_home_to_transferFragment)
 
             4 -> findNavController().navigate(R.id.action_navigation_home_to_virtualAccountFragment)
             5 -> Toast.makeText(requireContext(), R.string.gold_tube_title, Toast.LENGTH_SHORT)

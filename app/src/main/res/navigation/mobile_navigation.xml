@@ -19,6 +19,10 @@
         <action
             android:id="@+id/action_navigation_home_to_topUpEWalletFragment"
             app:destination="@id/topUpEWalletFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_transferFragment"
+            app:destination="@id/navigation_transfer"
+            />
     </fragment>
 
     <fragment
@@ -26,6 +30,13 @@
         android:name="com.team1.simplebank.ui.account_mutation.AccountMutationFragment"
         android:label="@string/account_mutation"
         tools:layout="@layout/fragment_account_mutation" />
+
+    <fragment
+        android:id="@+id/navigation_transfer"
+        android:name="com.team1.simplebank.ui.transfer.TransferFragment"
+        android:label="@string/transfer_title"
+        tools:layout="@layout/fragment_transfer"
+        />
 
     <fragment
         android:id="@+id/navigation_qris"
