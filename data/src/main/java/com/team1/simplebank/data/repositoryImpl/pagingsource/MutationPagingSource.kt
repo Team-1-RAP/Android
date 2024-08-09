@@ -57,12 +57,14 @@ class MutationPagingSource @Inject constructor(
             )
 
             val data = responseData.data.pagingData
+            Log.d("pagingnya", "data: $data")
             val result = mapperMutationResponseApiToMutationDataUI(data)
             Log.d("MutationSource", "Result: $result")
+            Log.d("Mutation Paging source", "ke trigger ko")
 
             LoadResult.Page(
                 data = result,
-                prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
+                prevKey = null,
                 nextKey = if (data.isEmpty()) null else position+1,
             )
 

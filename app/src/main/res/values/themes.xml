@@ -49,12 +49,19 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
     <!--Medium-->
     <style name="TextContent.TitleMedium">
         <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextContent.TitleMedium.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextContent.TitleMedium.ShadowBlue">
+        <item name="android:textColor">@color/shadow_of_blue</item>
+    </style>
+    <style name="TextContent.TitleMedium.ShadowBlue.Bold">
         <item name="android:textStyle">bold</item>
     </style>
 

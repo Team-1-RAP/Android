@@ -183,7 +183,7 @@
                     android:id="@+id/layout_income_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     android:layout_weight="1">
 
                     <ImageView
@@ -191,20 +191,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/income_logo" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/income_title_2"
-                        style="@style/TextContent.SuperSmall.ShadowBlue.Bold"
+                        style="@style/TextContent.TitleMedium.ShadowBlue"
                         android:layout_alignBaseline="@id/logo_income_2"
                         android:layout_toEndOf="@id/logo_income_2"
                         android:text="@string/income_title" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/income_amount_2"
-                        style="@style/TextContent.SuperSmall.ShadowBlue"
+                        style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
                         android:layout_below="@id/income_title_2"
                         android:layout_toEndOf="@id/logo_income_2"
                         android:text="@string/income_amount" />
@@ -212,17 +212,16 @@
 
                 <ProgressBar
                     android:id="@+id/progressbar_income_expense"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:indeterminateDrawable="@drawable/progressbar_custom_income_expense"
-                    />
+                    android:visibility="visible" />
 
                 <RelativeLayout
                     android:id="@+id/layout_expense_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     android:layout_weight="1">
 
                     <ImageView
@@ -230,20 +229,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/outcome_expensse" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/expense_title_2"
-                        style="@style/TextContent.SuperSmall.ShadowBlue.Bold"
+                        style="@style/TextContent.TitleMedium.ShadowBlue"
                         android:layout_alignBaseline="@id/logo_expense_2"
                         android:layout_toEndOf="@id/logo_expense_2"
                         android:text="@string/expense_title" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/expense_amount_2"
-                        style="@style/TextContent.SuperSmall.ShadowBlue"
+                        style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
                         android:layout_below="@id/expense_title_2"
                         android:layout_toEndOf="@id/logo_expense_2"
                         android:text="@string/expense_amount" />
