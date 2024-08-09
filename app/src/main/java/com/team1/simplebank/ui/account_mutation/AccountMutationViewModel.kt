@@ -73,18 +73,6 @@ class AccountMutationViewModel @Inject constructor(
 
 
 
-
-
-
-
-    /*//menggunakan combine untuk menggabungkan data dari noAccount, month, dan type menjadi satu objek
-    fun dataMutationOnUI() = combine(month, type) {month, type ->
-        Pair(month,type)
-    }.flatMapLatest {
-        useCase.getDataMutation(noAccount.value, it.first, it.second)
-    }.cachedIn(viewModelScope)*/
-
-
     fun dataMutationUI(
         inputDataNoAccount: String,
         inputDataMont: Int,

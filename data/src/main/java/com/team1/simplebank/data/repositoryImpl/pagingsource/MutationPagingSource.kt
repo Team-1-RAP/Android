@@ -57,10 +57,6 @@ class MutationPagingSource @Inject constructor(
             )
 
             val data = responseData.data.pagingData
-            val sortedData = data.sortedBy { it.date }
-            val parsedData = withContext(Dispatchers.Default){
-                mapperMutationResponseApiToMutationDataUI(data)
-            }
             val result = mapperMutationResponseApiToMutationDataUI(data)
             Log.d("MutationSource", "Result: $result")
 
