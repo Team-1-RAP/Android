@@ -118,7 +118,7 @@ class HomeActivityViewModel @Inject constructor(
             Menu(2, R.drawable.state_setor_tunai, resources.getString(R.string.cash_deposit_title)),
             Menu(3, R.drawable.state_transfer, resources.getString(R.string.transfer_title)),
             Menu(4, R.drawable.state_virtual_account, resources.getString(R.string.virtual_account_title)),
-            Menu(5, R.drawable.gold_bars, resources.getString(R.string.gold_tube_title)),
+            Menu(5, R.drawable.state_cash_withdrawal, resources.getString(R.string.gold_tube_title)),
             Menu(6, R.drawable.state_bayar, resources.getString(R.string.pay_title)),
             Menu(7, R.drawable.state_top_up,resources.getString(R.string.top_up_e_wallet_title)),
             Menu(8, R.drawable.state_lain_lain, resources.getString(R.string.etc_title)),

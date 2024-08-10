@@ -1,6 +1,8 @@
 package com.team1.simplebank.ui.profile
 
-import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.synrgy.xdomain.model.AccountModel
 import com.team1.simplebank.R
 import com.team1.simplebank.common.handler.ResourceState
@@ -50,6 +53,7 @@ class ProfileFragment : Fragment() {
                 is ResourceState.Success -> {
                     val data = value.data[0]
                     showAccountsDetails(data)
+                    copyAccountNumber(data.noAccount)
 
                 }
                 is ResourceState.Error -> {
@@ -85,6 +89,15 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun copyAccountNumber(inputAccountNumber:String){
+        val clipBoardManager = requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("accountNumber",inputAccountNumber)
+        binding.btnCopyNumberAccountProfile.setOnClickListener {
+            Snackbar.make(binding.root,"Copy To Clipboard",Snackbar.LENGTH_SHORT).show()
+            clipBoardManager.setPrimaryClip(clipData)
+        }
+    }
+
     private fun showAccountsDetails(input:AccountModel){
         with(binding){
             cardHolderName.text = input.fullName
@@ -92,6 +105,13 @@ class ProfileFragment : Fragment() {
             accountType.text = input.accountType
             accountName.text = input.fullName
             accountNumber.text = input.noAccount
+
+            //description
+            cardHolderName.contentDescription = input.fullName
+            expiredDate.contentDescription = input.expDate
+            accountType.contentDescription = input.accountType
+            accountName.contentDescription = input.fullName
+            accountNumber.contentDescription = input.noAccount
         }
     }
 
