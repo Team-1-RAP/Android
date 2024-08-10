@@ -6,6 +6,8 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
 
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -68,17 +70,15 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.compose)
 
-    //di - koin //added_by: rian
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation (libs.koin.androidx.workmanager)
-    implementation (libs.koin.androidx.compose)
+    //di-hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
 
-    //koin //added_by: rian
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation (libs.koin.androidx.workmanager)
-    implementation (libs.koin.androidx.compose)
+    //biometric login
+    implementation (libs.androidx.biometric)
+    implementation(libs.gson)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -98,4 +98,6 @@ dependencies {
     implementation(libs.androidx.recyclerview.selection)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.navigation.fragment)
+
+    implementation(libs.androidx.paging)
 }

@@ -1,29 +1,43 @@
 package com.team1.simplebank.ui
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.team1.simplebank.R
 import com.team1.simplebank.databinding.ActivityHomeBinding
+import com.team1.simplebank.ui.auth.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment_activity_home)
-
         navView.setupWithNavController(navController)
+
+    }
+
+    //clear session when app is idle for 10 minutes
+    override fun onStop() {
+        super.onStop()
+        //TODO: implements
+    }
+
+    //clear session when app is closed
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

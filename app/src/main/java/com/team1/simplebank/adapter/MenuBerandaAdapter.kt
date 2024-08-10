@@ -1,24 +1,28 @@
 package com.team1.simplebank.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.synrgy.xdomain.model.Menu
+import com.team1.simplebank.R
 import com.team1.simplebank.databinding.ItemButtonMenuBinding
-import com.team1.simplebank.domain.model.dataclass.Menu
 
-class MenuBerandaAdapter(val listItem: List<Menu>, val clickListener: (Menu) -> Unit) :
+class MenuBerandaAdapter(private val listItem: List<Menu>, val clickListener: (Menu) -> Unit) :
     RecyclerView.Adapter<MenuBerandaAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemButtonMenuBinding) :
+    inner class ViewHolder(private val binding: ItemButtonMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("ClickableViewAccessibility")
         fun bind(data: Menu) {
             binding.iconItem.setImageResource(data.image)
             binding.textIcon.text = data.title
             binding.root.setOnClickListener {
                 clickListener(data)
             }
-
         }
     }
 

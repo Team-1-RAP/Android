@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
+
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -37,11 +40,11 @@ dependencies {
     implementation(project(":xdomain"))
     implementation(project(":data"))
 
-    //di - koin
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
-    implementation (libs.koin.androidx.workmanager)
-    implementation (libs.koin.androidx.compose)
+    //di-hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
 
     //dataStore
     implementation(libs.androidx.datastore)

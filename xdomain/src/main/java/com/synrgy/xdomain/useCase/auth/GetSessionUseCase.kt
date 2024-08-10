@@ -1,13 +1,14 @@
 package com.synrgy.xdomain.useCase.auth
 
 import com.synrgy.xdomain.model.AuthModel
-import com.synrgy.xdomain.repositoryInterface.AuthRepository
+import com.synrgy.xdomain.repositoryInterface.IAuthRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class GetSessionUseCase (
-    private val authRepository: AuthRepository
+class GetSessionUseCase @Inject constructor(
+    private val IAuthRepository: IAuthRepository
 ) {
     fun execute(): Flow<AuthModel> {
-        return authRepository.getSession()
+        return IAuthRepository.getSession()
     }
 }

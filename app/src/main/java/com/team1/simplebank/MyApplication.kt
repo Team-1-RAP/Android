@@ -1,19 +1,11 @@
 package com.team1.simplebank
 
 import android.app.Application
-import com.team1.simplebank.di.apiModule
-import com.team1.simplebank.di.dataStoreModule
-import com.team1.simplebank.di.koinModule
-import com.team1.simplebank.viewmodelfactory.viewModelModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import dagger.hilt.android.HiltAndroidApp
 
-class MyApplication: Application() {
+@HiltAndroidApp
+class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoin{
-            androidContext(this@MyApplication)
-            modules(koinModule, dataStoreModule, apiModule, viewModelModule)
-        }
     }
 }

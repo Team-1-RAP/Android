@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -12,7 +15,7 @@ android {
     defaultConfig {
         minSdk = 26
 
-        buildConfigField("String", "BASE_URL", "\"https://cautious-noelyn-ridho-71c54445.koyeb.app/api/\"",)
+        buildConfigField("String", "BASE_URL", "\"https://simple-bank-server-avi4q6gcnq-uc.a.run.app/api/\"",)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -60,6 +63,15 @@ dependencies {
     //jwtDecoder
     implementation (libs.jwtdecode)
 
+    //di-hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+
+
+    //paging
+    implementation(libs.androidx.paging)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -67,4 +79,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 }
