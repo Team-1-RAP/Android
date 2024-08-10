@@ -1,7 +1,10 @@
 package com.team1.simplebank.common.constants
 
-class ScreenRoute (
+sealed class ScreenRoute (
     var route: String,
 ){
-    //TODO : Implement SCREEN ROUTE
+    data object QrisScan: ScreenRoute("qris_scan")
+
+    data object QrisTransactionResult: ScreenRoute("qris_transacrion_result")
+
 }
