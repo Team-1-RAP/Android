@@ -1,6 +1,10 @@
 package com.team1.simplebank.ui.qris
 
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -18,24 +22,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.team1.simplebank.colors_for_composable.BlueNormal
+import com.team1.simplebank.ui.compose_components.CustomSnackbar
 
+
+data class QrisTabItems(
+    var title: String,
+)
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 @Preview(showBackground = true)
 fun QrisInitialScreen(
     modifier: Modifier = Modifier,
-
 ) {
     val qrisTabItems = listOf(
         QrisTabItems("scan kode"),
@@ -46,6 +57,21 @@ fun QrisInitialScreen(
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
+
+    var showErrorSnackbar by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
+    var hasCameraPermission by remember { mutableStateOf(false) }
+
+    if (showErrorSnackbar) {
+        Box(modifier = modifier.fillMaxSize()) {
+            CustomSnackbar(
+                message = errorMessage,
+                onDismiss = { showErrorSnackbar = false },
+                modifier = Modifier.align(Alignment.BottomCenter),
+            )
+        }
+    }
+
     LaunchedEffect(selectedTabIndex) {
         pagerState.animateScrollToPage(selectedTabIndex)
     }
@@ -66,17 +92,26 @@ fun QrisInitialScreen(
         ) { pageIndex ->
             when (pageIndex) {
                 0 -> {
-                    ScanQrisScreen()
+                    if (hasCameraPermission) {
+                        ScanQrisScreen()
+                    } else {
+                        RequestCameraPermission(
+                            onPermissionGranted = { hasCameraPermission = true },
+                            onPermissionDenied = {
+                                showErrorSnackbar = true; errorMessage = "Camera permission denied"
+                            }
+                        )
+                    }
                 }
+
                 1 -> {
                     ShowQrisScreen(
                         modifier = modifier,
                         totalTime = 300,
-                        onCountDownFinished = {selectedTabIndex = 0}
+                        onCountDownFinished = { selectedTabIndex = 0 }
                     )
                 }
             }
-
         }
         PrimaryTabRow(
             selectedTabIndex = selectedTabIndex,
@@ -112,6 +147,30 @@ fun QrisInitialScreen(
     }
 }
 
-data class QrisTabItems(
-    var title: String,
-)
+@Composable
+fun RequestCameraPermission(
+    onPermissionGranted: () -> Unit,
+    onPermissionDenied: () -> Unit,
+) {
+    val ctx = LocalContext.current
+    val activityResultLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            onPermissionGranted()
+        } else {
+            onPermissionDenied()
+        }
+    }
+    LaunchedEffect(Unit) {
+        if (ContextCompat.checkSelfPermission(
+                ctx,
+                android.Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            onPermissionGranted()
+        } else {
+            activityResultLauncher.launch(android.Manifest.permission.CAMERA)
+        }
+    }
+}

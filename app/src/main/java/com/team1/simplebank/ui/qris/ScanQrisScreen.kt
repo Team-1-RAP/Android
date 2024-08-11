@@ -1,25 +1,33 @@
 package com.team1.simplebank.ui.qris
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.OptIn
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.resolutionselector.ResolutionSelector
+import androidx.camera.core.resolutionselector.ResolutionStrategy
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.Panorama
 import androidx.compose.material.icons.outlined.FlashOff
 import androidx.compose.material.icons.outlined.Panorama
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,20 +36,30 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.common.InputImage
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.CustomTonalIconButton
+import java.util.concurrent.Executors
 
 @Preview(showBackground = true)
 @Composable
 fun ScanQrisScreen(
     modifier: Modifier = Modifier,
-){
+) {
 
     val context = LocalContext.current
     var isButtonGalleryActive by remember {
@@ -60,6 +78,9 @@ fun ScanQrisScreen(
         isButtonGalleryActive = false
     }
 
+    val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
+    val executor = remember { Executors.newSingleThreadExecutor() }
+
     Box(
         modifier = modifier
             .fillMaxSize(),
@@ -72,20 +93,65 @@ fun ScanQrisScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         )
-        Card (
+        Box(
             modifier = modifier
-                .padding(top = 16.dp)
+                .padding(top = 8.dp)
+                .clip(RoundedCornerShape(8.dp))
                 .fillMaxWidth(0.9f)
                 .fillMaxHeight(0.9f)
                 .align(Alignment.BottomCenter),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.Black
+        ) {
+            AndroidView(
+                modifier = modifier.fillMaxSize(),
+                factory = { ctx ->
+                    val previewView = PreviewView(ctx)
+                    val cameraProvider = cameraProviderFuture.get()
+                    val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+                    val resolutionSelector = ResolutionSelector.Builder()
+                        .setAllowedResolutionMode(ResolutionSelector.PREFER_HIGHER_RESOLUTION_OVER_CAPTURE_RATE)
+                        .setResolutionStrategy(ResolutionStrategy.HIGHEST_AVAILABLE_STRATEGY)
+                        .build()
+                    val preview = androidx.camera.core.Preview.Builder()
+                        .setResolutionSelector(resolutionSelector)
+                        .build()
+                        .also {
+                            it.setSurfaceProvider(previewView.surfaceProvider)
+                        }
+                    val imageAnalyzr = ImageAnalysis.Builder()
+                        .setResolutionSelector(resolutionSelector)
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build()
+                        .also {
+                            it.setAnalyzer(executor) { imageProxy ->
+                                processImageProxy(imageProxy)
+                            }
+                        }
+                    try {
+                        if (ContextCompat.checkSelfPermission(
+                                ctx,
+                                android.Manifest.permission.CAMERA
+                            ) == PackageManager.PERMISSION_GRANTED
+                        ) {
+                            cameraProvider.unbindAll()
+                            val camera = cameraProvider.bindToLifecycle(
+                                ctx as LifecycleOwner,
+                                cameraSelector,
+                                preview,
+                                imageAnalyzr
+                            )
+                            camera.cameraControl.enableTorch(isButtonFlashActive)
+                        }
+                    } catch (exc: Exception) {
+                        exc.printStackTrace()
+                    }
+                    previewView
+                }
             )
-        ){}
+        }
 
         CustomTonalIconButton(
             modifier = modifier
-                .padding(start = 48.dp, bottom =24.dp)
+                .padding(start = 48.dp, bottom = 24.dp)
                 .align(Alignment.BottomStart),
             icon = if (isButtonGalleryActive) Icons.Filled.Panorama else Icons.Outlined.Panorama,
             onClick = {
@@ -99,12 +165,17 @@ fun ScanQrisScreen(
 
         CustomTonalIconButton(
             modifier = modifier
-                .padding(end = 48.dp, bottom =24.dp)
+                .padding(end = 48.dp, bottom = 24.dp)
                 .align(Alignment.BottomEnd),
             icon = if (isButtonFlashActive) Icons.Filled.FlashOn else Icons.Outlined.FlashOff,
             onClick = {
                 isButtonFlashActive = !isButtonFlashActive
-                toggleFlashlight(context, isButtonFlashActive)
+                val cameraProvider = cameraProviderFuture.get()
+                val camera = cameraProvider.bindToLifecycle(
+                    context as LifecycleOwner,
+                    CameraSelector.DEFAULT_BACK_CAMERA
+                )
+                camera.cameraControl.enableTorch(isButtonFlashActive)
             },
             talkBackLabel = "ambil dari galeri",
             containerColor = if (isButtonFlashActive) BlueNormal else Color.White,
@@ -113,12 +184,32 @@ fun ScanQrisScreen(
     }
 }
 
-private fun toggleFlashlight(context: Context, turnOn: Boolean) {
-    val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-    try {
-        val cameraId = cameraManager.cameraIdList[0]
-        cameraManager.setTorchMode(cameraId, turnOn)
-    } catch (e: CameraAccessException) {
-        e.printStackTrace()
+@OptIn(ExperimentalGetImage::class)
+private fun processImageProxy(imageProxy: ImageProxy) {
+    val mediaImage = imageProxy.image
+    if (mediaImage != null) {
+        val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+        val option = BarcodeScannerOptions.Builder()
+            .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+            .build()
+        val scanner = BarcodeScanning.getClient(option)
+        scanner.process(image)
+            .addOnSuccessListener { barcodes ->
+                for (barcode in barcodes) {
+                    barcode.rawValue?.let {
+                        //TODO : Handle the QR code value
+                        println("QR Code Value: $it")
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                e.printStackTrace()
+                //TODO: handle error
+            }
+            .addOnCompleteListener {
+                imageProxy.close()
+            }
+    } else {
+        imageProxy.close()
     }
 }

@@ -27,7 +27,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -95,7 +94,8 @@ fun LoginScreen(
             }
 
             is ResourceState.Error -> {
-                errorMessage = "${(authData as ResourceState.Error).exception} : Silakan periksa kembali username dan password Anda"
+                errorMessage =
+                    "${(authData as ResourceState.Error).exception} : Silakan periksa kembali username dan password Anda"
                 showErrorSnackbar = true
             }
 
