@@ -29,5 +29,8 @@
     <color name="dark_blue_primary">#0A3967</color>
     <color name="shadow_of_blue">#1454FB</color>
 
+    <color name="black_71">#B5000000</color>
+    <color name="blue_status_bar">#FF0A3967</color>
+
 
 </resources>

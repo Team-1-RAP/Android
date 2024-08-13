@@ -11,21 +11,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp" />
+        app:layout_constraintGuide_begin="16dp" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/appbar_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="118dp"
         android:scaleType="fitXY"
-        android:src="@drawable/rectangle_top_193" />
+        android:src="@drawable/rectangle_top_193"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/btn_back"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="30dp"
         android:src="@drawable/icon_back"
+        app:layout_constraintBottom_toBottomOf="@id/appbar_background"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,6 +37,7 @@
         android:id="@+id/materialTextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/talkback_profile"
         android:text="@string/profile_title"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -46,12 +51,12 @@
         android:id="@+id/card_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
         app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/btn_back">
+        app:layout_constraintTop_toBottomOf="@id/materialTextView2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -63,6 +68,7 @@
                 android:id="@+id/simple_bank_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/talkback_profile_simple_bank"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -82,6 +88,7 @@
                 android:id="@+id/hide_full_account_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/talkback_profile_balance_hide"
                 android:text="@string/censored_account_number"
                 android:textColor="@color/white"
                 android:textSize="24sp"
@@ -110,6 +117,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="10dp"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/talkback_profile_balance_bnt_hide"
                 android:src="@drawable/hide_logo"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/hide_full_account_number"
@@ -132,6 +140,7 @@
                 android:id="@+id/card_holder_name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/talkback_profile_card_holder_name"
                 android:text="@string/card_holder_name_title"
                 android:textColor="@color/white"
                 android:textSize="12sp"
@@ -143,6 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/card_holder_name"
+
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -153,6 +163,7 @@
                 android:id="@+id/expired_date_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/talkback_profile_card_expired_date"
                 android:text="@string/expired_date_title"
                 android:textColor="@color/white"
                 android:textSize="12sp"
@@ -212,6 +223,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:contentDescription="@string/talkback_profile_simple_bank_card_information"
         android:text="@string/card_information"
         android:textColor="@color/blue_title"
         android:textSize="16sp"
@@ -222,77 +234,78 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_type_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextContent.TitleMedium.Black_71"
         android:layout_marginTop="10dp"
+        android:contentDescription="@string/talkback_profile_account_type"
         android:text="@string/account_type_title"
-        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/card_information_title"
         app:layout_constraintTop_toBottomOf="@id/card_information_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextContent.TitleMedium.Black_71"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="6dp"
-        android:textColor="@color/black"
         android:text="@string/account_type"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/account_name"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_name_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextContent.TitleMedium.Black_71"
         android:layout_marginTop="6dp"
+        android:contentDescription="@string/talkback_profile_holder_name"
         android:text="@string/account_owner_title"
-        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/card_information_title"
         app:layout_constraintTop_toBottomOf="@id/account_type_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextContent.TitleMedium.Black_71"
         android:text="@string/card_holder_name"
-        android:textStyle="bold"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/account_name_title"
         app:layout_constraintEnd_toEndOf="@+id/account_type"
         app:layout_constraintTop_toTopOf="@id/account_name_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_number_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TextContent.TitleMedium.Black_71"
         android:layout_marginTop="6dp"
+        android:contentDescription="@string/talkback_profile_title_account_number"
         android:text="@string/account_number_title"
-        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/card_information_title"
         app:layout_constraintTop_toBottomOf="@id/account_name_title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_number"
+        style="@style/TextContent.TitleMedium.Black_71"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="5dp"
+        android:text="@string/account_number"
+        app:layout_constraintEnd_toStartOf="@id/btn_copy_number_account_profile"
+        app:layout_constraintTop_toBottomOf="@id/account_name" />
+
+    <ImageButton
+        android:id="@+id/btn_copy_number_account_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:textColor="@color/black"
-        android:text="@string/account_number"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/account_type"
-        app:layout_constraintTop_toBottomOf="@id/account_name" />
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/talkback_profile_btn_copy"
+        android:src="@drawable/icon_copy"
+        app:layout_constraintBottom_toBottomOf="@id/account_number"
+        app:layout_constraintEnd_toEndOf="@id/account_type"
+        app:layout_constraintTop_toTopOf="@id/account_number" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/account_setting_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:contentDescription="@string/talkback_profile_card_setting"
         android:text="@string/account_setting_title"
         android:textColor="@color/blue_title"
-        android:textStyle="bold"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/account_number_title" />
 
@@ -301,26 +314,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/talkback_profile_btn_account_setting"
         android:src="@drawable/blue_icon"
-        app:layout_constraintEnd_toEndOf="@id/account_number"
+        app:layout_constraintEnd_toEndOf="@id/btn_copy_number_account_profile"
         app:layout_constraintTop_toTopOf="@id/account_setting_title" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
-        style="@style/button_logout_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/red_rounded_corner"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
+        style="@style/TextContent.TitleMedium"
+        android:layout_height="40dp"
+        android:background="@drawable/gradient_rounded_corner"
+        android:contentDescription="@string/talkback_profile_logout"
+        android:letterSpacing="0.05"
         android:text="@string/logout"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:cornerRadius="12dp"
-        app:icon="@drawable/arrow_rounded_left"
-        app:iconSize="25dp"
+        app:backgroundTint="@null"
+        app:icon="@drawable/icon_logout"
+        app:iconPadding="10dp"
+        app:iconSize="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/appCompatImageButton4"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"

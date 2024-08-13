@@ -88,7 +88,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name ="balance_format">Rp. %s</string>
+    <string name="balance_format">Rp. %s</string>
     <string name="hide_balance">*****</string>
     <string name="show_more">Tampilkan lebih</string>
     <string name="konfirmasi">Konfirmasi</string>
@@ -96,9 +96,29 @@
     <string name="actionButtonLabel">Iya</string>
     <string name="dismisButtonLabel">Tidak</string>
 
+
+    <!--Talkback Profile-->
+    <string name="talkback_profile">Profil</string>
+    <string name="talkback_profile_simple_bank">Simple Bank</string>
+    <string name="talkback_profile_balance_hide">********</string>
+    <string name="talkback_profile_balance_btn_show">Lihat</string>
+    <string name="talkback_profile_balance_bnt_hide">Sembunyikan</string>
+    <string name="talkback_profile_card_holder_name">Nama Pemilik Kartu</string>
+    <string name="talkback_profile_card_expired_date">Tanggal Kadaluarsa</string>
+    <string name="talkback_profile_master_card">Logo Master Card</string>
+    <string name="talkback_profile_simple_bank_card_information">Informasi Kartu Simple Bank</string>
+    <string name="talkback_profile_account_type">Jenis Rekening</string>
+    <string name="talkback_profile_deposit">Deposito</string>
+    <string name="talkback_profile_holder_name">Nama Pemilik</string>
+    <string name="talkback_profile_title_account_number">Nomor Rekening</string>
+    <string name="talkback_profile_card_setting">Pengaturan Kartu</string>
+    <string name="talkback_profile_logout">Keluar</string>
+    <string name="talkback_profile_btn_copy">Salin Nomor Rekening</string>
+    <string name="talkback_profile_btn_account_setting">Masuk ke pengaturan akun</string>
+
     <!--bagian virtual account-->
 
-<!--    spinner -->
+    <!--    spinner -->
     <string-array name="months_array">
         <item>Pilih Bulan</item>
         <item>Januari</item>
