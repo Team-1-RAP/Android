@@ -88,7 +88,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name ="balance_format">Rp. %s</string>
+    <string name="balance_format">Rp. %s</string>
     <string name="hide_balance">*****</string>
     <string name="show_more">Tampilkan lebih</string>
     <string name="konfirmasi">Konfirmasi</string>
@@ -118,7 +118,7 @@
 
     <!--bagian virtual account-->
 
-<!--    spinner -->
+    <!--    spinner -->
     <string-array name="months_array">
         <item>Pilih Bulan</item>
         <item>Januari</item>
