@@ -32,5 +32,11 @@
     <color name="black_71">#B5000000</color>
     <color name="blue_status_bar">#FF0A3967</color>
 
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:color="@color/primary_color" android:state_focused="true"/>
+        <item android:color="@color/primary_color" android:state_hovered="true"/>
+        <item android:color="@color/primary_color" android:state_enabled="false"/>
+        <item android:color="@color/primary_color"/>
+    </selector>
 
 </resources>

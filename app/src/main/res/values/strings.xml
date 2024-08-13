@@ -115,6 +115,7 @@
     <string name="talkback_profile_logout">Keluar</string>
     <string name="talkback_profile_btn_copy">Salin Nomor Rekening</string>
     <string name="talkback_profile_btn_account_setting">Masuk ke pengaturan akun</string>
+    <string name="destination_bank_and_account_number">%s - %s</string>
 
     <!--bagian virtual account-->
 

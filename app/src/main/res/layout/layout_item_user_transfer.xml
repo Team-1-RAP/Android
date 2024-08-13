@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_item_user_transfer"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="5dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/icon_name"
+        style="@style/TextContent.TitleMedium.Bold"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/background_text_rounded_corner"
+        android:backgroundTint="@color/dark_red"
+        android:gravity="center"
+        android:text="A"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/transfer_account_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:maxLines="1"
+        android:text="Anton Pamungkas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_save_transfer_account"
+        app:layout_constraintStart_toEndOf="@id/icon_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_save_transfer_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:contentDescription="Simpan Alamat"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="5dp"
+        android:src="@drawable/icon_save_transfer_account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
