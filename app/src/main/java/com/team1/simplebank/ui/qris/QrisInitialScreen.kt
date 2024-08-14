@@ -3,7 +3,6 @@ package com.team1.simplebank.ui.qris
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -49,7 +48,7 @@ data class QrisTabItems(
     var title: String,
 )
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QrisInitialScreen(
     modifier: Modifier = Modifier,
@@ -60,7 +59,6 @@ fun QrisInitialScreen(
         QrisTabItems("tampilkan kode"),
     )
 
-//    val pagerState = rememberPagerState { qrisTabItems.size }
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
@@ -89,9 +87,6 @@ fun QrisInitialScreen(
             showConfirmScreenForShowingQris = false
         }
     }
-//    LaunchedEffect(pagerState.currentPage) {
-//        selectedTabIndex = pagerState.currentPage
-//    }
 
     Column(
         modifier = modifier
@@ -101,8 +96,6 @@ fun QrisInitialScreen(
     ) {
         Box(
             modifier = modifier.fillMaxHeight(0.9f),
-//            state = pagerState,
-//            contentPadding = PaddingValues(vertical = 8.dp)
         ) {
             when (selectedTabIndex) {
                 0 -> {
@@ -220,7 +213,6 @@ fun QrisInitialScreen(
                 }
             }
         }
-
     }
 }
 
