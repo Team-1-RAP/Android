@@ -38,7 +38,7 @@ import com.team1.simplebank.ui.compose_components.DropDownMenuComponent
 fun ShowQrisConfirmationScreen(
     modifier: Modifier = Modifier,
     onConfirm: () -> Unit = {},
-    onCancel: (Int) -> Unit = {},
+    onCancel: () -> Unit = {},
 ) {
 
     var selectedDropDownItem by remember {
@@ -49,7 +49,7 @@ fun ShowQrisConfirmationScreen(
     var showErrorSnackbar by remember { mutableStateOf(false) }
 
     BackHandler {
-        onCancel(0)
+        onCancel()
     }
 
     Box(

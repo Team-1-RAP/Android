@@ -4,15 +4,18 @@ import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
@@ -29,12 +32,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.ContextCompat
+import com.team1.simplebank.R
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.CustomSnackbar
+import com.team1.simplebank.ui.compose_components.CustomTopAppBarForFeature
 
 
 data class QrisTabItems(
@@ -52,7 +60,7 @@ fun QrisInitialScreen(
         QrisTabItems("tampilkan kode"),
     )
 
-    val pagerState = rememberPagerState { qrisTabItems.size }
+//    val pagerState = rememberPagerState { qrisTabItems.size }
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
@@ -74,11 +82,16 @@ fun QrisInitialScreen(
     }
 
     LaunchedEffect(selectedTabIndex) {
-        pagerState.animateScrollToPage(selectedTabIndex)
+        if (selectedTabIndex == 0) {
+            isConfirmShowQrisPassed = false
+        } else {
+            isConfirmShowQrisPassed = true
+            showConfirmScreenForShowingQris = false
+        }
     }
-    LaunchedEffect(pagerState.currentPage) {
-        selectedTabIndex = pagerState.currentPage
-    }
+//    LaunchedEffect(pagerState.currentPage) {
+//        selectedTabIndex = pagerState.currentPage
+//    }
 
     Column(
         modifier = modifier
@@ -86,15 +99,13 @@ fun QrisInitialScreen(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HorizontalPager(
+        Box(
             modifier = modifier.fillMaxHeight(0.9f),
-            state = pagerState,
-            contentPadding = PaddingValues(vertical = 8.dp)
-        ) { pageIndex ->
-            when (pageIndex) {
+//            state = pagerState,
+//            contentPadding = PaddingValues(vertical = 8.dp)
+        ) {
+            when (selectedTabIndex) {
                 0 -> {
-                    isConfirmShowQrisPassed = false
-                    showConfirmScreenForShowingQris = false
                     if (hasCameraPermission) {
                         ScanQrisScreen(
                             modifier = modifier,
@@ -110,8 +121,8 @@ fun QrisInitialScreen(
                         )
                     }
                 }
+
                 1 -> {
-                    showConfirmScreenForShowingQris = true
                     if (isConfirmShowQrisPassed) {
                         ShowQrisScreen(
                             modifier = modifier,
@@ -124,6 +135,7 @@ fun QrisInitialScreen(
         }
         PrimaryTabRow(
             selectedTabIndex = selectedTabIndex,
+            modifier = modifier.background(Color.White),
             divider = {},
             indicator = {
                 TabRowDefaults.PrimaryIndicator(
@@ -140,7 +152,16 @@ fun QrisInitialScreen(
             qrisTabItems.forEachIndexed { index, qrisTabItem ->
                 Tab(
                     selected = index == selectedTabIndex,
-                    onClick = { selectedTabIndex = index },
+                    modifier = modifier.background(Color.White),
+                    onClick = {
+                        if (index == 1) {
+                            showConfirmScreenForShowingQris = true
+                            return@Tab
+                        } else {
+                            selectedTabIndex = index
+                        }
+
+                    },
                     text = {
                         Text(
                             text = qrisTabItem.title,
@@ -156,16 +177,50 @@ fun QrisInitialScreen(
     }
 
     if (showConfirmScreenForShowingQris) {
-        ShowQrisConfirmationScreen(
-            modifier = modifier,
-            onConfirm = {
-                isConfirmShowQrisPassed = true
-                showConfirmScreenForShowingQris = false
-            },
-            onCancel = {
-                selectedTabIndex = 0
+        Dialog(
+            onDismissRequest = { showConfirmScreenForShowingQris = false },
+            properties = DialogProperties(
+                usePlatformDefaultWidth = false,
+            )
+        ) {
+            Card(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(0.dp),
+                shape = RoundedCornerShape(0.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.White
+                )
+            ) {
+                Column(
+                    modifier = modifier.fillMaxSize(),
+                ) {
+                    CustomTopAppBarForFeature(
+                        modifier = modifier,
+                        title = {
+                            Image(
+                                painterResource(id = R.drawable.qris_logo_white),
+                                contentDescription = "Qris",
+                                modifier = Modifier
+                                    .size(80.dp)
+                                    .fillMaxWidth(),
+                            )
+                        },
+                        onBackPressed = { showConfirmScreenForShowingQris = false }
+                    )
+                    ShowQrisConfirmationScreen(
+                        modifier = modifier,
+                        onConfirm = {
+                            selectedTabIndex = 1
+                        },
+                        onCancel = {
+                            showConfirmScreenForShowingQris = false
+                        }
+                    )
+                }
             }
-        )
+        }
+
     }
 }
 
