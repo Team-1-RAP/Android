@@ -1,9 +1,6 @@
 package com.team1.simplebank.ui.qris
 
-import android.content.Context
 import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraManager
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,7 +24,6 @@ import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.Panorama
 import androidx.compose.material.icons.outlined.FlashOff
 import androidx.compose.material.icons.outlined.Panorama
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,9 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -53,12 +47,15 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.CustomTonalIconButton
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import java.util.concurrent.Executors
 
-@Preview(showBackground = true)
+
 @Composable
 fun ScanQrisScreen(
     modifier: Modifier = Modifier,
+    onQrCodeScanned: (String) -> Unit,
 ) {
 
     val context = LocalContext.current
@@ -123,7 +120,10 @@ fun ScanQrisScreen(
                         .build()
                         .also {
                             it.setAnalyzer(executor) { imageProxy ->
-                                processImageProxy(imageProxy)
+                                processImageProxy(
+                                    imageProxy,
+                                    onQrCodeScanned,
+                                )
                             }
                         }
                     try {
@@ -185,7 +185,10 @@ fun ScanQrisScreen(
 }
 
 @OptIn(ExperimentalGetImage::class)
-private fun processImageProxy(imageProxy: ImageProxy) {
+private fun processImageProxy(
+    imageProxy: ImageProxy,
+    onQrCodeScanned: (String) -> Unit,
+) {
     val mediaImage = imageProxy.image
     if (mediaImage != null) {
         val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
@@ -195,12 +198,31 @@ private fun processImageProxy(imageProxy: ImageProxy) {
         val scanner = BarcodeScanning.getClient(option)
         scanner.process(image)
             .addOnSuccessListener { barcodes ->
-                for (barcode in barcodes) {
-                    barcode.rawValue?.let {
-                        //TODO : Handle the QR code value
+                //TODO : has bug > called more than once
+//                for (barcode in barcodes) {
+//                    barcode.rawValue?.let {
+//                        println("QR Code Value: $it")
+//                        if (it.startsWith("http") || it.contains("/")) {
+//                            val value = URLEncoder.encode(it, StandardCharsets.UTF_8.toString())
+//                            onQrCodeScanned(value)
+//                        } else {
+//                            onQrCodeScanned(it)
+//                        }
+//                    }
+//                }
+                if (barcodes.isNotEmpty()) {
+                    imageProxy.close()
+                    barcodes.first().rawValue?.let {
                         println("QR Code Value: $it")
+                        if (it.startsWith("http") || it.contains("/")) {
+                            val value = URLEncoder.encode(it, StandardCharsets.UTF_8.toString())
+                            onQrCodeScanned(value)
+                        } else {
+                            onQrCodeScanned(it)
+                        }
                     }
                 }
+
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()

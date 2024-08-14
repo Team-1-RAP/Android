@@ -39,6 +39,7 @@ fun TextFieldComponent(
     modifier: Modifier = Modifier,
     placeholder: String,
     textValue: String,
+    isCommonInputFields: Boolean = false,
     onValueChange: (String) -> Unit,
     isPassword: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -49,15 +50,27 @@ fun TextFieldComponent(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 8.dp),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.White,
-            unfocusedContainerColor = Color.White,
-            focusedTextColor = Blue,
-            unfocusedTextColor = LightBlue,
-            cursorColor = Blue,
-            focusedBorderColor = BlueNormal,
-            unfocusedBorderColor = BlueNormal,
-        ),
+        colors = if (isCommonInputFields) {
+            OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedBorderColor = Color.Black,
+                unfocusedBorderColor = Color.Gray,
+            )
+        } else {
+            OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedTextColor = Blue,
+                unfocusedTextColor = LightBlue,
+                cursorColor = Blue,
+                focusedBorderColor = BlueNormal,
+                unfocusedBorderColor = BlueNormal,
+            )
+        },
         shape = RoundedCornerShape(16.dp),
         value = textValue,
         onValueChange = { newText ->
@@ -66,7 +79,7 @@ fun TextFieldComponent(
         placeholder = {
             Text(
                 text = placeholder,
-                color = LightBlue,
+                color = if(isCommonInputFields) Color.Gray else LightBlue,
                 fontSize = 16.sp,
                 fontWeight = FontWeight(400)
             )

@@ -43,7 +43,7 @@ fun ButtonComponent(
         }
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .height(32.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,

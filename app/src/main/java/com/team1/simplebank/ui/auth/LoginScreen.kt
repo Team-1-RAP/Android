@@ -95,7 +95,7 @@ fun LoginScreen(
 
             is ResourceState.Error -> {
                 errorMessage =
-                    "${(authData as ResourceState.Error).exception} : Silakan periksa kembali username dan password Anda"
+                    "Silakan periksa kembali username dan password Anda"
                 showErrorSnackbar = true
             }
 

@@ -30,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -44,9 +43,9 @@ data class QrisTabItems(
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-@Preview(showBackground = true)
 fun QrisInitialScreen(
     modifier: Modifier = Modifier,
+    onQrCodeValueObtained: (String) -> Unit,
 ) {
     val qrisTabItems = listOf(
         QrisTabItems("scan kode"),
@@ -61,6 +60,8 @@ fun QrisInitialScreen(
     var showErrorSnackbar by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
     var hasCameraPermission by remember { mutableStateOf(false) }
+    var isConfirmShowQrisPassed by remember { mutableStateOf(false) }
+    var showConfirmScreenForShowingQris by remember { mutableStateOf(false) }
 
     if (showErrorSnackbar) {
         Box(modifier = modifier.fillMaxSize()) {
@@ -92,24 +93,32 @@ fun QrisInitialScreen(
         ) { pageIndex ->
             when (pageIndex) {
                 0 -> {
+                    isConfirmShowQrisPassed = false
+                    showConfirmScreenForShowingQris = false
                     if (hasCameraPermission) {
-                        ScanQrisScreen()
+                        ScanQrisScreen(
+                            modifier = modifier,
+                            onQrCodeScanned = onQrCodeValueObtained
+                        )
                     } else {
                         RequestCameraPermission(
                             onPermissionGranted = { hasCameraPermission = true },
                             onPermissionDenied = {
-                                showErrorSnackbar = true; errorMessage = "Camera permission denied"
+                                showErrorSnackbar = true; errorMessage =
+                                "Anda membutuhkan akses kamera untuk menggunakan fitur ini"
                             }
                         )
                     }
                 }
-
                 1 -> {
-                    ShowQrisScreen(
-                        modifier = modifier,
-                        totalTime = 300,
-                        onCountDownFinished = { selectedTabIndex = 0 }
-                    )
+                    showConfirmScreenForShowingQris = true
+                    if (isConfirmShowQrisPassed) {
+                        ShowQrisScreen(
+                            modifier = modifier,
+                            totalTime = 300,
+                            onCountDownFinished = { selectedTabIndex = 0 }
+                        )
+                    }
                 }
             }
         }
@@ -145,7 +154,21 @@ fun QrisInitialScreen(
             }
         }
     }
+
+    if (showConfirmScreenForShowingQris) {
+        ShowQrisConfirmationScreen(
+            modifier = modifier,
+            onConfirm = {
+                isConfirmShowQrisPassed = true
+                showConfirmScreenForShowingQris = false
+            },
+            onCancel = {
+                selectedTabIndex = 0
+            }
+        )
+    }
 }
+
 
 @Composable
 fun RequestCameraPermission(
@@ -174,3 +197,4 @@ fun RequestCameraPermission(
         }
     }
 }
+
