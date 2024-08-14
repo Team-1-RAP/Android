@@ -192,6 +192,7 @@
         android:layout_marginTop="51dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         android:text="Kembali"
         app:layout_constraintEnd_toStartOf="@id/btn_next"
         app:layout_constraintStart_toStartOf="@id/guideline_start"

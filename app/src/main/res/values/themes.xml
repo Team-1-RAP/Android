@@ -85,4 +85,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TextContent.TitleSuperLarge">
+        <item name="android:textSize">21sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

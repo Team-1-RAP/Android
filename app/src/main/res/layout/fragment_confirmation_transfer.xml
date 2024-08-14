@@ -1,14 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.transfer.ConfirmationTransferFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        tools:context=".ui.transfer.ConfirmationTransferFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="8dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview_confirmation_transfer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="7dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_source_number_account"
+                    style="@style/TextContent.TitleLarge.Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Rekening Sumber"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/icon_username_source_number_account"
+                    style="@style/TextContent.TitleMedium.Bold.Light"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/background_text_rounded_corner"
+                    android:backgroundTint="@color/dark_red"
+                    android:gravity="center"
+                    android:text="A"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_source_number_account" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/transfer_source_account_username"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:maxLines="1"
+                    android:text="Anton Pamungkas"
+                    app:layout_constraintBottom_toTopOf="@id/source_account_number_and_destination_bank"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/icon_username_source_number_account"
+                    app:layout_constraintTop_toTopOf="@+id/icon_username_source_number_account" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/source_account_number_and_destination_bank"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/destination_bank_and_account_number"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_username_source_number_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/transfer_source_account_username"
+                    app:layout_constraintTop_toBottomOf="@id/transfer_source_account_username" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_destination_number_account"
+                    style="@style/TextContent.TitleLarge.Bold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Rekening Tujuan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/icon_username_source_number_account" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/icon_username_destination_number_account"
+                    style="@style/TextContent.TitleMedium.Bold.Light"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/background_text_rounded_corner"
+                    android:backgroundTint="@color/primary_color"
+                    android:gravity="center"
+                    android:text="K"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_destination_number_account" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/transfer_destination_account_username"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:maxLines="1"
+                    android:text="KENDALL JENNER"
+                    app:layout_constraintBottom_toTopOf="@id/destination_account_number_and_destination_bank"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/icon_username_destination_number_account"
+                    app:layout_constraintTop_toTopOf="@+id/icon_username_destination_number_account" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/destination_account_number_and_destination_bank"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/destination_bank_and_account_number"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_username_destination_number_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/transfer_destination_account_username"
+                    app:layout_constraintTop_toBottomOf="@id/transfer_destination_account_username" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_amount_transfer"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Nominal"
+                    app:layout_constraintEnd_toStartOf="@id/amount_transfer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/icon_username_destination_number_account" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/amount_transfer"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/balance_format"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@id/title_amount_transfer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/title_amount_transfer"
+                    app:layout_constraintTop_toTopOf="@id/title_amount_transfer" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_fee_admin"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Biaya Admin"
+                    app:layout_constraintEnd_toStartOf="@id/fee_admin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_amount_transfer" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/fee_admin"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/balance_format"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@id/title_fee_admin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/title_fee_admin"
+                    app:layout_constraintTop_toTopOf="@id/title_fee_admin" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_total_transfer"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Biaya Admin"
+                    app:layout_constraintEnd_toStartOf="@id/total_transfer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_fee_admin" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/total_transfer"
+                    style="@style/TextContent.TitleSuperLarge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/balance_format"
+                    android:textAlignment="textEnd"
+                    app:layout_constraintBottom_toBottomOf="@id/title_total_transfer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/title_total_transfer"
+                    app:layout_constraintTop_toTopOf="@id/title_total_transfer" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/title_description"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Keterangan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_total_transfer" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/transfer_description"
+                    style="@style/TextContent.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="Keterangan Tarnsfer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_description" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title_password_transaction"
+            style="@style/TextContent.TitleMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="48dp"
+            android:text="PIN Transaksi"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/cardview_confirmation_transfer" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_layout_password_transaction"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="5dp"
+            app:boxStrokeColor="@color/box_stroke_color"
+            app:boxStrokeWidth="2dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/title_password_transaction"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_password_transaction"
+                style="@style/TextContent.TitleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawablePadding="10dp"
+                android:hint="Masukkan PIN" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save_account_number"
+            style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
+            android:layout_width="141dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="50dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Kembali"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_transfer"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/text_layout_password_transaction"
+            app:layout_constraintTop_toBottomOf="@id/text_layout_password_transaction"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+            app:strokeColor="@color/primary_color"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_transfer"
+            style="@style/TextContent.TitleMedium.Bold.Light"
+            android:layout_width="141dp"
+            android:layout_height="41dp"
+            android:backgroundTint="@color/primary_color"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Transfer"
+            app:layout_constraintEnd_toEndOf="@+id/text_layout_password_transaction"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/btn_save_account_number"
+            app:layout_constraintTop_toTopOf="@id/btn_save_account_number"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+            app:strokeColor="@color/primary_color"
+            app:strokeWidth="1dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+
