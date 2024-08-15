@@ -20,8 +20,14 @@ class MenuBerandaAdapter(private val listItem: List<Menu>, val clickListener: (M
         fun bind(data: Menu) {
             binding.iconItem.setImageResource(data.image)
             binding.textIcon.text = data.title
-            binding.root.setOnClickListener {
-                clickListener(data)
+
+            with(binding){
+                root.setOnClickListener {
+                    clickListener(data)
+                }
+                iconItem.setOnClickListener {
+                    clickListener(data)
+                }
             }
         }
     }
