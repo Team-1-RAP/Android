@@ -15,7 +15,7 @@ android {
     defaultConfig {
         minSdk = 26
 
-        buildConfigField("String", "BASE_URL", "\"https://simplebank-stg.koyeb.app/api/\"",)
+        buildConfigField("String", "BASE_URL", "\"https://simplebank.my.id/\"",)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -69,10 +69,16 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     kapt(libs.androidx.hilt.compiler)
 
+
+    //paging
+    implementation(libs.androidx.paging)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 }

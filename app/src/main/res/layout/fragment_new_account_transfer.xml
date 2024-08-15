@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.transfer.NewAccountTransferFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/spinner_list_account_number"
+        style="@style/TextContent.TitleMedium.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_color"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title_choose_destination_bank"
+        style="@style/TextContent.TitleMedium"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Pilih Bank Tujuan"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/spinner_list_account_number" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_destination_bank"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/title_choose_destination_bank"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_destination_bank"
+            style="@style/TextContent.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/destination_bank_icon"
+            android:drawablePadding="10dp"
+            android:hint="Pilih Bank" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title_choose_destination_number_account"
+        style="@style/TextContent.TitleMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="18dp"
+        android:text="Masukkan Rekening Tujuan"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/text_layout_destination_bank" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_destination_number_account"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/title_choose_destination_number_account"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_transfer_total_amount"
+            style="@style/TextContent.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/destination_account_number_icon"
+            android:drawablePadding="10dp"
+            android:hint="12345678" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/transfer_information_title"
+        style="@style/TextContent.TitleMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Keterangan"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/text_layout_destination_number_account" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_layout_transfer_information"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/transfer_information_title"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_transfer_information"
+            style="@style/TextContent.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="10dp"
+            android:hint="Keterangan" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_account_number"
+        style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
+        android:layout_width="141dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="51dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Simpan Rek."
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintEnd_toStartOf="@id/btn_next"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/text_layout_transfer_information"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:strokeColor="@color/primary_color"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_next"
+        style="@style/TextContent.TitleMedium.Bold.Light"
+        android:layout_width="141dp"
+        android:layout_height="41dp"
+        android:backgroundTint="@color/primary_color"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Selanjutnya"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/btn_save_account_number"
+        app:layout_constraintTop_toTopOf="@id/btn_save_account_number"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+        app:strokeColor="@color/primary_color"
+        app:strokeWidth="1dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
