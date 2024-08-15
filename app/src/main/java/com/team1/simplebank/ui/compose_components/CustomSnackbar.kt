@@ -41,18 +41,13 @@ fun CustomSnackbar(
         modifier = modifier.semantics { contentDescription = "Notif salah $message"},
         containerColor = RedError,
         contentColor = Color.White,
-        shape = RoundedCornerShape(
-            topStart = 0.dp,
-            topEnd = 0.dp,
-            bottomStart = 16.dp,
-            bottomEnd = 16.dp
-        ),
+        shape = RoundedCornerShape(0.dp),
         content = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                    .padding(16.dp),
                 horizontalArrangement = Arrangement.Start,
             ) {
                 Icon(
