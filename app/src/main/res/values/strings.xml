@@ -84,6 +84,8 @@
     <string name="choose_e_wallet">Pilih E Wallet</string>
     <string name="enter_number_account_title">Masukkan Nomor</string>
     <string name="enter_number_account">Nomor Rekening</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
