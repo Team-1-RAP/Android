@@ -60,16 +60,16 @@ jwtdecode = { module = "com.auth0.android:jwtdecode", version.ref = "jwtdecode" 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-androidx-fragment = {group="androidx.fragment", name="fragment-ktx",version.ref="fragment_version"}
-androidx-navigation-fragment = {group="androidx.navigation",name="navigation-fragment",version.ref="nav_version"}
-androidx-navigation-ui = {group="androidx.navigation",name="navigation-ui-ktx",version.ref="nav_version"}
-androidx-navigation-dynamic = {group="androidx.navigation",name="navigation-dynamic-features-fragment",version.ref="nav_version"}
-androidx-navigation-testing = {group="androidx.navigation",name="navigation-testing",version.ref="nav_version"}
-androidx-navigation-compose = {group="androidx.navigation",name="navigation-compose",version.ref="nav_version"}
-androidx-lifecycle-viewmodel = {group="androidx.lifecycle",name="lifecycle-viewmodel-ktx",version.ref="lifecycle_viewmodel"}
+androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment_version" }
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "nav_version" }
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav_version" }
+androidx-navigation-dynamic = { group = "androidx.navigation", name = "navigation-dynamic-features-fragment", version.ref = "nav_version" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "nav_version" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav_version" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle_viewmodel" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
-androidx-recyclerview = {group="androidx.recyclerview",name="recyclerview",version.ref="recyclerview"}
-androidx-recyclerview-selection = {group="androidx.recyclerview",name="recyclerview-selection",version.ref="recyclerview_selection"}
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+androidx-recyclerview-selection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerview_selection" }
 
 ### compose ###
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -98,23 +98,25 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 ### coroutines ###
-coroutines_android = {group="org.jetbrains.kotlinx",name="kotlinx-coroutines-android",version.ref = "coroutines_version"}
-coroutines_test = {group="org.jetbrains.kotlinx",name="kotlinx-coroutines-test",version.ref = "coroutines_version"}
+coroutines_android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines_version" }
+coroutines_test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines_version" }
 
 
 androidx-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 androidx-roomCompilerKsp = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 androidx-roomCoroutines = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
-mocK = {group="org.mockito.kotlin",name="mockito-kotlin",version.ref="mocK"}
-arch-testing = {group="androidx.arch.core",name="core-testing",version.ref="arch"}
-coil = {group="io.coil-kt",name="coil",version.ref = "coil"}
-android-material = {group="com.google.android.material",name="material",version.ref="android_material"}
-android-material-two = {group="com.google.android.material",name="material",version.ref="android_material"}
+mocK = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mocK" }
+arch-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "arch" }
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "android_material" }
+android-material-two = { group = "com.google.android.material", name = "material", version.ref = "android_material" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationFragmentKtx" }
+androidx-navigation-dynamic-features = { group = "androidx.navigation", name = "navigation-dynamic-features-fragment", version.ref = "navigationFragmentKtx" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
-androidx-paging = {group="androidx.paging",name="paging-runtime-ktx",version.ref="pagingRuntimeKtx"}
+androidx-paging = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
