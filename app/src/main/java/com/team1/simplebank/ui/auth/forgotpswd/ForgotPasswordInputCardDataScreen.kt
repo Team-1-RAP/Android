@@ -53,13 +53,13 @@ fun ForgotPasswordInputDataScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Color.White)
+            .verticalScroll(rememberScrollState())
     ) {
         ForgotPasswordTopDecoration()
         Column(
             modifier = modifier
                 .padding(vertical = 16.dp, horizontal = 16.dp)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = modifier.height(8.dp))
             Image(

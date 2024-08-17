@@ -34,7 +34,7 @@ fun SimpleBankCardComponent(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(240.dp),
+            .height(200.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
         Box(

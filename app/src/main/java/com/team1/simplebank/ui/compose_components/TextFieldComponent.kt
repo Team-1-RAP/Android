@@ -114,6 +114,8 @@ fun TextFieldComponent(
                         tint = BlueNormal,
                     )
                 }
+            } else {
+                // No trailing icon for non-password fields
             }
         }
     )

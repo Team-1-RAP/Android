@@ -14,6 +14,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.team1.simplebank.common.constants.ScreenRoute
 import com.team1.simplebank.ui.auth.LoginScreen
+import com.team1.simplebank.ui.auth.forgotpswd.ForgotPasswordInputBirthDateScreen
 import com.team1.simplebank.ui.auth.forgotpswd.ForgotPasswordInputDataScreen
 import com.team1.simplebank.ui.compose_components.CustomTopAppBarForAuth
 
@@ -59,7 +60,7 @@ fun AuthNavigation(
                 )
             }
             composable(ScreenRoute.ForgotPwInputBirthDate.route){
-
+                ForgotPasswordInputBirthDateScreen()
             }
         }
     }
