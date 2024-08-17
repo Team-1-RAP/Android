@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.team1.simplebank.R
+import com.team1.simplebank.navigations.AuthNavigation
 import com.team1.simplebank.ui.auth.LoginScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +27,7 @@ class WelcomeActivity : AppCompatActivity() {
 
         val composeView = findViewById<ComposeView>(R.id.composeView)
         composeView.setContent {
-            LoginScreen()
+            AuthNavigation()
         }
 
     }

@@ -2,6 +2,7 @@ package com.team1.simplebank.ui.auth
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
@@ -27,8 +28,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -63,10 +64,9 @@ import com.team1.simplebank.ui.compose_components.OnBoardDecoration
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
+    onForgotPasswordButtonClicked: () -> Unit = {},
 ) {
     val context = LocalContext.current
     var username by remember { mutableStateOf("") }
@@ -95,7 +95,8 @@ fun LoginScreen(
             }
 
             is ResourceState.Error -> {
-                errorMessage = "${(authData as ResourceState.Error).exception} : Silakan periksa kembali username dan password Anda"
+                errorMessage =
+                    "Silakan periksa kembali username dan password Anda"
                 showErrorSnackbar = true
             }
 
@@ -176,18 +177,26 @@ fun LoginScreen(
                             )
                         }
                     )
-                    Text(
-                        text = "Lupa Password?",
-                        color = BlueNormal,
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight(600),
-                        ),
+
+                    TextButton(
+                        onClick = {
+                            onForgotPasswordButtonClicked()
+                        },
                         modifier = Modifier
                             .align(Alignment.End)
                             .padding(vertical = 16.dp)
                             .semantics { contentDescription = "lupa password" }
-                    )
+                    ) {
+
+                        Text(
+                            text = "Lupa Password?",
+                            color = BlueNormal,
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight(600),
+                            ),
+                        )
+                    }
                     HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = BlueNormal)
                     Spacer(modifier = Modifier.height(120.dp))
                     Row(
