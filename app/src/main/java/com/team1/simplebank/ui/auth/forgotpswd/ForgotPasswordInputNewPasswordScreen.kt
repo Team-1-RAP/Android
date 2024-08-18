@@ -4,23 +4,22 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -31,18 +30,27 @@ import androidx.compose.ui.unit.sp
 import com.team1.simplebank.R
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.ButtonComponent
+import com.team1.simplebank.ui.compose_components.CustomSnackbar
 import com.team1.simplebank.ui.compose_components.ForgotPasswordTopDecoration
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
 @Composable
-fun ForgotPasswordInputBirthDateScreen(
+fun ForgotPasswordInputNewPasswordScreen(
     modifier: Modifier = Modifier,
-    onNavigateToInputEmail: () -> Unit,
-) {
+    // INPUT PIN DIBUAT POP UP YAH!
+    onChangePasswordSuccess : () -> Unit,
+){
+    var newPassword by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf("") }
+    var showErrorSnackbar by remember { mutableStateOf(false) }
 
-    var tanggalLahir by remember { mutableStateOf("") }
-    var bulanLahir by remember { mutableStateOf("") }
-    var tahunLahir by remember { mutableStateOf("") }
+    LaunchedEffect(confirmPassword) {
+        if (newPassword != confirmPassword) {
+            errorMessage = "Password tidak sama"
+            showErrorSnackbar = true
+        }
+    }
 
     Box(
         modifier = modifier
@@ -65,7 +73,7 @@ fun ForgotPasswordInputBirthDateScreen(
             )
             Spacer(modifier = modifier.height(16.dp))
             Text(
-                text = "Tanggal Lahir Anda",
+                text = "Buat Password",
                 color = BlueNormal,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
@@ -73,47 +81,48 @@ fun ForgotPasswordInputBirthDateScreen(
                     .padding(bottom = 16.dp)
             )
             Text(
-                text = "Masukan tanggal lahir untuk mengonfirmasi identitas Anda.",
+                text = "Buat password baru yang belum pernah digunakan dan sesuai dengan ketentuan",
                 modifier = modifier.padding(top = 16.dp, bottom = 8.dp),
                 fontSize = 16.sp
             )
-            Row(
-                modifier = modifier
-                    .fillMaxWidth(),
-            ) {
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "DD",
-                    textValue = tanggalLahir,
-                    onValueChange = { tanggalLahir = it },
-                    isCommonInputFields = true,
-                )
-                Spacer(modifier = modifier.width(8.dp))
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "MM",
-                    textValue = bulanLahir,
-                    onValueChange = { bulanLahir = it },
-                    isCommonInputFields = true,
-                )
-                Spacer(modifier = modifier.width(8.dp))
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "YYYY",
-                    textValue = tahunLahir,
-                    onValueChange = { tahunLahir = it },
-                    isCommonInputFields = true,
-                )
-            }
+            TextFieldComponent(
+                placeholder = "Password Baru",
+                textValue = newPassword,
+                onValueChange = { newPassword = it },
+                isCommonInputFields = true,
+                isPassword = true,
+            )
+            Spacer(modifier = modifier.height(8.dp))
+            TextFieldComponent(
+                placeholder = "Konfirmasi Password",
+                textValue = confirmPassword,
+                onValueChange = { confirmPassword = it },
+                isCommonInputFields = true,
+                isPassword = true,
+            )
             Spacer(modifier = modifier.weight(1f))
+        }
+        Column (
+            modifier = modifier
+                .align(Alignment.BottomCenter)
+        ){
             ButtonComponent(
-                onClick = { onNavigateToInputEmail() },
-                label = "Selanjutnya",
+                onClick = { onChangePasswordSuccess() },
+                label = "Simpan",
                 buttonColor = ButtonDefaults.buttonColors(
                     containerColor = BlueNormal,
                     contentColor = Color.White
-                )
+                ),
+                modifier = modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
             )
+            if (showErrorSnackbar){
+                CustomSnackbar(
+                    message = errorMessage,
+                    onDismiss = { showErrorSnackbar = false },
+                    duration = 500
+                )
+            }
         }
     }
+
 }

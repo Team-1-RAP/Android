@@ -2,6 +2,7 @@ package com.team1.simplebank.ui.auth.forgotpswd
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,16 +12,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -29,20 +31,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.team1.simplebank.R
+import com.team1.simplebank.colors_for_composable.Blue
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.ButtonComponent
 import com.team1.simplebank.ui.compose_components.ForgotPasswordTopDecoration
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
 @Composable
-fun ForgotPasswordInputBirthDateScreen(
+fun ForgotPasswordInputOtpCodeScreen(
     modifier: Modifier = Modifier,
-    onNavigateToInputEmail: () -> Unit,
+    email: String,
+    onNavigateToInputNewPassword: () -> Unit,
 ) {
 
-    var tanggalLahir by remember { mutableStateOf("") }
-    var bulanLahir by remember { mutableStateOf("") }
-    var tahunLahir by remember { mutableStateOf("") }
+    var otpCode by remember { mutableStateOf("") }
 
     Box(
         modifier = modifier
@@ -65,7 +67,7 @@ fun ForgotPasswordInputBirthDateScreen(
             )
             Spacer(modifier = modifier.height(16.dp))
             Text(
-                text = "Tanggal Lahir Anda",
+                text = "Masukkan kode OTP",
                 color = BlueNormal,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
@@ -73,41 +75,37 @@ fun ForgotPasswordInputBirthDateScreen(
                     .padding(bottom = 16.dp)
             )
             Text(
-                text = "Masukan tanggal lahir untuk mengonfirmasi identitas Anda.",
+                text = "Masukan kode OTP yang telah dikirimkan melalui Email ke ${email}",
                 modifier = modifier.padding(top = 16.dp, bottom = 8.dp),
                 fontSize = 16.sp
             )
-            Row(
-                modifier = modifier
-                    .fillMaxWidth(),
-            ) {
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "DD",
-                    textValue = tanggalLahir,
-                    onValueChange = { tanggalLahir = it },
-                    isCommonInputFields = true,
-                )
-                Spacer(modifier = modifier.width(8.dp))
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "MM",
-                    textValue = bulanLahir,
-                    onValueChange = { bulanLahir = it },
-                    isCommonInputFields = true,
-                )
-                Spacer(modifier = modifier.width(8.dp))
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "YYYY",
-                    textValue = tahunLahir,
-                    onValueChange = { tahunLahir = it },
-                    isCommonInputFields = true,
-                )
-            }
+            TextFieldComponent(
+                placeholder = "Kode OTP",
+                textValue = otpCode,
+                onValueChange = { otpCode = it },
+                isCommonInputFields = true,
+            )
+
             Spacer(modifier = modifier.weight(1f))
+            Row (
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier.fillMaxWidth().padding(bottom = 8.dp)
+            ) {
+                Text (
+                    text = "Belum menerima kode?",
+                )
+                TextButton(
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = Blue
+                    )
+                ) {
+                    Text(text = "Klik ini")
+                }
+            }
             ButtonComponent(
-                onClick = { onNavigateToInputEmail() },
+                onClick = { onNavigateToInputNewPassword() },
                 label = "Selanjutnya",
                 buttonColor = ButtonDefaults.buttonColors(
                     containerColor = BlueNormal,
