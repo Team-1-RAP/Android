@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
@@ -88,7 +89,7 @@ fun ForgotPasswordInputBirthDateScreen(
                     onValueChange = { tanggalLahir = it },
                     isCommonInputFields = true,
                 )
-                Spacer(modifier = modifier.weight(0.05f))
+                Spacer(modifier = modifier.width(8.dp))
                 TextFieldComponent(
                     modifier = modifier.weight(0.3f),
                     placeholder = "MM",
@@ -96,7 +97,7 @@ fun ForgotPasswordInputBirthDateScreen(
                     onValueChange = { bulanLahir = it },
                     isCommonInputFields = true,
                 )
-                Spacer(modifier = modifier.weight(0.05f))
+                Spacer(modifier = modifier.width(8.dp))
                 TextFieldComponent(
                     modifier = modifier.weight(0.3f),
                     placeholder = "YYYY",

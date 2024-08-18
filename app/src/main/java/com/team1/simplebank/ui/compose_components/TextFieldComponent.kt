@@ -80,7 +80,7 @@ fun TextFieldComponent(
             Text(
                 text = placeholder,
                 color = if(isCommonInputFields) Color.Gray else LightBlue,
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 fontWeight = FontWeight(400)
             )
         },
@@ -114,6 +114,8 @@ fun TextFieldComponent(
                         tint = BlueNormal,
                     )
                 }
+            } else {
+                // No trailing icon for non-password fields
             }
         }
     )

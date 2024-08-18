@@ -1,7 +1,9 @@
 package com.team1.simplebank.ui.compose_components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -18,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.team1.simplebank.R
+import com.team1.simplebank.colors_for_composable.Blue
 
 
 @Composable
@@ -34,8 +37,8 @@ fun CustomTopAppBarForAuth(
             painter = painterResource(id = R.drawable.forgotpw_topappbar_bg),
             contentDescription = null,
             modifier = modifier
-                .fillMaxWidth(),
-            contentScale = ContentScale.FillWidth
+                .fillMaxSize(),
+            contentScale = ContentScale.FillBounds
         )
         IconButton(
             onClick = { onBackPressed() },

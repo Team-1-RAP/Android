@@ -69,7 +69,7 @@ fun QrisFeatureNavigation(
                 QrisInitialScreen(
                     modifier = modifier,
                     onQrCodeValueObtained = { qrValue ->
-                        navController.navigate(ScreenRoute.ScanQrisConfrimTransaction.createRoute(qrValue))
+                        navController.navigate(ScreenRoute.ScanQrisConfrimTransaction.createRoute(qrValue)){launchSingleTop = true}
                     },
 
                 )
