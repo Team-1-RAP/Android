@@ -4,13 +4,12 @@ sealed class ScreenRoute (
     var route: String,
 ){
     data object QrisScan: ScreenRoute("qris_scan")
-    data object ScanQrisConfrimTransaction: ScreenRoute("qris_scan/{qrValue}"){
+    data object ScanQrisConfrimPaymentTransaction: ScreenRoute("qris_scan/{qrValue}"){
         fun createRoute(qrValue: String) = "qris_scan/${qrValue}"
     }
-    data object ShowQrisConfirmationScreen : ScreenRoute("qris_show_confirmation")
-    data object ShowQrisCodeScreen : ScreenRoute("qris_show_confirmation/{isConfirmed}"){
-        fun createRoute(isConfirmed: Boolean) = "qris_show_confirmation/${isConfirmed}"
+    data object ScanQrisConfrimReceivePaymentTransaction: ScreenRoute("qris_scan_receive/{qrValue}"){
+        fun createRoute(qrValue: String) = "qris_scan_receive/${qrValue}"
     }
-    data object QrisTransactionResult: ScreenRoute("qris_transacrion_result")
+    data object QrisTransactionSuccess: ScreenRoute("qris_transaction_success")
 
 }

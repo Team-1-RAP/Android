@@ -177,7 +177,7 @@ fun ScanQrisScreen(
                 )
                 camera.cameraControl.enableTorch(isButtonFlashActive)
             },
-            talkBackLabel = "ambil dari galeri",
+            talkBackLabel = "flash",
             containerColor = if (isButtonFlashActive) BlueNormal else Color.White,
             contentColor = if (isButtonFlashActive) Color.White else BlueNormal
         )

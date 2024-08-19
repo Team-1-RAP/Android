@@ -32,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,7 +54,9 @@ data class QrisTabItems(
 @Composable
 fun QrisInitialScreen(
     modifier: Modifier = Modifier,
-    onQrCodeValueObtained: (String) -> Unit,
+    onQrPaymentCodeValueObtained: (String) -> Unit,
+    onQrReceivePaymentCodeValueObtained: (String) -> Unit,
+    onSuccess: () -> Unit = {},
 ) {
     val qrisTabItems = listOf(
         QrisTabItems("scan kode"),
@@ -102,7 +106,11 @@ fun QrisInitialScreen(
                     if (hasCameraPermission) {
                         ScanQrisScreen(
                             modifier = modifier,
-                            onQrCodeScanned = onQrCodeValueObtained
+                            onQrCodeScanned = {
+                                // if blablabla
+                                onQrPaymentCodeValueObtained(it)
+                                //onQrReceivePaymentCodeValueObtained(it)
+                            }
                         )
                     } else {
                         RequestCameraPermission(
@@ -120,7 +128,8 @@ fun QrisInitialScreen(
                         ShowQrisScreen(
                             modifier = modifier,
                             totalTime = 300,
-                            onCountDownFinished = { selectedTabIndex = 0 }
+                            onCountDownFinished = { selectedTabIndex = 0 },
+                            onSuccess = { onSuccess() }
                         )
                     }
                 }
@@ -145,7 +154,9 @@ fun QrisInitialScreen(
             qrisTabItems.forEachIndexed { index, qrisTabItem ->
                 Tab(
                     selected = index == selectedTabIndex,
-                    modifier = modifier.background(Color.White),
+                    modifier = modifier.background(Color.White).semantics { contentDescription =
+                        qrisTabItem.title
+                    },
                     onClick = {
                         if (index == 1) {
                             showConfirmScreenForShowingQris = true
