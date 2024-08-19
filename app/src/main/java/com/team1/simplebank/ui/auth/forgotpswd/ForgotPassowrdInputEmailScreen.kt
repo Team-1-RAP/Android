@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -77,15 +78,15 @@ fun ForgotPasswordInputEmailScreen(
                 isCommonInputFields = true,
             )
 
-            Spacer(modifier = modifier.weight(1f))
-            ButtonComponent(
-                onClick = { onNavigateToInputOtpCode(email) },
-                label = "Selanjutnya",
-                buttonColor = ButtonDefaults.buttonColors(
-                    containerColor = BlueNormal,
-                    contentColor = Color.White
-                )
-            )
         }
+        ButtonComponent(
+            onClick = { onNavigateToInputOtpCode(email) },
+            label = "Selanjutnya",
+            buttonColor = ButtonDefaults.buttonColors(
+                containerColor = BlueNormal,
+                contentColor = Color.White
+            ),
+            modifier = modifier.align(Alignment.BottomCenter).padding(vertical = 32.dp, horizontal = 16.dp)
+        )
     }
 }

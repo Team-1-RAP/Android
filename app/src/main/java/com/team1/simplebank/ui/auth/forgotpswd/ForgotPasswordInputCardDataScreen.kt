@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -63,11 +64,12 @@ fun ForgotPasswordInputDataScreen(
         ) {
             Spacer(modifier = modifier.height(8.dp))
             Image(
-                painter = painterResource(id = R.drawable.logo),
+                painter = painterResource(id = R.drawable.simple_bank_logo_no_banner_name),
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .size(132.dp)
+                    .size(80.dp)
             )
+            Spacer(modifier = modifier.height(24.dp))
             Text(
                 text = " Masukkan data kartu",
                 color = BlueNormal,
@@ -113,15 +115,15 @@ fun ForgotPasswordInputDataScreen(
                     isCommonInputFields = true,
                 )
             }
-            Spacer(modifier = modifier.height(56.dp))
-            ButtonComponent(
-                onClick = { onNavigateToInputBirthDate() },
-                label = "Selanjutnya",
-                buttonColor = ButtonDefaults.buttonColors(
-                    containerColor = BlueNormal,
-                    contentColor = Color.White
-                )
-            )
         }
+        ButtonComponent(
+            onClick = { onNavigateToInputBirthDate() },
+            label = "Selanjutnya",
+            buttonColor = ButtonDefaults.buttonColors(
+                containerColor = BlueNormal,
+                contentColor = Color.White
+            ),
+            modifier = modifier.align(Alignment.BottomCenter).padding(vertical = 32.dp, horizontal = 16.dp)
+        )
     }
 }

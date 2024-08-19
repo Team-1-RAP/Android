@@ -78,7 +78,7 @@ fun ForgotPasswordConfirmationSuccessScreen(
                 contentColor = Color.White
             ),
             modifier = modifier
-                .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                .padding(start = 16.dp, end = 16.dp, bottom = 32.dp)
                 .align(Alignment.BottomCenter)
         )
 

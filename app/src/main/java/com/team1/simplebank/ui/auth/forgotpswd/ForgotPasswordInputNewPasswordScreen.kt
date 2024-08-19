@@ -113,7 +113,7 @@ fun ForgotPasswordInputNewPasswordScreen(
                     containerColor = BlueNormal,
                     contentColor = Color.White
                 ),
-                modifier = modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                modifier = modifier.padding(vertical = 32.dp, horizontal = 16.dp)
             )
             if (showErrorSnackbar){
                 CustomSnackbar(

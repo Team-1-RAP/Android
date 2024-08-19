@@ -90,7 +90,7 @@ fun ForgotPasswordInputOtpCodeScreen(
             Row (
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = modifier.fillMaxWidth().padding(bottom = 8.dp)
+                modifier = modifier.fillMaxWidth()
             ) {
                 Text (
                     text = "Belum menerima kode?",
@@ -110,7 +110,8 @@ fun ForgotPasswordInputOtpCodeScreen(
                 buttonColor = ButtonDefaults.buttonColors(
                     containerColor = BlueNormal,
                     contentColor = Color.White
-                )
+                ),
+                modifier = modifier.padding(bottom = 24.dp)
             )
         }
     }
