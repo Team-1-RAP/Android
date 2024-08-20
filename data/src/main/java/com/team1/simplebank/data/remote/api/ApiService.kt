@@ -1,5 +1,8 @@
 package com.team1.simplebank.data.remote.api
 
+import com.team1.simplebank.data.remote.request.ConfirmQrisMerchantRequest
+import com.team1.simplebank.data.remote.request.ConfirmQrisReceiveFundsRequest
+import com.team1.simplebank.data.remote.request.GenerateQrisCodeRequest
 import com.team1.simplebank.data.remote.request.LoginRequest
 import com.team1.simplebank.data.remote.response.AccountResponse
 import com.team1.simplebank.data.remote.response.GetAmountsMutation
@@ -35,5 +38,31 @@ interface ApiService {
     suspend fun getMutationsAmount(
         @Path("noAccount") noAccount: String,
     ): GetAmountsMutation
+
+    // QRIS
+    @GET("v1/qris/scan-qris/{qrCode}")
+    suspend fun scanQris(
+        @Path("qrCode") qrCode: String
+    )
+
+    @GET("v1/qris/validate-qr-code/{qrCode}")
+    suspend fun getQrisStatus(
+        @Path("qrCode") qrCode: String
+    )
+
+    @POST("v1/qris/confirm-qris-merchant")
+    suspend fun confirmQrisMerhant(
+        @Body request : ConfirmQrisMerchantRequest
+    )
+
+    @POST("v1/qris/confirm-qris-receives")
+    suspend fun confirmQrisReceivesFUnds(
+        @Body request : ConfirmQrisReceiveFundsRequest
+    )
+
+    @POST("v1/qris/generate-qr-code")
+    suspend fun generateQrisCode(
+        @Body request : GenerateQrisCodeRequest
+    )
 
 }
