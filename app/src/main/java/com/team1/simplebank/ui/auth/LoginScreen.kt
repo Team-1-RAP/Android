@@ -2,6 +2,7 @@ package com.team1.simplebank.ui.auth
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
@@ -28,6 +29,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -62,10 +64,9 @@ import com.team1.simplebank.ui.compose_components.OnBoardDecoration
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
+    onForgotPasswordButtonClicked: () -> Unit = {},
 ) {
     val context = LocalContext.current
     var username by remember { mutableStateOf("") }
@@ -106,76 +107,84 @@ fun LoginScreen(
     if (authData is ResourceState.Loading) {
         LoadingScreen()
     } else {
-        Scaffold(
-            modifier = Modifier.fillMaxSize()
-        ) { paddingValues ->
-            GradientBackground(
+        GradientBackground(
+            modifier = Modifier
+                .fillMaxSize(),
+            startColor = Color.White,
+            endColor = Color.White
+        ) {
+            OnBoardDecoration()
+            Column(
+                verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .fillMaxSize(),
-                startColor = Color.White,
-                endColor = Color.White
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
-                OnBoardDecoration()
-                Column(
-                    verticalArrangement = Arrangement.Center,
+                Spacer(modifier = Modifier.height(64.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
-                        .padding(horizontal = 24.dp)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.logo),
-                        contentDescription = "Logo",
-                        modifier = Modifier
-                            .size(140.dp)
-                            .background(Color.Transparent)
-                            .align(Alignment.CenterHorizontally)
+                        .size(140.dp)
+                        .background(Color.Transparent)
+                        .align(Alignment.CenterHorizontally)
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = "LOGIN akun Simple Bankmu",
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                        .semantics { contentDescription = "login akun simple bankmu" },
+                    color = BlueNormal,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(500),
                     )
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Text(
-                        text = "LOGIN akun Simple Bankmu",
-                        modifier = Modifier
-                            .padding(bottom = 8.dp)
-                            .semantics { contentDescription = "login akun simple bankmu" },
-                        color = BlueNormal,
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight(500),
+                )
+                TextFieldComponent(
+                    modifier = Modifier
+                        .focusable()
+                        .semantics { contentDescription = "username" },
+                    placeholder = "Username",
+                    textValue = username,
+                    onValueChange = { username = it },
+                    isPassword = false,
+                    leadingIcon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.user_icon),
+                            contentDescription = "User Icon",
+                            modifier = Modifier.size(24.dp)
                         )
-                    )
-                    TextFieldComponent(
-                        modifier = Modifier
-                            .focusable()
-                            .semantics { contentDescription = "username" },
-                        placeholder = "Username",
-                        textValue = username,
-                        onValueChange = { username = it },
-                        isPassword = false,
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(id = R.drawable.user_icon),
-                                contentDescription = "User Icon",
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                    )
-                    TextFieldComponent(
-                        modifier = Modifier
-                            .focusable()
-                            .semantics { contentDescription = "password" },
-                        placeholder = "Password",
-                        textValue = password,
-                        onValueChange = { password = it },
-                        isPassword = true,
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(id = R.drawable.password_icon),
-                                contentDescription = "Password Icon",
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                    )
+                    }
+                )
+                TextFieldComponent(
+                    modifier = Modifier
+                        .focusable()
+                        .semantics { contentDescription = "password" },
+                    placeholder = "Password",
+                    textValue = password,
+                    onValueChange = { password = it },
+                    isPassword = true,
+                    leadingIcon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.password_icon),
+                            contentDescription = "Password Icon",
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                )
+
+                TextButton(
+                    onClick = {
+                        onForgotPasswordButtonClicked()
+                    },
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(vertical = 16.dp)
+                        .semantics { contentDescription = "lupa password" }
+                ) {
+
                     Text(
                         text = "Lupa Password?",
                         color = BlueNormal,
@@ -183,77 +192,73 @@ fun LoginScreen(
                             fontSize = 16.sp,
                             fontWeight = FontWeight(600),
                         ),
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(vertical = 16.dp)
-                            .semantics { contentDescription = "lupa password" }
                     )
-                    HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = BlueNormal)
-                    Spacer(modifier = Modifier.height(120.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        ButtonComponent(
-                            onClick = {
-                                if (username.isNotEmpty() && password.isNotEmpty()) {
-                                    login(username, password)
-                                } else {
-                                    showErrorSnackbar = true
-                                    errorMessage = "Username dan password tidak boleh kosong"
-                                }
-                            },
-                            label = "Login",
-                            buttonColor = ButtonDefaults.buttonColors(
-                                containerColor = BlueNormal,
-                                contentColor = Color.White
-                            ),
-                            modifier = Modifier
-                                .fillMaxWidth(fraction = 0.5f)
-                                .semantics { contentDescription = "Tombol Login" }
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        ButtonComponent(
-                            onClick = { showBiometricLoginBottomSheet = true },
-                            label = "Biometrik",
-                            buttonColor = ButtonDefaults.buttonColors(
-                                containerColor = Color.White,
-                                contentColor = BlueNormal,
-                            ),
-                            isBordered = true,
-                            modifier = Modifier.semantics {
-                                contentDescription = "Tombol login biometrik"
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.Fingerprint,
-                                    contentDescription = "Fingerprint Icon",
-                                    modifier = Modifier
-                                        .size(24.dp)
-                                        .fillMaxWidth(fraction = 0.5f),
-                                )
+                }
+                HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = BlueNormal)
+                Spacer(modifier = Modifier.height(120.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    ButtonComponent(
+                        onClick = {
+                            if (username.isNotEmpty() && password.isNotEmpty()) {
+                                login(username, password)
+                            } else {
+                                showErrorSnackbar = true
+                                errorMessage = "Username dan password tidak boleh kosong"
                             }
-                        )
-                    }
-
-                    if (showBiometricLoginBottomSheet) {
-                        BiometricLoginBottomSheet(
-                            onDismissRequest = { showBiometricLoginBottomSheet = false },
-                            sheetState = sheetState,
-                            modifier = Modifier,
-                        )
-                    }
-
-                }
-                if (showErrorSnackbar) {
-                    CustomSnackbar(
-                        message = errorMessage,
-                        onDismiss = { showErrorSnackbar = false },
-                        modifier = Modifier.align(Alignment.BottomCenter),
+                        },
+                        label = "Login",
+                        buttonColor = ButtonDefaults.buttonColors(
+                            containerColor = BlueNormal,
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth(fraction = 0.5f)
+                            .semantics { contentDescription = "Tombol Login" }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    ButtonComponent(
+                        onClick = { showBiometricLoginBottomSheet = true },
+                        label = "Biometrik",
+                        buttonColor = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = BlueNormal,
+                        ),
+                        isBordered = true,
+                        modifier = Modifier.semantics {
+                            contentDescription = "Tombol login biometrik"
+                        },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Outlined.Fingerprint,
+                                contentDescription = "Fingerprint Icon",
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .fillMaxWidth(fraction = 0.5f),
+                            )
+                        }
                     )
                 }
+
+                if (showBiometricLoginBottomSheet) {
+                    BiometricLoginBottomSheet(
+                        onDismissRequest = { showBiometricLoginBottomSheet = false },
+                        sheetState = sheetState,
+                        modifier = Modifier,
+                    )
+                }
+
+            }
+            if (showErrorSnackbar) {
+                CustomSnackbar(
+                    message = errorMessage,
+                    onDismiss = { showErrorSnackbar = false },
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                )
             }
         }
     }

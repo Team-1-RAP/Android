@@ -69,10 +69,10 @@ fun QrisFeatureNavigation(
                 QrisInitialScreen(
                     modifier = modifier,
                     onQrPaymentCodeValueObtained = { qrValue ->
-                        navController.navigate(ScreenRoute.ScanQrisConfrimPaymentTransaction.createRoute(qrValue))
+                        navController.navigate(ScreenRoute.ScanQrisConfrimPaymentTransaction.createRoute(qrValue)){launchSingleTop = true}
                     },
                     onQrReceivePaymentCodeValueObtained = { qrValue ->
-                        navController.navigate(ScreenRoute.ScanQrisConfrimReceivePaymentTransaction.createRoute(qrValue))
+                        navController.navigate(ScreenRoute.ScanQrisConfrimReceivePaymentTransaction.createRoute(qrValue)){launchSingleTop = true}
                     },
                     onSuccess = {
                         navController.navigate(ScreenRoute.QrisTransactionSuccess.route)
