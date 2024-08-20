@@ -1,7 +1,5 @@
 package com.team1.simplebank.ui.qris
 
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,29 +33,20 @@ import com.team1.simplebank.colors_for_composable.Blue
 import com.team1.simplebank.ui.compose_components.ButtonComponent
 import com.team1.simplebank.ui.compose_components.CustomSnackbar
 import com.team1.simplebank.ui.compose_components.DropDownMenuComponent
-import com.team1.simplebank.ui.compose_components.TextFieldComponent
-
 
 @Preview(showBackground = true)
 @Composable
-fun ScanQrisConfirmTransactionScreen(
+fun ScanQrisConfirmReceivePaymentTransactionScreen(
     modifier: Modifier = Modifier,
     qrValue: String = "qrValue",
+    onSuccess: () -> Unit = {},
 ) {
+    var selectedDropDownItem by remember { mutableStateOf(DropDownItem("Pilih rekening penyimpanan")) }
+    var errorMessage by remember { mutableStateOf("") }
+    var showErrorSnackbar by remember { mutableStateOf(false) }
 
-    var nominal by remember { mutableStateOf("") }
-
-    var selectedDropDownItem by remember {
-        mutableStateOf(DropDownItem("Pilih Rekening"))
-    }
-
-    var showErrorSnackbar by remember {
-        mutableStateOf(false)
-    }
-
-    var errorMessage by remember {
-        mutableStateOf("")
-    }
+    val pengirim  = "Nama pengirim"
+    val jumlah  = "Rp. 10.000"
 
     Box(
         modifier = modifier
@@ -66,10 +56,23 @@ fun ScanQrisConfirmTransactionScreen(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(24.dp),
+                .padding(24.dp)
         ) {
             Text(
-                text = "Kirim ke",
+                text = "Rekening penyimpanan",
+                fontSize = 16.sp,
+                modifier = modifier
+                    .padding(bottom = 8.dp)
+            )
+            DropDownMenuComponent(
+                modifier = modifier,
+                dropDownItems = dropDownItem,
+                onSelectedDropDownItem = { selectedDropDownItem = it },
+                selectedDropDownItem = selectedDropDownItem.noRekening
+            )
+            Spacer(modifier = modifier.height(24.dp))
+            Text(
+                text = "Pengirim",
                 fontSize = 16.sp,
                 modifier = modifier
                     .padding(bottom = 8.dp)
@@ -89,7 +92,7 @@ fun ScanQrisConfirmTransactionScreen(
                     verticalArrangement = Arrangement.Center,
                 ) {
                     Text(
-                        text = qrValue,
+                        text = pengirim,
                         modifier = modifier.padding(vertical = 10.dp, horizontal = 16.dp),
                         fontSize = 16.sp,
                         maxLines = 1,
@@ -98,22 +101,66 @@ fun ScanQrisConfirmTransactionScreen(
                 }
             }
             Spacer(modifier = modifier.height(24.dp))
-            DropDownMenuComponent(
-                modifier = modifier,
-                onSelectedDropDownItem = { selectedDropDownItem = it },
-                dropDownItems = dropDownItem,
-                selectedDropDownItem = selectedDropDownItem.noRekening
+            Text(
+                text = "Jumlah",
+                fontSize = 16.sp,
+                modifier = modifier
+                    .padding(bottom = 8.dp)
             )
+            Card(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Blue,
+                    contentColor = Color.White
+                )
+            ) {
+                Column(
+                    modifier = modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    Text(
+                        text = jumlah,
+                        modifier = modifier.padding(vertical = 10.dp, horizontal = 16.dp),
+                        fontSize = 16.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
             Spacer(modifier = modifier.height(24.dp))
-            TextFieldComponent(
-                placeholder = "Masukkan nominal",
-                textValue = nominal,
-                onValueChange = { nominal = it },
-                isCommonInputFields = true,
-            )
+            Card(
+                modifier = modifier
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.LightGray.copy(alpha = 0.8f),
+                )
+            ) {
+                Column(
+                    modifier = modifier
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = "keterangan",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Blue,
+                    )
+                    Text(
+                        text = "1. Pastikan jumlah nominal benar\n2. Tekan terima uang untuk menerima uang",
+                        fontSize = 14.sp,
+                        color = Color.Black,
+                        modifier = modifier
+                            .padding(top = 8.dp, start = 8.dp),
+                    )
+                }
+            }
         }
 
-        Column (
+        Column(
             modifier = modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
@@ -123,17 +170,12 @@ fun ScanQrisConfirmTransactionScreen(
                     if (selectedDropDownItem.noRekening == "Pilih Rekening") {
                         showErrorSnackbar = true
                         errorMessage = "Pilih rekening terlebih dahulu"
-                    } else if (nominal.isEmpty()) {
-                        showErrorSnackbar = true
-                        errorMessage = "Silakan masukan nominal terlebih dahulu"
-                    } else if (nominal.toInt() > 10000) {
-                        showErrorSnackbar = true
-                        errorMessage = "Pastikan saldo anda cukup untuk melakukan pembayaran"
                     } else {
-                        //TODO: send data to server : POST > navigate to next screen
+                        // confirm pin
+                        onSuccess()
                     }
                 },
-                label = "Selanjutnya",
+                label = "Terima uang",
                 buttonColor = ButtonDefaults.buttonColors(
                     containerColor = Blue,
                     contentColor = Color.White,

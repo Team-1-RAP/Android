@@ -38,6 +38,7 @@ fun ShowQrisScreen(
     modifier: Modifier = Modifier,
     totalTime: Int = 60 * 5,
     onCountDownFinished: () -> Unit = {},
+    onSuccess: () -> Unit = {},
 ) {
 
     var timeLeft by remember {
