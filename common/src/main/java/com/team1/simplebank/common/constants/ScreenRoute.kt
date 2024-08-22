@@ -15,6 +15,8 @@ sealed class ScreenRoute (
     data object ScanQrisConfrimReceivePaymentTransaction: ScreenRoute("qris_scan_receive/{qrValue}"){
         fun createRoute(qrValue: String) = "qris_scan_receive/${qrValue}"
     }
-    data object QrisTransactionSuccess: ScreenRoute("qris_transaction_success")
+    data object QrisTransactionSuccess: ScreenRoute("qris_transaction_success/{message}"){
+        fun createRoute(message: String) = "qris_transaction_success/${message}"
+    }
 
 }

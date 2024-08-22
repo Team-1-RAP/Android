@@ -20,6 +20,7 @@ fun mapGenerateQrisCodeResponseToGenerateQrisCodeUiModel(
     response: QrCodeData
 ): GenerateQrCodeUiModel {
     return GenerateQrCodeUiModel(
-        qrCode = response.qrCode
+        qrCode = response.qrCode,
+        timeOut = response.dueDate
     )
 }

@@ -58,7 +58,7 @@ class QrisRepositoryImpl @Inject constructor(
                 emit(ResourceState.Error(response.message))
             }
         } catch (e: Exception) {
-            emit(ResourceState.Error(e.localizedMessage ?: "Terjadi kesalahan, harap coba lagi"))
+            emit(ResourceState.Error("Terjadi kesalahan, harap coba lagi"))
         }
     }
 
@@ -89,7 +89,7 @@ class QrisRepositoryImpl @Inject constructor(
                 emit(ResourceState.Error(response.message))
             }
         } catch (e: Exception) {
-            emit(ResourceState.Error(e.localizedMessage ?: "Terjadi kesalahan, harap coba lagi"))
+            emit(ResourceState.Error("Terjadi kesalahan, harap coba lagi"))
         }
     }
 
@@ -115,7 +115,7 @@ class QrisRepositoryImpl @Inject constructor(
                 emit(ResourceState.Error(response.message))
             }
         } catch (e: Exception) {
-            emit(ResourceState.Error(e.localizedMessage ?: "Terjadi kesalahan, harap coba lagi"))
+            emit(ResourceState.Error("Terjadi kesalahan, harap coba lagi"))
         }
     }
 
@@ -145,7 +145,7 @@ class QrisRepositoryImpl @Inject constructor(
                 emit(ResourceState.Error(response.message))
             }
         } catch (e: Exception) {
-            emit(ResourceState.Error(e.localizedMessage ?: "Terjadi kesalahan, harap coba lagi"))
+            emit(ResourceState.Error( "Terjadi kesalahan, harap coba lagi"))
         }
     }
 

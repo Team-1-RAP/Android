@@ -34,7 +34,12 @@
         android:id="@+id/navigation_qris"
         android:name="com.team1.simplebank.ui.qris.QrisFragment"
         android:label="@string/qris_title"
-        tools:layout="@layout/fragment_qris" />
+        tools:layout="@layout/fragment_qris">
+        <action
+            android:id="@+id/action_navigation_qris_to_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"

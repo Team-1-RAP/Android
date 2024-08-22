@@ -20,5 +20,5 @@ data class QrisTransactionData(
     val recipientBankAccountNo: String,
     val recipientFullName: String,
     val noRef: String,
-    val date: LocalDateTime
+    val date: String,
 )

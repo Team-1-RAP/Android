@@ -77,6 +77,7 @@ fun LoginScreen(
     val authData by viewModel.authData.collectAsState()
 
     var showErrorSnackbar by remember { mutableStateOf(false) }
+    var showLoading by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
     fun login(usrname: String, pass: String) {
@@ -86,15 +87,17 @@ fun LoginScreen(
     LaunchedEffect(authData) {
         when (authData) {
             is ResourceState.Loading -> {
-                // Show loading screen
+                showLoading = true
             }
 
             is ResourceState.Success -> {
+                showLoading = true
                 context.startActivity(Intent(context, HomeActivity::class.java))
                 (context as Activity).finish()
             }
 
             is ResourceState.Error -> {
+                showLoading = false
                 errorMessage =
                     "Silakan periksa kembali username dan password Anda"
                 showErrorSnackbar = true
@@ -104,7 +107,7 @@ fun LoginScreen(
         }
     }
 
-    if (authData is ResourceState.Loading) {
+    if (showLoading) {
         LoadingScreen()
     } else {
         GradientBackground(

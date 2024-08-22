@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,16 +38,12 @@ import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.colors_for_composable.DarkBlue
 import com.team1.simplebank.ui.compose_components.ButtonComponent
 
-@Preview(showBackground = true)
 @Composable
 fun QrisTransactionSuccessScreen(
     modifier: Modifier = Modifier,
     onBackToHome: () -> Unit = {},
+    message: String,
 ) {
-
-    val amount = "Rp. 10.000"
-    val name = "Nama Penerima"
-
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -98,14 +93,14 @@ fun QrisTransactionSuccessScreen(
                 HorizontalDivider(color = Color.Gray)
                 Spacer(modifier = modifier.height(32.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.logo),
+                    painter = painterResource(id = R.drawable.check_icon_blue),
                     contentDescription = null,
                     modifier = modifier
                         .size(120.dp)
                         .align(Alignment.CenterHorizontally)
                 )
                 Text(
-                    text = "Anda telah menerima dana sebesar $amount melalui fitur QRIS dari $name",
+                    text = message,
                     color = Color.Black,
                     textAlign = TextAlign.Center,
                     modifier = modifier
