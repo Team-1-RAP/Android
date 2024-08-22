@@ -5,9 +5,13 @@ import com.team1.simplebank.data.remote.request.ConfirmQrisReceiveFundsRequest
 import com.team1.simplebank.data.remote.request.GenerateQrisCodeRequest
 import com.team1.simplebank.data.remote.request.LoginRequest
 import com.team1.simplebank.data.remote.response.AccountResponse
+import com.team1.simplebank.data.remote.response.ConfirmQrisTransactionResponse
+import com.team1.simplebank.data.remote.response.GenerateQrisCodeResponse
 import com.team1.simplebank.data.remote.response.GetAmountsMutation
+import com.team1.simplebank.data.remote.response.GetQrisStatusResponse
 import com.team1.simplebank.data.remote.response.LoginResponse
 import com.team1.simplebank.data.remote.response.MutationResponse
+import com.team1.simplebank.data.remote.response.ScanQrisResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -43,26 +47,26 @@ interface ApiService {
     @GET("v1/qris/scan-qris/{qrCode}")
     suspend fun scanQris(
         @Path("qrCode") qrCode: String
-    )
+    ) : ScanQrisResponse
 
     @GET("v1/qris/validate-qr-code/{qrCode}")
-    suspend fun getQrisStatus(
+    suspend fun getQrCodeStatus(
         @Path("qrCode") qrCode: String
-    )
+    ) : GetQrisStatusResponse
 
     @POST("v1/qris/confirm-qris-merchant")
     suspend fun confirmQrisMerhant(
         @Body request : ConfirmQrisMerchantRequest
-    )
+    ) : ConfirmQrisTransactionResponse
 
     @POST("v1/qris/confirm-qris-receives")
-    suspend fun confirmQrisReceivesFUnds(
+    suspend fun confirmQrisReceivesFunds(
         @Body request : ConfirmQrisReceiveFundsRequest
-    )
+    ): ConfirmQrisTransactionResponse
 
     @POST("v1/qris/generate-qr-code")
     suspend fun generateQrisCode(
         @Body request : GenerateQrisCodeRequest
-    )
+    ): GenerateQrisCodeResponse
 
 }

@@ -6,3 +6,17 @@ data class ConfirmQrisMerchantRequest(
     val amount: Double,
     val pin: String,
 )
+
+fun mapConfirmQrisMerchantModelToRequest(
+    qrCode: String,
+    accountNo: String,
+    amount: Double,
+    pin: String
+): ConfirmQrisMerchantRequest {
+    return ConfirmQrisMerchantRequest(
+        qrCode = qrCode,
+        accountNo = accountNo,
+        amount = amount,
+        pin = pin
+    )
+}

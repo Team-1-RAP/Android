@@ -1,5 +1,7 @@
 package com.team1.simplebank.navigations
 
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.findNavController
 import androidx.navigation.navArgument
 import com.team1.simplebank.R
 import com.team1.simplebank.common.constants.ScreenRoute
@@ -31,16 +35,16 @@ import com.team1.simplebank.ui.qris.ScanQrisConfirmReceivePaymentTransactionScre
 @Preview(showBackground = true)
 fun QrisFeatureNavigation(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
+    val activity = LocalContext.current as? AppCompatActivity
 
     Scaffold(
         containerColor = Color.White,
         topBar = {
-            if (currentRoute != ScreenRoute.QrisTransactionSuccess.route){
+            if (currentRoute != ScreenRoute.QrisTransactionSuccess.route) {
                 CustomTopAppBarForFeature(
                     modifier = modifier,
                     title = {
@@ -52,7 +56,16 @@ fun QrisFeatureNavigation(
                                 .fillMaxWidth(),
                         )
                     },
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = {
+                            val navControllerFragment = activity?.findNavController(R.id.nav_host_fragment_activity_home)
+                            if (currentRoute == ScreenRoute.QrisScan.route) {
+                                Log.d("NavigationTest", "Navigating to home")
+                                navControllerFragment?.navigate(R.id.action_navigation_qris_to_home) //bug
+                            } else {
+                                Log.d("NavigationTest", "Back pressed")
+                                navController.popBackStack()
+                            }
+                    },
                     isBackEnable = currentRoute != ScreenRoute.QrisTransactionSuccess.route,
                 )
             }
@@ -62,20 +75,32 @@ fun QrisFeatureNavigation(
             navController = navController,
             startDestination = ScreenRoute.QrisScan.route,
             modifier = modifier.padding(innerPadding),
-        ){
+        ) {
             composable(
                 route = ScreenRoute.QrisScan.route,
             ) {
                 QrisInitialScreen(
                     modifier = modifier,
                     onQrPaymentCodeValueObtained = { qrValue ->
-                        navController.navigate(ScreenRoute.ScanQrisConfrimPaymentTransaction.createRoute(qrValue)){launchSingleTop = true}
+                        navController.navigate(
+                            ScreenRoute.ScanQrisConfrimPaymentTransaction.createRoute(
+                                qrValue
+                            )
+                        ) { launchSingleTop = true }
                     },
                     onQrReceivePaymentCodeValueObtained = { qrValue ->
-                        navController.navigate(ScreenRoute.ScanQrisConfrimReceivePaymentTransaction.createRoute(qrValue)){launchSingleTop = true}
+                        navController.navigate(
+                            ScreenRoute.ScanQrisConfrimReceivePaymentTransaction.createRoute(
+                                qrValue
+                            )
+                        ) { launchSingleTop = true }
                     },
-                    onSuccess = {
-                        navController.navigate(ScreenRoute.QrisTransactionSuccess.route)
+                    onSuccess = { message ->
+                        navController.navigate(
+                            ScreenRoute.QrisTransactionSuccess.createRoute(
+                                message
+                            )
+                        )
                     }
 
                 )
@@ -84,38 +109,59 @@ fun QrisFeatureNavigation(
             composable(
                 route = ScreenRoute.ScanQrisConfrimPaymentTransaction.route,
                 arguments = listOf(
-                    navArgument("qrValue") {type = NavType.StringType}
+                    navArgument("qrValue") { type = NavType.StringType }
                 )
-            ){
+            ) {
                 val qrValue = it.arguments?.getString("qrValue") ?: ""
                 ScanQrisConfirmPaymentTransactionScreen(
                     modifier = modifier,
                     qrValue = qrValue,
-                    onSuccess = {
-                        navController.navigate(ScreenRoute.QrisTransactionSuccess.route)
+                    onSuccess = { message ->
+                        navController.navigate(
+                            ScreenRoute.QrisTransactionSuccess.createRoute(
+                                message
+                            )
+                        )
+                    },
+                    onError = {
+                        navController.popBackStack()
                     }
                 )
             }
             composable(
                 route = ScreenRoute.ScanQrisConfrimReceivePaymentTransaction.route,
                 arguments = listOf(
-                    navArgument("qrValue") {type = NavType.StringType}
+                    navArgument("qrValue") { type = NavType.StringType }
                 )
             ) {
                 val qrValue = it.arguments?.getString("qrValue") ?: ""
                 ScanQrisConfirmReceivePaymentTransactionScreen(
                     modifier = modifier,
                     qrValue = qrValue,
-                    onSuccess = {
-                        navController.navigate(ScreenRoute.QrisTransactionSuccess.route)
+                    onSuccess = { message ->
+                        navController.navigate(
+                            ScreenRoute.QrisTransactionSuccess.createRoute(
+                                message
+                            )
+                        )
+                    },
+                    onError = {
+                        navController.popBackStack()
                     }
                 )
             }
-            composable(ScreenRoute.QrisTransactionSuccess.route){
+            composable(
+                route = ScreenRoute.QrisTransactionSuccess.route,
+                arguments = listOf(
+                    navArgument("message") { type = NavType.StringType },
+                )
+            ) {
+                val message = it.arguments?.getString("message") ?: ""
                 QrisTransactionSuccessScreen(
                     onBackToHome = {
-                        navController.popBackStack(ScreenRoute.QrisScan.route, inclusive = true)
-                    }
+                        navController.popBackStack(ScreenRoute.QrisScan.route, false)
+                    },
+                    message = message
                 )
             }
 

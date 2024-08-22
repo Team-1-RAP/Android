@@ -39,11 +39,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.zIndex
 import androidx.core.content.ContextCompat
 import com.team1.simplebank.R
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.CustomSnackbar
 import com.team1.simplebank.ui.compose_components.CustomTopAppBarForFeature
+import com.team1.simplebank.ui.compose_components.LoadingScreen
+import kotlinx.coroutines.delay
 
 
 data class QrisTabItems(
@@ -56,7 +59,7 @@ fun QrisInitialScreen(
     modifier: Modifier = Modifier,
     onQrPaymentCodeValueObtained: (String) -> Unit,
     onQrReceivePaymentCodeValueObtained: (String) -> Unit,
-    onSuccess: () -> Unit = {},
+    onSuccess: (String) -> Unit,
 ) {
     val qrisTabItems = listOf(
         QrisTabItems("scan kode"),
@@ -72,14 +75,25 @@ fun QrisInitialScreen(
     var hasCameraPermission by remember { mutableStateOf(false) }
     var isConfirmShowQrisPassed by remember { mutableStateOf(false) }
     var showConfirmScreenForShowingQris by remember { mutableStateOf(false) }
+    var isCameraActive by remember { mutableStateOf(true) }
+    var generatedQrValue by remember { mutableStateOf("") }
+    var qrTimeout by remember { mutableStateOf("") }
 
     if (showErrorSnackbar) {
-        Box(modifier = modifier.fillMaxSize()) {
+        Box(modifier = modifier
+            .fillMaxSize()
+            .zIndex(2f)) {
             CustomSnackbar(
                 message = errorMessage,
                 onDismiss = { showErrorSnackbar = false },
                 modifier = Modifier.align(Alignment.BottomCenter),
             )
+        }
+    }
+
+    LaunchedEffect(showConfirmScreenForShowingQris) {
+        if (!showConfirmScreenForShowingQris) {
+            isCameraActive = true
         }
     }
 
@@ -103,15 +117,23 @@ fun QrisInitialScreen(
         ) {
             when (selectedTabIndex) {
                 0 -> {
+                    isConfirmShowQrisPassed = false
                     if (hasCameraPermission) {
-                        ScanQrisScreen(
-                            modifier = modifier,
-                            onQrCodeScanned = {
-                                // if blablabla
-                                onQrPaymentCodeValueObtained(it)
-                                //onQrReceivePaymentCodeValueObtained(it)
-                            }
-                        )
+                        if (isCameraActive) {
+                            ScanQrisScreen(
+                                modifier = modifier,
+                                onQrCodeScanned = {
+                                    if (it.contains("ACC")) {
+                                        onQrReceivePaymentCodeValueObtained(it)
+                                    } else if (it.contains("MRCHNT")) {
+                                        onQrPaymentCodeValueObtained(it)
+                                    } else {
+                                        showErrorSnackbar = true
+                                        errorMessage = "Kode QR tidak valid"
+                                    }
+                                }
+                            )
+                        }
                     } else {
                         RequestCameraPermission(
                             onPermissionGranted = { hasCameraPermission = true },
@@ -127,9 +149,12 @@ fun QrisInitialScreen(
                     if (isConfirmShowQrisPassed) {
                         ShowQrisScreen(
                             modifier = modifier,
-                            totalTime = 300,
+                            qrValue = generatedQrValue,
                             onCountDownFinished = { selectedTabIndex = 0 },
-                            onSuccess = { onSuccess() }
+                            onSuccess = { message ->
+                                onSuccess(message)
+                            },
+                            validUntil = qrTimeout,
                         )
                     }
                 }
@@ -154,9 +179,12 @@ fun QrisInitialScreen(
             qrisTabItems.forEachIndexed { index, qrisTabItem ->
                 Tab(
                     selected = index == selectedTabIndex,
-                    modifier = modifier.background(Color.White).semantics { contentDescription =
-                        qrisTabItem.title
-                    },
+                    modifier = modifier
+                        .background(Color.White)
+                        .semantics {
+                            contentDescription =
+                                qrisTabItem.title
+                        },
                     onClick = {
                         if (index == 1) {
                             showConfirmScreenForShowingQris = true
@@ -181,6 +209,14 @@ fun QrisInitialScreen(
     }
 
     if (showConfirmScreenForShowingQris) {
+        isCameraActive = false
+
+        var showLoading by remember { mutableStateOf(true) }
+        LaunchedEffect(Unit) {
+            delay(1000L)
+            showLoading = false
+        }
+
         Dialog(
             onDismissRequest = { showConfirmScreenForShowingQris = false },
             properties = DialogProperties(
@@ -212,15 +248,21 @@ fun QrisInitialScreen(
                         },
                         onBackPressed = { showConfirmScreenForShowingQris = false }
                     )
-                    ShowQrisConfirmationScreen(
-                        modifier = modifier,
-                        onConfirm = {
-                            selectedTabIndex = 1
-                        },
-                        onCancel = {
-                            showConfirmScreenForShowingQris = false
-                        }
-                    )
+                    if (showLoading) {
+                        LoadingScreen()
+                    } else {
+                        ShowQrisConfirmationScreen(
+                            modifier = modifier,
+                            onConfirm = { qrValue, timeOut ->
+                                generatedQrValue = qrValue
+                                qrTimeout = timeOut
+                                selectedTabIndex = 1
+                            },
+                            onCancel = {
+                                showConfirmScreenForShowingQris = false
+                            }
+                        )
+                    }
                 }
             }
         }

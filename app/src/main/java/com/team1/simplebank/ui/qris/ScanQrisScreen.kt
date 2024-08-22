@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,6 +60,7 @@ fun ScanQrisScreen(
 ) {
 
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     var isButtonGalleryActive by remember {
         mutableStateOf(false)
     }
@@ -134,7 +136,7 @@ fun ScanQrisScreen(
                         ) {
                             cameraProvider.unbindAll()
                             val camera = cameraProvider.bindToLifecycle(
-                                ctx as LifecycleOwner,
+                                lifecycleOwner,
                                 cameraSelector,
                                 preview,
                                 imageAnalyzr
@@ -172,7 +174,7 @@ fun ScanQrisScreen(
                 isButtonFlashActive = !isButtonFlashActive
                 val cameraProvider = cameraProviderFuture.get()
                 val camera = cameraProvider.bindToLifecycle(
-                    context as LifecycleOwner,
+                    lifecycleOwner,
                     CameraSelector.DEFAULT_BACK_CAMERA
                 )
                 camera.cameraControl.enableTorch(isButtonFlashActive)
@@ -198,18 +200,6 @@ private fun processImageProxy(
         val scanner = BarcodeScanning.getClient(option)
         scanner.process(image)
             .addOnSuccessListener { barcodes ->
-                //TODO : has bug > called more than once
-//                for (barcode in barcodes) {
-//                    barcode.rawValue?.let {
-//                        println("QR Code Value: $it")
-//                        if (it.startsWith("http") || it.contains("/")) {
-//                            val value = URLEncoder.encode(it, StandardCharsets.UTF_8.toString())
-//                            onQrCodeScanned(value)
-//                        } else {
-//                            onQrCodeScanned(it)
-//                        }
-//                    }
-//                }
                 if (barcodes.isNotEmpty()) {
                     imageProxy.close()
                     barcodes.first().rawValue?.let {
@@ -226,7 +216,6 @@ private fun processImageProxy(
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
-                //TODO: handle error
             }
             .addOnCompleteListener {
                 imageProxy.close()
