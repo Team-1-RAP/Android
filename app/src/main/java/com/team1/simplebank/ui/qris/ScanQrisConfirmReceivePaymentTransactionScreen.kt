@@ -34,6 +34,7 @@ import com.synrgy.xdomain.model.DropDownItem
 import com.synrgy.xdomain.model.ScanQrisUiModel
 import com.team1.simplebank.colors_for_composable.Blue
 import com.team1.simplebank.common.handler.ResourceState
+import com.team1.simplebank.common.utils.Converter.toRupiah
 import com.team1.simplebank.ui.compose_components.ButtonComponent
 import com.team1.simplebank.ui.compose_components.CustomSnackbar
 import com.team1.simplebank.ui.compose_components.DropDownMenuComponent
@@ -99,7 +100,7 @@ fun ScanQrisConfirmReceivePaymentTransactionScreen(
                             is ResourceState.Success -> {
                                 showLoading = true
                                 onSuccess(
-                                    "Anda telah menerima dana sebesar Rp${(merchantQrisPaymentTransactionData as ResourceState.Success).data.amount}" +
+                                    "Anda telah menerima dana sebesar Rp${(merchantQrisPaymentTransactionData as ResourceState.Success).data.amount.toRupiah()}" +
                                             " melalui fitur QRIS dari ${(merchantQrisPaymentTransactionData as ResourceState.Success).data.name}"
 
                                 )
@@ -220,7 +221,7 @@ fun ScanQrisConfirmReceivePaymentTransactionScreen(
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
-                            text = "Rp. ${dataScanned.amount}",
+                            text = "Rp. ${dataScanned.amount?.toRupiah()}",
                             modifier = modifier.padding(vertical = 10.dp, horizontal = 16.dp),
                             fontSize = 16.sp,
                             maxLines = 1,
