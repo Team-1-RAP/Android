@@ -1,4 +1,4 @@
-package com.team1.simplebank.data.remote.response
+package com.team1.simplebank.data.remote.response.BEJ
 
 
 import com.google.gson.annotations.SerializedName

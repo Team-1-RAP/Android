@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.flow
 
 
 interface IUserRepository {
-    suspend fun getUserAccount() : Flow<ResourceState<List<AccountModel>>>
-    suspend fun saveNoAccount(noAccountInput:String)
-    fun getNoAccount():Flow<String?>
+    suspend fun getUserAccount(): Flow<ResourceState<List<AccountModel>>>
+    suspend fun saveNoAccount(noAccountInput: String)
+    fun getNoAccount(): Flow<String?>
 
-    suspend fun getAmounts(noAccount:String):Flow<ResourceState<GetAmountsMutationUI>>
+    suspend fun getAmounts(noAccount: String): Flow<ResourceState<GetAmountsMutationUI>>
 
 }

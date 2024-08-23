@@ -5,8 +5,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".ui.qris.QrisFragment"
-android:background="@drawable/home_page_background">
+tools:context=".ui.qris.QrisFragment">
 
 <com.google.android.material.textview.MaterialTextView
     android:id="@+id/qris_title"

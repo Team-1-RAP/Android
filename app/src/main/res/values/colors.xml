@@ -23,9 +23,10 @@
     <color name="dark_red">#FF851001</color>
 
     <color name="gray">#EFEFEF</color>
-    <color name="box_stroke_color">#A09FA4</color>
+    <color name="box_stroke_color_result_transfer">#A09FA4</color>
     <color name="item_blue_default">#FF114280</color>
     <color name="primary_color">#0066AE</color>
+    <color name="blue_transfer">#127DCD</color>
 
     <color name="dark_blue_primary">#0A3967</color>
     <color name="shadow_of_blue">#1454FB</color>

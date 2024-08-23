@@ -88,7 +88,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="balance_format">Rp. %s</string>
+    <string name="balance_format">%s</string>
     <string name="hide_balance">*****</string>
     <string name="show_more">Tampilkan lebih</string>
     <string name="konfirmasi">Konfirmasi</string>
@@ -121,7 +121,6 @@
 
     <!--    spinner -->
     <string-array name="months_array">
-        <item>Pilih Bulan</item>
         <item>Januari</item>
         <item>Februari</item>
         <item>Maret</item>
@@ -137,9 +136,9 @@
     </string-array>
 
     <string-array name="transaction_types_array">
-        <item>Tipe Transaksi</item>
-        <item>PEMASUKAN</item>
-        <item>PENGELUARAN</item>
+        <item>Semua Transaksi</item>
+        <item>Pemasukan</item>
+        <item>Pengeluaran</item>
     </string-array>
 
 </resources>

@@ -7,13 +7,15 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.synrgy.xdomain.repositoryInterface.IAuthRepository
 import com.synrgy.xdomain.repositoryInterface.IUserRepository
 import com.synrgy.xdomain.repositoryInterface.MutationRepository
+import com.synrgy.xdomain.repositoryInterface.TransferRepository
 import com.team1.simplebank.data.BuildConfig
 import com.team1.simplebank.data.dataStore.AuthDataStore
-import com.team1.simplebank.data.remote.api.ApiService
+import com.team1.simplebank.data.remote.api.BEJ.ApiService
+import com.team1.simplebank.data.remote.api.FSW.ApiServiceFromFSW
 import com.team1.simplebank.data.repositoryImpl.AuthRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.MutationRepositoryImpl
+import com.team1.simplebank.data.repositoryImpl.TransferRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.UserRepositoryImpl
-import com.team1.simplebank.data.repositoryImpl.pagingsource.MutationPagingSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,7 +54,69 @@ object AppModule {
         return AuthDataStore(dataStore)
     }
 
+
     @Singleton
+    @Provides
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthInterceptor(authDataStore: AuthDataStore) = Interceptor {
+        val request = it.request()
+        if (request.url.encodedPath.contains("v1/auth/login")) {
+            return@Interceptor it.proceed(request)
+        }
+        val token = runBlocking {
+            authDataStore.getUserSession().first().accessToken
+        }
+        val requestHeaders = request.newBuilder()
+            .addHeader("accept", "application/json")
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+        it.proceed(requestHeaders)
+    }
+
+    @Singleton
+    @Provides
+    fun provideClientOkHttp(
+        loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: Interceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .connectTimeout(0, TimeUnit.SECONDS)
+            .readTimeout(0, TimeUnit.SECONDS)
+            .writeTimeout(0, TimeUnit.SECONDS)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiServiceFromBEJ(client: OkHttpClient): ApiService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiServiceFromFSW(client: OkHttpClient): ApiServiceFromFSW {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL_FSW)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ApiServiceFromFSW::class.java)
+    }
+
+
+    /*@Singleton
     @Provides
     fun provideApiService(authDataStore: AuthDataStore): ApiService {
         val loggingInterceptor = HttpLoggingInterceptor()
@@ -90,7 +154,7 @@ object AppModule {
             .build()
 
         return retrofit.create(ApiService::class.java)
-    }
+    }*/
 
     @Singleton
     @Provides
@@ -106,18 +170,26 @@ object AppModule {
     fun provideUserRepository(
         apiService: ApiService,
         authDataStore: AuthDataStore
-    ) : IUserRepository {
-        return UserRepositoryImpl(apiService,authDataStore)
+    ): IUserRepository {
+        return UserRepositoryImpl(apiService, authDataStore)
     }
 
     @Singleton
     @Provides
     fun provideMutationRepository(
         apiService: ApiService, authDataStore: AuthDataStore
-    ):MutationRepository{
-        return MutationRepositoryImpl(apiService,authDataStore)
+    ): MutationRepository {
+        return MutationRepositoryImpl(apiService, authDataStore)
     }
 
+    @Singleton
+    @Provides
+    fun provideNewAccountTransferRepository(
+        apiService: ApiService,
+        apiServiceFromFSW: ApiServiceFromFSW
+    ): TransferRepository {
+        return TransferRepositoryImpl(apiService, apiServiceFromFSW)
+    }
 
 
 }

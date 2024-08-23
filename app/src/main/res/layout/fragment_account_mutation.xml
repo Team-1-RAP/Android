@@ -6,26 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.account_mutation.AccountMutationFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="        android:layout_width=&quot;24dp&quot;&#xA;        android:layout_height=&quot;24dp&quot;" />
-
-    <ImageView
-        android:id="@+id/img_top_decoration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/rectangle_top_193" />
-
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/appbar_background"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/rectangle_top_193"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_back"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Kembali"
         android:src="@drawable/icon_back"
-        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/appbar_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,8 @@
         android:id="@+id/materialTextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mutasi Rekening"
+        android:contentDescription="@string/talkback_profile"
+        android:text="@string/account_mutation"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -42,25 +43,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btn_back" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_item_month"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_item_month_new"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        app:layout_constraintEnd_toStartOf="@id/spinner_item_type_transaction"
+        android:layout_height="wrap_content"
+        android:minWidth="150dp"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:boxStrokeWidth="1dp"
+        app:endIconTint="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_item_type_transcation_new"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_top_decoration"
-        android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@id/rv_result_transaction"
-        />
+        app:layout_constraintTop_toBottomOf="@id/appbar_background"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_item_type_transaction"
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_item_month"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Pilih Bulan"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_item_type_transcation_new"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_item_month"
+        android:layout_height="wrap_content"
+        android:minWidth="150dp"
+        app:endIconTint="@color/black"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:boxStrokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/spinner_item_month"
-        app:layout_constraintTop_toTopOf="@+id/spinner_item_month" />
+        app:layout_constraintStart_toEndOf="@id/spinner_item_month_new"
+        app:layout_constraintTop_toBottomOf="@id/appbar_background"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_type_transcation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:text="Pemasukan"
+            android:layout_weight="1"
+            android:textAlignment="viewStart"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -71,5 +110,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinner_item_month" />
+        app:layout_constraintTop_toBottomOf="@id/spinner_item_month_new" />
 </androidx.constraintlayout.widget.ConstraintLayout>

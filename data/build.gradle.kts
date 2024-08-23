@@ -16,6 +16,7 @@ android {
         minSdk = 26
 
         buildConfigField("String", "BASE_URL", "\"https://simple-bank-server-avi4q6gcnq-uc.a.run.app/api/\"",)
+        buildConfigField("String", "BASE_URL_FSW","\"https://simplebank.my.id/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
