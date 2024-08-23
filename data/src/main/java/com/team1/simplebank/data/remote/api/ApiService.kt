@@ -1,16 +1,19 @@
 package com.team1.simplebank.data.remote.api
 
+import com.team1.simplebank.data.remote.request.BEJ.LoginRequest
+import com.team1.simplebank.data.remote.request.BEJ.TransferRequest
+import com.team1.simplebank.data.remote.response.BEJ.AccountResponse
+import com.team1.simplebank.data.remote.response.BEJ.GetAllBankResponse
+import com.team1.simplebank.data.remote.response.BEJ.GetAmountsMutation
+import com.team1.simplebank.data.remote.response.BEJ.LoginResponse
+import com.team1.simplebank.data.remote.response.BEJ.MutationResponse
+import com.team1.simplebank.data.remote.response.BEJ.ResultTransferResponse
 import com.team1.simplebank.data.remote.request.ConfirmQrisMerchantRequest
 import com.team1.simplebank.data.remote.request.ConfirmQrisReceiveFundsRequest
 import com.team1.simplebank.data.remote.request.GenerateQrisCodeRequest
-import com.team1.simplebank.data.remote.request.LoginRequest
-import com.team1.simplebank.data.remote.response.AccountResponse
 import com.team1.simplebank.data.remote.response.ConfirmQrisTransactionResponse
 import com.team1.simplebank.data.remote.response.GenerateQrisCodeResponse
-import com.team1.simplebank.data.remote.response.GetAmountsMutation
 import com.team1.simplebank.data.remote.response.GetQrisStatusResponse
-import com.team1.simplebank.data.remote.response.LoginResponse
-import com.team1.simplebank.data.remote.response.MutationResponse
 import com.team1.simplebank.data.remote.response.ScanQrisResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -42,6 +45,14 @@ interface ApiService {
     suspend fun getMutationsAmount(
         @Path("noAccount") noAccount: String,
     ): GetAmountsMutation
+
+    @GET("v1/banks")
+    suspend fun getAllBank(): GetAllBankResponse
+
+    @POST("v1/bank-transfers")
+    suspend fun transfer(
+        @Body transferRequest: TransferRequest
+    ): ResultTransferResponse
 
     // QRIS
     @GET("v1/qris/scan-qris/{qrCode}")

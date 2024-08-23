@@ -2,7 +2,7 @@ package com.team1.simplebank.data.mapper
 
 import android.util.Log
 import com.synrgy.xdomain.model.MutationDataUI
-import com.team1.simplebank.data.remote.response.ItemPagingData
+import com.team1.simplebank.data.remote.response.BEJ.ItemPagingData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat

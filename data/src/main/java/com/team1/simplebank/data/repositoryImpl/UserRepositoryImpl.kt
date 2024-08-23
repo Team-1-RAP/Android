@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import javax.inject.Inject
 
-//hilangkan data storenya ya nanti kalo error
 class UserRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val authDataStore: AuthDataStore

@@ -22,6 +22,10 @@
         <action
             android:id="@+id/action_navigation_home_to_transferFragment"
             app:destination="@id/transferFragment" />
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false"
+            />
     </fragment>
 
     <fragment
@@ -63,7 +67,7 @@
         tools:layout="@layout/fragment_top_up_e_wallet" />
     <fragment
         android:id="@+id/transferFragment"
-        android:name="com.team1.simplebank.ui.transfer.TransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.TransferFragment"
         android:label="fragment_transfer"
         tools:layout="@layout/fragment_transfer" >
         <action
@@ -75,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailTransferFragment"
-        android:name="com.team1.simplebank.ui.transfer.DetailTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.DetailTransferFragment"
         android:label="fragment_detail_transfer"
         tools:layout="@layout/fragment_detail_transfer" >
         <action
@@ -84,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/newAccountTransferFragment"
-        android:name="com.team1.simplebank.ui.transfer.NewAccountTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.NewAccountTransferFragment"
         android:label="fragment_new_account_transfer"
         tools:layout="@layout/fragment_new_account_transfer" >
         <action
@@ -96,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/confirmationTransferFragment"
-        android:name="com.team1.simplebank.ui.transfer.ConfirmationTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.ConfirmationTransferFragment"
         android:label="ConfirmationTransferFragment"
         tools:layout="@layout/fragment_confirmation_transfer"
         >
@@ -106,7 +110,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultTransferFragment"
-        android:name="com.team1.simplebank.ui.transfer.ResultTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.ResultTransferFragment"
         android:label="fragment_result_transfer"
         tools:layout="@layout/fragment_result_transfer" />
 </navigation>

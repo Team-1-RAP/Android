@@ -34,6 +34,8 @@
             android:exported="false" />
         <activity
             android:name=".ui.HomeActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:label="@string/title_activity_home">
         </activity>

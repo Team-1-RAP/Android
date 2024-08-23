@@ -6,7 +6,7 @@ import com.team1.simplebank.data.utils.decodeJwt
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.remote.api.ApiService
-import com.team1.simplebank.data.remote.request.LoginRequest
+import com.team1.simplebank.data.remote.request.BEJ.LoginRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
