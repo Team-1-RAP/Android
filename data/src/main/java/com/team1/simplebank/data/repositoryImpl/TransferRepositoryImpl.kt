@@ -11,7 +11,7 @@ import com.team1.simplebank.data.mapper.mapperBankValidationResponseToValidation
 import com.team1.simplebank.data.mapper.mapperGetSourceAccountResponseToSourceAccountModel
 import com.team1.simplebank.data.mapper.mapperGetSourceAccountToDataSpinnerSourceAccount
 import com.team1.simplebank.data.mapper.mapperTransferResultResponseToTransferResultModel
-import com.team1.simplebank.data.remote.api.BEJ.ApiService
+import com.team1.simplebank.data.remote.api.ApiService
 import com.team1.simplebank.data.remote.api.FSW.ApiServiceFromFSW
 import com.team1.simplebank.data.remote.request.BEJ.TransferRequest
 import com.team1.simplebank.data.remote.request.FSW.BankValidationRequest

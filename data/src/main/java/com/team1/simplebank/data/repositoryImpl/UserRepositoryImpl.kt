@@ -6,7 +6,7 @@ import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.mapper.mapUserAccountResponseToUserAccountModel
 import com.team1.simplebank.data.mapper.mapperGetAmountsMutationToGetAmountsUI
-import com.team1.simplebank.data.remote.api.BEJ.ApiService
+import com.team1.simplebank.data.remote.api.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

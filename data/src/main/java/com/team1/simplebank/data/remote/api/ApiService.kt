@@ -1,4 +1,4 @@
-package com.team1.simplebank.data.remote.api.BEJ
+package com.team1.simplebank.data.remote.api
 
 import com.team1.simplebank.data.remote.request.BEJ.LoginRequest
 import com.team1.simplebank.data.remote.request.BEJ.TransferRequest
