@@ -266,7 +266,7 @@ fun ScanQrisConfirmReceivePaymentTransactionScreen(
             ) {
                 ButtonComponent(
                     onClick = {
-                        if (selectedDropDownItem.noRekening == "Pilih Rekening") {
+                        if (selectedDropDownItem.noRekening == "Pilih rekening penyimpanan") {
                             showErrorSnackbar = true
                             errorMessage = "Pilih rekening terlebih dahulu"
                         } else {
