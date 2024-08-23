@@ -27,13 +27,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.synrgy.xdomain.model.AccountModel
 import com.synrgy.xdomain.model.DropDownItem
-import com.synrgy.xdomain.model.dropDownItem
 import com.team1.simplebank.colors_for_composable.Blue
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.ui.compose_components.ButtonComponent
@@ -65,7 +63,7 @@ fun ShowQrisConfirmationScreen(
 
     var nominal by remember { mutableStateOf("") }
 
-    LaunchedEffect (Unit) {
+    LaunchedEffect(Unit) {
         qrisViewModel.getUserAccount()
     }
 
@@ -77,13 +75,15 @@ fun ShowQrisConfirmationScreen(
         is ResourceState.Loading -> {
             showLoading = true
         }
+
         is ResourceState.Success -> {
             showLoading = false
             userAcount = (userData as ResourceState.Success<List<AccountModel>>).data
-            when(generatedQrisCodeData) {
+            when (generatedQrisCodeData) {
                 is ResourceState.Loading -> {
                     showLoading = true
                 }
+
                 is ResourceState.Success -> {
                     showLoading = false
                     onConfirm(
@@ -91,20 +91,25 @@ fun ShowQrisConfirmationScreen(
                         (generatedQrisCodeData as ResourceState.Success).data.timeOut
                     )
                 }
+
                 is ResourceState.Error -> {
                     showLoading = false
-                    errorMessage = (generatedQrisCodeData as ResourceState.Error).exception.toString()
+                    errorMessage =
+                        (generatedQrisCodeData as ResourceState.Error).exception.toString()
                     showErrorSnackbar = true
                 }
-                else  -> {}
+
+                else -> {}
             }
         }
+
         is ResourceState.Error -> {
             showLoading = false
             errorMessage = (userData as ResourceState.Error).exception.toString()
             showErrorSnackbar = true
         }
-        else  -> {}
+
+        else -> {}
     }
 
 
@@ -177,12 +182,16 @@ fun ShowQrisConfirmationScreen(
                         if (selectedDropDownItem.noRekening == "Pilih Rekening") {
                             showErrorSnackbar = true
                             errorMessage = "Pilih rekening terlebih dahulu"
-                        } else if (nominal.isEmpty() ) {
+                        } else if (nominal.isEmpty()) {
                             showErrorSnackbar = true
                             errorMessage = "Masukkan nominal terlebih dahulu"
-                        } else if (nominal.toDouble() > userAcount.find { it.noAccount == selectedDropDownItem.noRekening}?.balance!!) {
+                        } else if (nominal.toDouble() > userAcount.find { it.noAccount == selectedDropDownItem.noRekening }?.balance!!) {
                             showErrorSnackbar = true
                             errorMessage = "Saldo tidak mencukupi"
+                        } else if (nominal.toInt() <= 10000) {
+                            showErrorSnackbar = true
+                            errorMessage =
+                                "Nominal transaksi minimal Rp10.000"
                         } else {
                             showPinDialog = true
                         }
@@ -204,12 +213,16 @@ fun ShowQrisConfirmationScreen(
                 }
             }
 
-            if (showPinDialog){
+            if (showPinDialog) {
                 PinDialog(
                     onDismiss = { showPinDialog = false },
                     onConfirm = { pin ->
                         showPinDialog = false
-                        qrisViewModel.showQrisTransaction(selectedDropDownItem.noRekening, nominal.toDouble(),pin)
+                        qrisViewModel.showQrisTransaction(
+                            selectedDropDownItem.noRekening,
+                            nominal.toDouble(),
+                            pin
+                        )
                     },
                     userPin = userAcount.find { it.noAccount == selectedDropDownItem.noRekening }?.pin!!,
                     modifier = modifier.align(Alignment.BottomCenter)

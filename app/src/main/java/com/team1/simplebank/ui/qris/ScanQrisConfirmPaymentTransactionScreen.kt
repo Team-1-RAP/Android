@@ -226,7 +226,11 @@ fun ScanQrisConfirmPaymentTransactionScreen(
                             showErrorSnackbar = true
                             errorMessage =
                                 "Pastikan saldo anda cukup untuk melakukan pembayaran"
-                        } else {
+                        } else if (nominal.toInt() <= 10000) {
+                            showErrorSnackbar = true
+                            errorMessage =
+                                "Nominal transaksi minimal Rp10.000"
+                        }else {
                             showPinDialog = true
                         }
                     },
