@@ -188,7 +188,7 @@ fun ShowQrisConfirmationScreen(
                         } else if (nominal.toDouble() > userAcount.find { it.noAccount == selectedDropDownItem.noRekening }?.balance!!) {
                             showErrorSnackbar = true
                             errorMessage = "Saldo tidak mencukupi"
-                        } else if (nominal.toInt() <= 10000) {
+                        } else if (nominal.toInt() < 10000) {
                             showErrorSnackbar = true
                             errorMessage =
                                 "Nominal transaksi minimal Rp10.000"
