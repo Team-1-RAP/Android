@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.transfer.ConfirmationTransferFragment">
+        tools:context=".ui.home.transfer.ConfirmationTransferFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
@@ -25,16 +25,55 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="8dp" />
 
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/appbar_background"
+            android:layout_width="match_parent"
+            android:layout_height="118dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/rectangle_top_193"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Kembali"
+            android:src="@drawable/icon_back"
+            app:layout_constraintBottom_toBottomOf="@id/appbar_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Konfirmasi Transfer"
+            android:text="Konfirmasi Transfer"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_back" />
+
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview_confirmation_transfer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="7dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/appbar_background">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -147,12 +186,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="Nominal"
-                    app:layout_constraintEnd_toStartOf="@id/amount_transfer"
+                    app:layout_constraintEnd_toStartOf="@id/nominal_transfer"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/icon_username_destination_number_account" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/amount_transfer"
+                    android:id="@+id/nominal_transfer"
                     style="@style/TextContent.TitleMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -193,7 +232,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Biaya Admin"
+                    android:text="Total Transfer"
                     app:layout_constraintEnd_toStartOf="@id/total_transfer"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title_fee_admin" />
@@ -256,6 +295,7 @@
             android:layout_marginTop="5dp"
             app:boxStrokeColor="@color/box_stroke_color"
             app:boxStrokeWidth="2dp"
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/title_password_transaction"
@@ -267,7 +307,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="10dp"
-                android:hint="Masukkan PIN" />
+                android:padding="0dp"
+                android:hint="Masukkan PIN"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -305,6 +347,18 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
             app:strokeColor="@color/primary_color"
             app:strokeWidth="1dp" />
+
+        <ProgressBar
+            android:id="@+id/progressbar_tranfer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:elevation="20dp"
+            android:visibility="gone"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
 

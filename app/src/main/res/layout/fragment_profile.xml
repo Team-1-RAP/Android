@@ -24,10 +24,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_back"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:background="@android:color/transparent"
         android:src="@drawable/icon_back"
         app:layout_constraintBottom_toBottomOf="@id/appbar_background"
         app:layout_constraintStart_toStartOf="@id/guideline_left"

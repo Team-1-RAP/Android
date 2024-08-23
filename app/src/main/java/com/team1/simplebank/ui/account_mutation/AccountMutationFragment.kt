@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AccountMutationFragment : Fragment(), OnItemSelectedListener {
+class AccountMutationFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountMutationBinding
     private val accountMutationViewModel: AccountMutationViewModel by viewModels()
@@ -49,13 +49,20 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerview()
-        setUpSpinner()
+
+        accountMutationViewModel.inputFiltering(FilterInput.Month(8))
+        accountMutationViewModel.inputFiltering(FilterInput.Type(null))
+
+
         spinnerClicked()
 
+        binding.autocompleteItemMonth.setDropDownBackgroundDrawable(resources.getDrawable(R.drawable.custom_pop_up_background))
+
+
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                accountMutationViewModel.noAccount.collectLatest {value->
-                    if (value!=null){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                accountMutationViewModel.noAccount.collectLatest { value ->
+                    if (value != null) {
                         accountMutationViewModel.inputFiltering(FilterInput.NoAccount(value))
                     }
                 }
@@ -70,32 +77,36 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
             }
         }
 
-    }
 
-    private fun setUpSpinner() {
-        val spinnerMonthAdapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.months_array,
-            R.layout.spinner_list_item
-        )
-
-        val spinnerTransactionAdapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.transaction_types_array,
-            R.layout.spinner_list_item
-        )
-
-        spinnerMonthAdapter.setDropDownViewResource(R.layout.spinner_list_item)
-        spinnerTransactionAdapter.setDropDownViewResource(R.layout.spinner_list_item)
-
-        binding.spinnerItemMonth.adapter = spinnerMonthAdapter
-        binding.spinnerItemTypeTransaction.adapter = spinnerTransactionAdapter
     }
 
     private fun spinnerClicked() {
-        binding.spinnerItemMonth.onItemSelectedListener = this
-        binding.spinnerItemTypeTransaction.onItemSelectedListener = this
+        binding.autocompleteItemMonth.setOnItemClickListener { adapterView, view, i, l ->
+            val monthPosition = adapterView.getItemAtPosition(i).toString()
+            val month = monthPosition.toMonthNumber()
+            accountMutationViewModel.inputFiltering(FilterInput.Month(month))
+            Toast.makeText(requireContext(), "$month", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.autocompleteTypeTranscation.setOnItemClickListener { adapterView, view, i, l ->
+            val type = adapterView.getItemAtPosition(i).toString()
+            when (adapterView.getItemAtPosition(i).toString()) {
+                "Semua Transaksi" -> {
+                    accountMutationViewModel.inputFiltering(FilterInput.Type(null))
+                }
+
+                "Pemasukan" -> {
+                    accountMutationViewModel.inputFiltering(FilterInput.Type("PEMASUKAN"))
+                }
+
+                "Pengeluaran" -> {
+                    accountMutationViewModel.inputFiltering(FilterInput.Type("PENGELUARAN"))
+                }
+            }
+            Toast.makeText(requireContext(), type, Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     private fun initRecyclerview() {
         binding.rvResultTransaction.layoutManager =
@@ -107,34 +118,20 @@ class AccountMutationFragment : Fragment(), OnItemSelectedListener {
 
     }
 
-    // fungsi untuk spinner ketika ditekan
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        when (parent?.id) {
-            binding.spinnerItemMonth.id -> {
-                val monthPosition = parent.getItemAtPosition(position).toString()
-                val month = monthPosition.toMonthNumber()
-                accountMutationViewModel.inputFiltering(FilterInput.Month(month))
-            }
+    override fun onResume() {
+        super.onResume()
+        val spinnerMonthNewAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.spinner_list_item,
+            resources.getStringArray(R.array.months_array)
+        )
 
-            binding.spinnerItemTypeTransaction.id -> {
-                when (parent.getItemAtPosition(position).toString()) {
-                    "Tipe Transaksi" -> {
-                        accountMutationViewModel.inputFiltering(FilterInput.Type(null))
-                    }
-
-                    "PEMASUKAN" -> {
-                        accountMutationViewModel.inputFiltering(FilterInput.Type("PEMASUKAN"))
-                    }
-
-                    "PENGELUARAN" -> {
-                        accountMutationViewModel.inputFiltering(FilterInput.Type("PENGELUARAN"))
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
+        val spinnerTransactionNewAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.spinner_list_item,
+            resources.getStringArray(R.array.transaction_types_array)
+        )
+        binding.autocompleteItemMonth.setAdapter(spinnerMonthNewAdapter)
+        binding.autocompleteTypeTranscation.setAdapter(spinnerTransactionNewAdapter)
     }
 }

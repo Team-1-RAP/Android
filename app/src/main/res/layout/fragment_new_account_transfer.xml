@@ -4,8 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.transfer.NewAccountTransferFragment">
+    tools:context=".ui.home.transfer.NewAccountTransferFragment">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/appbar_background"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/rectangle_top_193"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Kembali"
+        android:src="@drawable/icon_back"
+        app:layout_constraintBottom_toBottomOf="@id/appbar_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Daftar Baru"
+        android:text="Daftar Baru"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
@@ -21,17 +56,36 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinner_list_account_number"
-        style="@style/TextContent.TitleMedium.Bold"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/primary_color"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
+        android:layout_marginTop="21dp"
+        android:minWidth="150dp"
+        app:boxBackgroundColor="@color/blue_transfer"
+        app:boxStrokeColor="@color/box_stroke_color"
+        app:boxStrokeWidth="1dp"
+        app:endIconDrawable="@drawable/icon_arrow"
+        app:endIconTint="@color/white"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/appbar_background"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large">
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete_item_source_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:paddingVertical="10dp"
+            android:paddingStart="48dp"
+            android:text="Pilih rekening sumber"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -54,10 +108,11 @@
         android:layout_marginTop="5dp"
         app:boxStrokeColor="@color/box_stroke_color"
         app:boxStrokeWidth="2dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/title_choose_destination_bank"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input_destination_bank"
@@ -66,7 +121,8 @@
             android:layout_height="match_parent"
             android:drawableStart="@drawable/destination_bank_icon"
             android:drawablePadding="10dp"
-            android:hint="Pilih Bank" />
+            android:hint="Pilih Bank"
+            android:padding="10dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,19 +146,22 @@
         android:layout_marginTop="5dp"
         app:boxStrokeColor="@color/box_stroke_color"
         app:boxStrokeWidth="2dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/title_choose_destination_number_account"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_transfer_total_amount"
+            android:id="@+id/text_input_number_account_destination"
             style="@style/TextContent.TitleMedium"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:drawableStart="@drawable/destination_account_number_icon"
             android:drawablePadding="10dp"
-            android:hint="12345678" />
+            android:hint="12345678"
+            android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -124,6 +183,7 @@
         android:layout_marginTop="5dp"
         app:boxStrokeColor="@color/box_stroke_color"
         app:boxStrokeWidth="2dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/transfer_information_title"
@@ -135,7 +195,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawablePadding="10dp"
-            android:hint="Keterangan" />
+
+            android:hint="Keterangan"
+            android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -144,11 +206,12 @@
         android:layout_width="141dp"
         android:layout_height="41dp"
         android:layout_marginTop="51dp"
+        android:backgroundTint="@color/white"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="Simpan Rek."
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintEnd_toStartOf="@id/btn_next"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/text_layout_transfer_information"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
@@ -171,5 +234,16 @@
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
         app:strokeColor="@color/primary_color"
         app:strokeWidth="1dp" />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

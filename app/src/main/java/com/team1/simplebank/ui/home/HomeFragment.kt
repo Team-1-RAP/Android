@@ -109,8 +109,8 @@ class HomeFragment : Fragment() {
                                 progressbarIncomeExpense.visibility = View.GONE
                                 layoutIncomeAmount.visibility = View.VISIBLE
                                 layoutExpenseAmount.visibility = View.VISIBLE
-                                incomeAmount2.text = data.income.toRupiah()
-                                expenseAmount2.text = data.expense.toRupiah()
+                                incomeAmount2.text = getString(R.string.balance_format, data.income.toRupiah())
+                                expenseAmount2.text = getString(R.string.balance_format, data.expense.toRupiah())
                             }
                         }
                         is ResourceState.Error -> {
@@ -191,7 +191,7 @@ class HomeFragment : Fragment() {
                 layoutAccountNumber.visibility = View.VISIBLE
                 numberAccount2.text = getString(R.string.number_account, listData.cardNumber)
                 layoutAccountBalance.visibility = View.VISIBLE
-                accountBalance2.text = listData.balance.toRupiah()
+                accountBalance2.text = getString(R.string.balance_format, listData.balance.toRupiah())
 
             }
         }
@@ -224,8 +224,7 @@ class HomeFragment : Fragment() {
             )
                 .show()
 
-            3 -> Toast.makeText(requireContext(), R.string.transfer_title, Toast.LENGTH_SHORT)
-                .show()
+            3 -> findNavController().navigate(R.id.action_navigation_home_to_transferFragment)
 
             4 -> findNavController().navigate(R.id.action_navigation_home_to_virtualAccountFragment)
             5 -> Toast.makeText(requireContext(), R.string.gold_tube_title, Toast.LENGTH_SHORT)

@@ -6,13 +6,12 @@ import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.data.dataStore.AuthDataStore
 import com.team1.simplebank.data.mapper.mapUserAccountResponseToUserAccountModel
 import com.team1.simplebank.data.mapper.mapperGetAmountsMutationToGetAmountsUI
-import com.team1.simplebank.data.remote.api.ApiService
+import com.team1.simplebank.data.remote.api.BEJ.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import javax.inject.Inject
 
-//hilangkan data storenya ya nanti kalo error
 class UserRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val authDataStore: AuthDataStore

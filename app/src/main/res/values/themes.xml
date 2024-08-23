@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.SimpleBank" parent="Theme.MaterialComponents.DayNight.NoActionBar">">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
@@ -14,6 +14,13 @@
 
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
+        <item name="popupMenuBackground">@drawable/custom_pop_up_background</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+    </style>
+
+    <style name="PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:popupBackground">@drawable/custom_pop_up_background</item>
     </style>
 
     <style name="button_faq_color" parent="TextAppearance.AppCompat.Widget.Button.Colored">

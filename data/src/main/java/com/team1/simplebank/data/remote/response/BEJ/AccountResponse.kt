@@ -1,19 +1,19 @@
-package com.team1.simplebank.data.remote.response
+package com.team1.simplebank.data.remote.response.BEJ
 
 import com.google.gson.annotations.SerializedName
 
 data class AccountResponse(
 
-	@field:SerializedName("code")
+    @field:SerializedName("code")
 	val code: Int,
 
-	@field:SerializedName("data")
+    @field:SerializedName("data")
 	val data: List<DataItem?>?,
 
-	@field:SerializedName("message")
+    @field:SerializedName("message")
 	val message: String,
 
-	@field:SerializedName("status")
+    @field:SerializedName("status")
 	val status: Boolean
 )
 

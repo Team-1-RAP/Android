@@ -4,8 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.transfer.TransferFragment">
+    tools:context=".ui.home.transfer.TransferFragment">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/appbar_background"
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/rectangle_top_193"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="Kembali"
+        android:background="@android:color/transparent"
+        android:src="@drawable/icon_back"
+        app:layout_constraintBottom_toBottomOf="@id/appbar_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Transfer"
+        android:text="Transfer"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_back" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start"
@@ -24,13 +59,15 @@
     <SearchView
         android:id="@+id/search_user_transfer"
         android:layout_width="0dp"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:queryHint="Cari Rekening"
         android:searchIcon="@drawable/search_icon"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/appbar_background"
+     />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title_list_user_transfer"
