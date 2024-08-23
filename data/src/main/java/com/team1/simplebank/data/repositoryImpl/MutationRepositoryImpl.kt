@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import com.synrgy.xdomain.model.MutationDataUI
 import com.synrgy.xdomain.repositoryInterface.MutationRepository
 import com.team1.simplebank.data.dataStore.AuthDataStore
-import com.team1.simplebank.data.remote.api.BEJ.ApiService
+import com.team1.simplebank.data.remote.api.ApiService
 import com.team1.simplebank.data.repositoryImpl.pagingsource.MutationPagingSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
