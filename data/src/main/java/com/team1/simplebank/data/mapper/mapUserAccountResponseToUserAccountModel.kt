@@ -16,6 +16,7 @@ fun mapUserAccountResponseToUserAccountModel(userAccountResponse: AccountRespons
                     noAccount = it.noAccount,
                     cardNumber = it.cardNumber,
                     expDate = it.expDate.toFormatDate(),
+                    pin = it.pin
                 )
             )
         } else {

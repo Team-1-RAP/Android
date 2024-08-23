@@ -2,6 +2,7 @@ package com.team1.simplebank.ui.auth.forgotpswd
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,105 +27,92 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.team1.simplebank.R
+import com.team1.simplebank.colors_for_composable.Blue
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.ButtonComponent
 import com.team1.simplebank.ui.compose_components.ForgotPasswordTopDecoration
-import com.team1.simplebank.ui.compose_components.SimpleBankCardComponent
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
-
 @Composable
-fun ForgotPasswordInputDataScreen(
+fun ForgotPasswordInputOtpCodeScreen(
     modifier: Modifier = Modifier,
-    onNavigateToInputBirthDate: () -> Unit,
+    email: String,
+    onNavigateToInputNewPassword: () -> Unit,
 ) {
-    var nomorKartu by remember {
-        mutableStateOf("")
-    }
-    var bulanBerlaku by remember {
-        mutableStateOf("")
-    }
-    var tahunBerlaku by remember {
-        mutableStateOf("")
-    }
+
+    var otpCode by remember { mutableStateOf("") }
 
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(Color.White)
-            .verticalScroll(rememberScrollState())
     ) {
         ForgotPasswordTopDecoration()
         Column(
             modifier = modifier
                 .padding(vertical = 16.dp, horizontal = 16.dp)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = modifier.height(8.dp))
             Image(
-                painter = painterResource(id = R.drawable.simple_bank_logo_no_banner_name),
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .size(80.dp)
+                    .size(132.dp)
             )
-            Spacer(modifier = modifier.height(24.dp))
+            Spacer(modifier = modifier.height(16.dp))
             Text(
-                text = " Masukkan data kartu",
+                text = "Masukkan kode OTP",
                 color = BlueNormal,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = modifier
                     .padding(bottom = 16.dp)
             )
-            SimpleBankCardComponent(
-                modifier = modifier,
-                cardHolder = "User Bank",
-                cardExp = "10/25"
-            )
-            Spacer(modifier = modifier.height(24.dp))
-            TextFieldComponent(
-                placeholder = "Nomor Kartu",
-                textValue = nomorKartu,
-                onValueChange = { nomorKartu = it },
-                isCommonInputFields = true,
-            )
             Text(
-                text = "Masa Berlaku",
+                text = "Masukan kode OTP yang telah dikirimkan melalui Email ke ${email}",
                 modifier = modifier.padding(top = 16.dp, bottom = 8.dp),
                 fontSize = 16.sp
             )
-            Row(
-                modifier = modifier
-                    .fillMaxWidth(),
+            TextFieldComponent(
+                placeholder = "Kode OTP",
+                textValue = otpCode,
+                onValueChange = { otpCode = it },
+                isCommonInputFields = true,
+            )
+
+            Spacer(modifier = modifier.weight(1f))
+            Row (
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier.fillMaxWidth()
             ) {
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "MM",
-                    textValue = bulanBerlaku,
-                    onValueChange = { bulanBerlaku = it },
-                    isCommonInputFields = true,
+                Text (
+                    text = "Belum menerima kode?",
                 )
-                Spacer(modifier = modifier.weight(0.1f))
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "YY",
-                    textValue = tahunBerlaku,
-                    onValueChange = { tahunBerlaku = it },
-                    isCommonInputFields = true,
-                )
+                TextButton(
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = Blue
+                    )
+                ) {
+                    Text(text = "Klik ini")
+                }
             }
+            ButtonComponent(
+                onClick = { onNavigateToInputNewPassword() },
+                label = "Selanjutnya",
+                buttonColor = ButtonDefaults.buttonColors(
+                    containerColor = BlueNormal,
+                    contentColor = Color.White
+                ),
+                modifier = modifier.padding(bottom = 24.dp)
+            )
         }
-        ButtonComponent(
-            onClick = { onNavigateToInputBirthDate() },
-            label = "Selanjutnya",
-            buttonColor = ButtonDefaults.buttonColors(
-                containerColor = BlueNormal,
-                contentColor = Color.White
-            ),
-            modifier = modifier.align(Alignment.BottomCenter).padding(vertical = 32.dp, horizontal = 16.dp)
-        )
     }
 }

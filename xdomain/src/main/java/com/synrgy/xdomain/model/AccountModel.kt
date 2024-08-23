@@ -6,5 +6,6 @@ data class AccountModel(
     val fullName: String,
     val noAccount: String,
     val cardNumber: String,
-    val expDate: String
+    val expDate: String,
+    val pin: String,
 )

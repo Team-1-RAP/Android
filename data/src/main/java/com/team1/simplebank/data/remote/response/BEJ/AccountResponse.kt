@@ -35,7 +35,10 @@ data class DataItem(
 	val cardNumber: String,
 
 	@field:SerializedName("expDate")
-	val expDate: String
+	val expDate: String,
+
+	@field:SerializedName("pin")
+	val pin: String
 )
 
 

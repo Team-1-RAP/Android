@@ -85,6 +85,9 @@ dependencies {
 
     //coil
     implementation(libs.coil.compose)
+    
+    //qr
+    implementation ("com.google.zxing:core:3.5.1")
 
     //cameraX
     implementation(libs.androidx.camera.core)

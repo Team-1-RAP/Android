@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.team1.simplebank.databinding.FragmentQrisBinding
 import com.team1.simplebank.navigations.QrisFeatureNavigation
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QrisFragment : Fragment() {
 
     private var _binding: FragmentQrisBinding? = null

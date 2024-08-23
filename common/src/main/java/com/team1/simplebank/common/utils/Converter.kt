@@ -2,6 +2,8 @@ package com.team1.simplebank.common.utils
 
 import android.annotation.SuppressLint
 import android.os.Build
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -17,6 +19,15 @@ object Converter {
         val formatRupiah = NumberFormat.getCurrencyInstance(localID)
         val result = formatRupiah.format(this)
         return result
+    }
+    fun Double.toRupiah(): String {
+        val decimalFormatSymbols = DecimalFormatSymbols(Locale("in", "ID")).apply {
+            groupingSeparator = '.'
+            decimalSeparator = ','
+        }
+
+        val decimalFormat = DecimalFormat("#,##0.00", decimalFormatSymbols)
+        return decimalFormat.format(this)
     }
 
     @SuppressLint("SimpleDateFormat")

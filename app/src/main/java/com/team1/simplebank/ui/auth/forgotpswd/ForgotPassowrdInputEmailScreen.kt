@@ -4,10 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,93 +29,58 @@ import com.team1.simplebank.R
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.ui.compose_components.ButtonComponent
 import com.team1.simplebank.ui.compose_components.ForgotPasswordTopDecoration
-import com.team1.simplebank.ui.compose_components.SimpleBankCardComponent
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
-
 @Composable
-fun ForgotPasswordInputDataScreen(
+fun ForgotPasswordInputEmailScreen(
     modifier: Modifier = Modifier,
-    onNavigateToInputBirthDate: () -> Unit,
+    onNavigateToInputOtpCode: (String) -> Unit,
 ) {
-    var nomorKartu by remember {
-        mutableStateOf("")
-    }
-    var bulanBerlaku by remember {
-        mutableStateOf("")
-    }
-    var tahunBerlaku by remember {
-        mutableStateOf("")
-    }
+    var email by remember { mutableStateOf("") }
 
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(Color.White)
-            .verticalScroll(rememberScrollState())
     ) {
         ForgotPasswordTopDecoration()
         Column(
             modifier = modifier
                 .padding(vertical = 16.dp, horizontal = 16.dp)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = modifier.height(8.dp))
             Image(
-                painter = painterResource(id = R.drawable.simple_bank_logo_no_banner_name),
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .size(80.dp)
+                    .size(132.dp)
             )
-            Spacer(modifier = modifier.height(24.dp))
+            Spacer(modifier = modifier.height(16.dp))
             Text(
-                text = " Masukkan data kartu",
+                text = "Masukkan email Anda",
                 color = BlueNormal,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = modifier
                     .padding(bottom = 16.dp)
             )
-            SimpleBankCardComponent(
-                modifier = modifier,
-                cardHolder = "User Bank",
-                cardExp = "10/25"
-            )
-            Spacer(modifier = modifier.height(24.dp))
-            TextFieldComponent(
-                placeholder = "Nomor Kartu",
-                textValue = nomorKartu,
-                onValueChange = { nomorKartu = it },
-                isCommonInputFields = true,
-            )
             Text(
-                text = "Masa Berlaku",
+                text = "Masukan email Anda untuk verifikasi akun menggunakan kode OTP.",
                 modifier = modifier.padding(top = 16.dp, bottom = 8.dp),
                 fontSize = 16.sp
             )
-            Row(
-                modifier = modifier
-                    .fillMaxWidth(),
-            ) {
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "MM",
-                    textValue = bulanBerlaku,
-                    onValueChange = { bulanBerlaku = it },
-                    isCommonInputFields = true,
-                )
-                Spacer(modifier = modifier.weight(0.1f))
-                TextFieldComponent(
-                    modifier = modifier.weight(0.3f),
-                    placeholder = "YY",
-                    textValue = tahunBerlaku,
-                    onValueChange = { tahunBerlaku = it },
-                    isCommonInputFields = true,
-                )
-            }
+            TextFieldComponent(
+                placeholder = "Email",
+                textValue = email,
+                onValueChange = { email = it },
+                isCommonInputFields = true,
+            )
+
         }
         ButtonComponent(
-            onClick = { onNavigateToInputBirthDate() },
+            onClick = { onNavigateToInputOtpCode(email) },
             label = "Selanjutnya",
             buttonColor = ButtonDefaults.buttonColors(
                 containerColor = BlueNormal,

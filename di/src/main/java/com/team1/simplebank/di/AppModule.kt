@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.synrgy.xdomain.repositoryInterface.IAuthRepository
+import com.synrgy.xdomain.repositoryInterface.IQrisRepository
 import com.synrgy.xdomain.repositoryInterface.IUserRepository
 import com.synrgy.xdomain.repositoryInterface.MutationRepository
 import com.synrgy.xdomain.repositoryInterface.TransferRepository
@@ -15,7 +16,9 @@ import com.team1.simplebank.data.remote.api.FSW.ApiServiceFromFSW
 import com.team1.simplebank.data.repositoryImpl.AuthRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.MutationRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.TransferRepositoryImpl
+import com.team1.simplebank.data.repositoryImpl.QrisRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.UserRepositoryImpl
+import com.team1.simplebank.data.repositoryImpl.pagingsource.MutationPagingSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -149,6 +152,14 @@ object AppModule {
     ): TransferRepository {
         return TransferRepositoryImpl(apiService, apiServiceFromFSW)
     }
+    @Singleton
+    @Provides
+    fun provideQrisRepository(
+        apiService : ApiService
+    ) : IQrisRepository {
+        return QrisRepositoryImpl(apiService)
+    }
+
 
 
 }
