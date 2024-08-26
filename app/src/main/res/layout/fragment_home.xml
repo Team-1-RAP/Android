@@ -4,31 +4,52 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.SimpleBank"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:background="@drawable/home_page_background">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
 
+        <LinearLayout
+            android:id="@+id/top_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="208dp"
+            android:background="@drawable/gradient_top_home_fragment"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:indeterminateDrawable="@drawable/progressbar_custom"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/top_app_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/simple_bank_logo"
             android:layout_width="84dp"
             android:layout_height="84dp"
             android:layout_marginStart="13dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="3dp"
+            android:contentDescription="Logo Simple Bank"
             android:scaleType="fitXY"
-            android:src="@drawable/simple_bank_logo"
+            android:src="@drawable/simple_bank_logo_update"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/hey_title"
-            style="@style/TextContent.TitleMedium.White"
+            style="@style/TextContent.TitleMedium.Light"
+            android:fontFamily="@font/calibri"
             android:text="@string/Hey"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/user_full_name"
@@ -38,13 +59,14 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/user_full_name"
-            style="@style/TextContent.TitleMedium.Bold.White"
+            style="@style/TextContent.TitleLarge.Light"
+            android:fontFamily="@font/calibri"
             android:text="@string/user_full_name"
             android:visibility="visible"
-            app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="@+id/simple_bank_logo"
             app:layout_constraintStart_toStartOf="@+id/hey_title"
-            app:layout_constraintTop_toBottomOf="@id/hey_title" />
+            app:layout_constraintTop_toBottomOf="@id/hey_title"
+            app:layout_constraintVertical_bias="0" />
 
         <Space
             android:id="@+id/space_view"
@@ -56,15 +78,6 @@
             app:layout_constraintStart_toStartOf="@id/cardview_beranda"
             app:layout_constraintTop_toTopOf="@id/cardview_beranda" />
 
-        <ImageView
-            android:id="@+id/shadow_logo_simple_bank"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/shadow_logo_simple_bank_2"
-            app:layout_constraintBottom_toBottomOf="@id/space_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/space_view"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_helpdesk"
@@ -78,248 +91,183 @@
             android:textAllCaps="false"
             android:textSize="13sp"
             app:icon="@drawable/question_logo"
+            app:iconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/simple_bank_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/simple_bank_logo" />
+
+        <LinearLayout
+            android:id="@+id/layout_account_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@id/simple_bank_logo"
+            app:layout_constraintTop_toBottomOf="@id/simple_bank_logo">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/number_account_2"
+                style="@style/TextContent.TitleMedium.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/calibri"
+                android:text="@string/number_account"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_copy_number_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Salin Nomor Rekening"
+                android:src="@drawable/copy_logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_account_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@id/layout_account_number"
+            app:layout_constraintTop_toBottomOf="@id/layout_account_number">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/account_balance_2"
+                style="@style/TextContent.TitleLarge.Bold.Light"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/calibri"
+                android:text="@string/balance_amount"
+                android:visibility="gone" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/hide_account_balance"
+                style="@style/TextContent.TitleLarge.Bold.Light"
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/calibri"
+                android:text="@string/hide_balance"
+                android:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_show_or_hide_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Tampilkan Saldo"
+                android:src="@drawable/hide_logo" />
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardview_beranda"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="66dp"
             android:layout_marginEnd="20dp"
             app:cardCornerRadius="15dp"
+            app:cardElevation="7dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/simple_bank_logo"
-
-            >
+            app:layout_constraintTop_toBottomOf="@id/layout_account_balance">
 
             <LinearLayout
+                android:id="@+id/layout_income_amount_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:visibility="visible">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/account_balance_title_2"
-                    style="@style/TextContent.TitleSmall.Black"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="16.5dp"
-                    android:text="@string/balance_title" />
+                <RelativeLayout
+                    android:id="@+id/layout_income_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/logo_income_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/income_logo" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/income_title_2"
+                        style="@style/TextContent.TitleMedium.ShadowBlue"
+                        android:layout_alignBaseline="@id/logo_income_2"
+                        android:layout_toEndOf="@id/logo_income_2"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="@string/income_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/income_amount_2"
+                        style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
+                        android:layout_below="@id/income_title_2"
+                        android:layout_toEndOf="@id/logo_income_2"
+                        android:fontFamily="@font/calibrib"
+                        android:text="@string/income_amount" />
+                </RelativeLayout>
 
                 <ProgressBar
-                    android:id="@+id/progressbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:layout_gravity="center"
-                    android:indeterminateDrawable="@drawable/progressbar_custom"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/layout_account_number"
+                    android:id="@+id/progressbar_income_expense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:indeterminateDrawable="@drawable/progressbar_custom_income_expense"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_expense_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:visibility="gone">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/number_account_2"
-                        style="@style/TextContent.TitleSmall.Black"
-                        android:layout_marginStart="15dp"
-                        android:maxLength="13"
-                        android:text="@string/number_account"
-                        android:visibility="visible"
-                        app:layout_constraintStart_toStartOf="@id/account_balance_title_2"
-                        app:layout_constraintTop_toBottomOf="@id/account_balance_title_2" />
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/btn_copy_number_account"
+                    <ImageView
+                        android:id="@+id/logo_expense_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/copy_logo" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_account_balance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/outcome_expensse" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/account_balance_2"
-                        style="@style/TextContent.TitleLarge.Bold.Black"
-                        android:layout_marginStart="15dp"
-                        android:text="@string/balance_amount"
-                        android:visibility="gone" />
+                        android:id="@+id/expense_title_2"
+                        style="@style/TextContent.TitleMedium.ShadowBlue"
+                        android:layout_alignBaseline="@id/logo_expense_2"
+                        android:layout_toEndOf="@id/logo_expense_2"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="@string/expense_title" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/hide_account_balance"
-                        style="@style/TextContent.TitleLarge.Bold.Black"
-                        android:layout_marginStart="15dp"
-                        android:text="@string/hide_balance"
-                        android:visibility="visible" />
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/btn_show_or_hide_balance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/hide_logo" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/view_group_layout_more_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_show_more_2"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:drawableRight="@drawable/arrow_circle_downward"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/show_more"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        app:iconGravity="end"
-                        app:strokeWidth="0dp" />
-
-                    <LinearLayout
-                        android:id="@+id/income_expense_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:id="@+id/logo_income_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginEnd="15dp"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/income_logo" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/income_title_2"
-                                style="@style/TextContent.SuperSmall.ShadowBlue.Bold"
-                                android:layout_alignBaseline="@id/logo_income_2"
-                                android:layout_toEndOf="@id/logo_income_2"
-                                android:text="@string/income_title" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/income_amount_2"
-                                style="@style/TextContent.SuperSmall.ShadowBlue"
-                                android:layout_below="@id/income_title_2"
-                                android:layout_toEndOf="@id/logo_income_2"
-                                android:text="@string/income_amount" />
-
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:id="@+id/logo_expense_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginEnd="15dp"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/outcome_expensse" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/expense_title_2"
-                                style="@style/TextContent.SuperSmall.ShadowBlue.Bold"
-                                android:layout_alignBaseline="@id/logo_expense_2"
-                                android:layout_toEndOf="@id/logo_expense_2"
-                                android:text="@string/expense_title" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/expense_amount_2"
-                                style="@style/TextContent.SuperSmall.ShadowBlue"
-                                android:layout_below="@id/expense_title_2"
-                                android:layout_toEndOf="@id/logo_expense_2"
-                                android:text="@string/expense_amount" />
-
-
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_show_less_2"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:drawableRight="@drawable/arrow_circle_upward"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="Tampilkan Sedikit"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:visibility="gone"
-                        app:iconGravity="end"
-                        app:strokeWidth="0dp"
-                        tools:ignore="TouchTargetSizeCheck" />
-
-                </LinearLayout>
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_change_account_2"
-                    style="@style/TextContent.TitleSmall.Bold.White"
-                    android:layout_width="match_parent"
-                    android:backgroundTint="#121F59"
-                    android:drawableLeft="@drawable/logo_mini_simple_bank"
-                    android:drawableRight="@drawable/icon_next"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:padding="10dp"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="15dp"
-                    android:text="@string/change_account"
-                    android:textAlignment="textStart"
-                    android:textAllCaps="false"
-                    app:iconGravity="end" />
+                        android:id="@+id/expense_amount_2"
+                        style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
+                        android:layout_below="@id/expense_title_2"
+                        android:layout_toEndOf="@id/logo_expense_2"
+                        android:fontFamily="@font/calibrib"
+                        android:text="@string/expense_amount" />
+                </RelativeLayout>
             </LinearLayout>
-
-
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/digital_service_title"
-            style="@style/TextContent.TitleLarge"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/dark_shade_of_blue"
+            style="@style/TextContent.TitleLarge.Bold"
+            android:layout_marginTop="26.5dp"
+            android:fontFamily="@font/calibrib"
             android:text="@string/digital_service_title"
+            android:textColor="@color/dark_blue_primary"
             app:layout_constraintStart_toStartOf="@id/cardview_beranda"
             app:layout_constraintTop_toBottomOf="@id/cardview_beranda" />
 
@@ -337,10 +285,8 @@
             android:id="@+id/rv_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:clipToPadding="false"
+            android:clipToPadding="true"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

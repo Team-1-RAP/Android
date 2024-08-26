@@ -2,6 +2,7 @@
 activityCompose = "1.9.0"
 agp = "8.4.2"
 biometric = "1.1.0"
+cameraCore = "1.3.4"
 jwtdecode = "2.0.2"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
@@ -41,15 +42,23 @@ navigationFragmentKtx = "2.7.7"
 legacySupportV4 = "1.0.0"
 hiltNavigationCompose = "1.2.0"
 hiltAndroidCompiler = "2.51"
+pagingRuntimeKtx = "3.3.1"
+cameraView = "1.3.4"
+visionCommon = "17.3.0"
+playServicesMlkitBarcodeScanning = "18.3.1"
 
 
 
 
 [libraries]
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraCore" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraCore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -59,16 +68,16 @@ jwtdecode = { module = "com.auth0.android:jwtdecode", version.ref = "jwtdecode" 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-androidx-fragment = {group="androidx.fragment", name="fragment-ktx",version.ref="fragment_version"}
-androidx-navigation-fragment = {group="androidx.navigation",name="navigation-fragment",version.ref="nav_version"}
-androidx-navigation-ui = {group="androidx.navigation",name="navigation-ui-ktx",version.ref="nav_version"}
-androidx-navigation-dynamic = {group="androidx.navigation",name="navigation-dynamic-features-fragment",version.ref="nav_version"}
-androidx-navigation-testing = {group="androidx.navigation",name="navigation-testing",version.ref="nav_version"}
-androidx-navigation-compose = {group="androidx.navigation",name="navigation-compose",version.ref="nav_version"}
-androidx-lifecycle-viewmodel = {group="androidx.lifecycle",name="lifecycle-viewmodel-ktx",version.ref="lifecycle_viewmodel"}
+androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment_version" }
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "nav_version" }
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav_version" }
+androidx-navigation-dynamic = { group = "androidx.navigation", name = "navigation-dynamic-features-fragment", version.ref = "nav_version" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "nav_version" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav_version" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle_viewmodel" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
-androidx-recyclerview = {group="androidx.recyclerview",name="recyclerview",version.ref="recyclerview"}
-androidx-recyclerview-selection = {group="androidx.recyclerview",name="recyclerview-selection",version.ref="recyclerview_selection"}
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+androidx-recyclerview-selection = { group = "androidx.recyclerview", name = "recyclerview-selection", version.ref = "recyclerview_selection" }
 
 ### compose ###
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -97,22 +106,28 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 ### coroutines ###
-coroutines_android = {group="org.jetbrains.kotlinx",name="kotlinx-coroutines-android",version.ref = "coroutines_version"}
-coroutines_test = {group="org.jetbrains.kotlinx",name="kotlinx-coroutines-test",version.ref = "coroutines_version"}
+coroutines_android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines_version" }
+coroutines_test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines_version" }
 
 
 androidx-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 androidx-roomCompilerKsp = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 androidx-roomCoroutines = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
-mocK = {group="org.mockito.kotlin",name="mockito-kotlin",version.ref="mocK"}
-arch-testing = {group="androidx.arch.core",name="core-testing",version.ref="arch"}
-coil = {group="io.coil-kt",name="coil",version.ref = "coil"}
-android-material = {group="com.google.android.material",name="material",version.ref="android_material"}
-android-material-two = {group="com.google.android.material",name="material",version.ref="android_material"}
+mocK = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mocK" }
+arch-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "arch" }
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "android_material" }
+android-material-two = { group = "com.google.android.material", name = "material", version.ref = "android_material" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationFragmentKtx" }
+androidx-navigation-dynamic-features = { group = "androidx.navigation", name = "navigation-dynamic-features-fragment", version.ref = "navigationFragmentKtx" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+androidx-paging = {group="androidx.paging",name="paging-runtime-ktx",version.ref="pagingRuntimeKtx"}
+androidx-camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
+vision-common = { group = "com.google.mlkit", name = "vision-common", version.ref = "visionCommon" }
+play-services-mlkit-barcode-scanning = { group = "com.google.android.gms", name = "play-services-mlkit-barcode-scanning", version.ref = "playServicesMlkitBarcodeScanning" }
 
 
 [plugins]

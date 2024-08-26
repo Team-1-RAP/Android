@@ -4,6 +4,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/icon_menu_beranda"
+        android:iconTint="@color/white"
         android:title="@string/home_page" />
 
     <item

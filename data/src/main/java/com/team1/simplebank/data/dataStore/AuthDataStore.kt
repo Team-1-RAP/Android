@@ -24,6 +24,12 @@ class AuthDataStore(
         }
     }
 
+    fun getNoAccount(): Flow<String?> {
+        return dataStore.data.map {
+            it[NO_ACCOUNT]
+        }
+    }
+
     suspend fun saveSession(sessionToken: AuthModel) {
         dataStore.edit {
             it[ACCESS_TOKEN_KEY] = sessionToken.accessToken ?: ""
@@ -31,6 +37,12 @@ class AuthDataStore(
             it[FULL_NAME_KEY] = sessionToken.fullName ?: ""
             it[USERNAME_KEY] = sessionToken.username ?: ""
             it[ID_KEY] = sessionToken.id ?: 0
+        }
+    }
+
+    suspend fun saveNoAccount(noAccount:String){
+        dataStore.edit {
+            it[NO_ACCOUNT] = noAccount
         }
     }
 
@@ -46,5 +58,6 @@ class AuthDataStore(
         private val FULL_NAME_KEY = stringPreferencesKey("full_name")
         private val USERNAME_KEY = stringPreferencesKey("user_name")
         private val ID_KEY = intPreferencesKey("id")
+        private val NO_ACCOUNT = stringPreferencesKey("no_account")
     }
 }

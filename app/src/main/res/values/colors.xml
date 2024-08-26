@@ -22,8 +22,19 @@
     <color name="light_red">#FFFC6A57</color>
     <color name="dark_red">#FF851001</color>
 
-    <color name="dark_shade_of_blue">#121f59</color>
+    <color name="gray">#EFEFEF</color>
+    <color name="box_stroke_color_result_transfer">#A09FA4</color>
+    <color name="item_blue_default">#FF114280</color>
+    <color name="primary_color">#0066AE</color>
+    <color name="blue_transfer">#127DCD</color>
+
+    <color name="dark_blue_primary">#0A3967</color>
     <color name="shadow_of_blue">#1454FB</color>
 
+    <color name="black_71">#B5000000</color>
+    <color name="blue_status_bar">#FF0A3967</color>
+
+    <color name="holo_red">#CB3A31</color>
+    <color name="holo_green">#34C759</color>
 
 </resources>

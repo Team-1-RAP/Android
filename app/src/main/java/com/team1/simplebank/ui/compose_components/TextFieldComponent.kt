@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.team1.simplebank.colors_for_composable.Blue
 import com.team1.simplebank.colors_for_composable.BlueNormal
 import com.team1.simplebank.colors_for_composable.DarkBlue
 import com.team1.simplebank.colors_for_composable.LightBlue
@@ -38,6 +39,7 @@ fun TextFieldComponent(
     modifier: Modifier = Modifier,
     placeholder: String,
     textValue: String,
+    isCommonInputFields: Boolean = false,
     onValueChange: (String) -> Unit,
     isPassword: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
@@ -48,15 +50,27 @@ fun TextFieldComponent(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 8.dp),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Color.White,
-            unfocusedContainerColor = Color.White,
-            focusedTextColor = BlueNormal,
-            unfocusedTextColor = LightBlue,
-            cursorColor = BlueNormal,
-            focusedBorderColor = BlueNormal,
-            unfocusedBorderColor = Color.Transparent,
-        ),
+        colors = if (isCommonInputFields) {
+            OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedBorderColor = Color.Black,
+                unfocusedBorderColor = Color.Gray,
+            )
+        } else {
+            OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                focusedTextColor = Blue,
+                unfocusedTextColor = LightBlue,
+                cursorColor = Blue,
+                focusedBorderColor = BlueNormal,
+                unfocusedBorderColor = BlueNormal,
+            )
+        },
         shape = RoundedCornerShape(16.dp),
         value = textValue,
         onValueChange = { newText ->
@@ -65,8 +79,8 @@ fun TextFieldComponent(
         placeholder = {
             Text(
                 text = placeholder,
-                color = LightBlue,
-                fontSize = 16.sp,
+                color = if(isCommonInputFields) Color.Gray else LightBlue,
+                fontSize = 14.sp,
                 fontWeight = FontWeight(400)
             )
         },
@@ -100,6 +114,8 @@ fun TextFieldComponent(
                         tint = BlueNormal,
                     )
                 }
+            } else {
+                // No trailing icon for non-password fields
             }
         }
     )

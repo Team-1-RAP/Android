@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.team1.simplebank.databinding.FragmentQrisBinding
+import com.team1.simplebank.navigations.QrisFeatureNavigation
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class QrisFragment : Fragment() {
 
     private var _binding: FragmentQrisBinding? = null
@@ -24,12 +27,15 @@ class QrisFragment : Fragment() {
     ): View {
         _binding = FragmentQrisBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        /*val textView: TextView = binding.textNotifications
-        qrisViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val qrisComposeView = binding.composeView
+        qrisComposeView.setContent {
+            QrisFeatureNavigation()
+        }
     }
 
     override fun onDestroyView() {

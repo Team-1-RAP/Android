@@ -2,6 +2,7 @@ package com.team1.simplebank.ui.auth
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
@@ -27,10 +28,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,7 +40,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -55,20 +53,20 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.team1.simplebank.R
 import com.team1.simplebank.colors_for_composable.BlueNormal
-import com.team1.simplebank.colors_for_composable.DarkBlue
+import com.team1.simplebank.colors_for_composable.RedError
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.ui.HomeActivity
 import com.team1.simplebank.ui.compose_components.ButtonComponent
+import com.team1.simplebank.ui.compose_components.CustomSnackbar
 import com.team1.simplebank.ui.compose_components.GradientBackground
 import com.team1.simplebank.ui.compose_components.LoadingScreen
 import com.team1.simplebank.ui.compose_components.OnBoardDecoration
 import com.team1.simplebank.ui.compose_components.TextFieldComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier,
+    onForgotPasswordButtonClicked: () -> Unit = {},
 ) {
     val context = LocalContext.current
     var username by remember { mutableStateOf("") }
@@ -77,9 +75,10 @@ fun LoginScreen(
     val sheetState = rememberModalBottomSheetState()
     val viewModel: LoginViewModel = hiltViewModel()
     val authData by viewModel.authData.collectAsState()
-    val snackbarHostState = remember {
-        SnackbarHostState()
-    }
+
+    var showErrorSnackbar by remember { mutableStateOf(false) }
+    var showLoading by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
 
     fun login(usrname: String, pass: String) {
         viewModel.login(usrname, pass)
@@ -88,161 +87,181 @@ fun LoginScreen(
     LaunchedEffect(authData) {
         when (authData) {
             is ResourceState.Loading -> {
-                // Show loading screen
+                showLoading = true
             }
 
             is ResourceState.Success -> {
+                showLoading = true
                 context.startActivity(Intent(context, HomeActivity::class.java))
                 (context as Activity).finish()
             }
 
             is ResourceState.Error -> {
-                snackbarHostState.showSnackbar(
-                    message = "Silakan periksa kembali username dan password anda",
-                    duration = SnackbarDuration.Short
-                )
+                showLoading = false
+                errorMessage =
+                    "Silakan periksa kembali username dan password Anda"
+                showErrorSnackbar = true
             }
 
             else -> {}
         }
     }
 
-    if (authData is ResourceState.Loading) {
+    if (showLoading) {
         LoadingScreen()
     } else {
-        Scaffold(
-            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-            modifier = Modifier.fillMaxSize()
-        ) { paddingValues ->
-            GradientBackground(
+        GradientBackground(
+            modifier = Modifier
+                .fillMaxSize(),
+            startColor = Color.White,
+            endColor = Color.White
+        ) {
+            OnBoardDecoration()
+            Column(
+                verticalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .fillMaxSize(),
-                startColor = Color(0xFF8CACF9),
-                endColor = Color(0xFFE7EDFB)
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
-                OnBoardDecoration()
-                Column(
-                    verticalArrangement = Arrangement.Center,
+                Spacer(modifier = Modifier.height(64.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
-                        .padding(horizontal = 24.dp)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.logo),
-                        contentDescription = "Logo",
-                        modifier = Modifier
-                            .size(140.dp)
-                            .background(Color.Transparent)
-                            .align(Alignment.CenterHorizontally)
+                        .size(140.dp)
+                        .background(Color.Transparent)
+                        .align(Alignment.CenterHorizontally)
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = "LOGIN akun Simple Bankmu",
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                        .semantics { contentDescription = "login akun simple bankmu" },
+                    color = BlueNormal,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight(500),
                     )
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Text(
-                        text = "Login akun Simple Bankmu",
-                        modifier = Modifier.padding(bottom = 8.dp).semantics { contentDescription = "login akun simple bankmu" },
-                        color = DarkBlue,
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight(400),
+                )
+                TextFieldComponent(
+                    modifier = Modifier
+                        .focusable()
+                        .semantics { contentDescription = "username" },
+                    placeholder = "Username",
+                    textValue = username,
+                    onValueChange = { username = it },
+                    isPassword = false,
+                    leadingIcon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.user_icon),
+                            contentDescription = "User Icon",
+                            modifier = Modifier.size(24.dp)
                         )
-                    )
-                    TextFieldComponent(
-                        modifier = Modifier.focusable()
-                            .semantics { contentDescription = "username" },
-                        placeholder = "Username",
-                        textValue = username,
-                        onValueChange = { username = it },
-                        isPassword = false,
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(id = R.drawable.user_icon),
-                                contentDescription = "User Icon",
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                    )
-                    TextFieldComponent(
-                        modifier = Modifier.focusable()
-                            .semantics { contentDescription = "Password Field" },
-                        placeholder = "Password",
-                        textValue = password,
-                        onValueChange = { password = it },
-                        isPassword = true,
-                        leadingIcon = {
-                            Image(
-                                painter = painterResource(id = R.drawable.password_icon),
-                                contentDescription = "Password Icon",
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                    )
+                    }
+                )
+                TextFieldComponent(
+                    modifier = Modifier
+                        .focusable()
+                        .semantics { contentDescription = "password" },
+                    placeholder = "Password",
+                    textValue = password,
+                    onValueChange = { password = it },
+                    isPassword = true,
+                    leadingIcon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.password_icon),
+                            contentDescription = "Password Icon",
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                )
+
+                TextButton(
+                    onClick = {
+                        onForgotPasswordButtonClicked()
+                    },
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(vertical = 16.dp)
+                        .semantics { contentDescription = "lupa password" }
+                ) {
+
                     Text(
                         text = "Lupa Password?",
-                        color = DarkBlue,
+                        color = BlueNormal,
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontWeight = FontWeight(500),
+                            fontWeight = FontWeight(600),
+                        ),
+                    )
+                }
+                HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = BlueNormal)
+                Spacer(modifier = Modifier.height(120.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    ButtonComponent(
+                        onClick = {
+                            if (username.isNotEmpty() && password.isNotEmpty()) {
+                                login(username, password)
+                            } else {
+                                showErrorSnackbar = true
+                                errorMessage = "Username dan password tidak boleh kosong"
+                            }
+                        },
+                        label = "Login",
+                        buttonColor = ButtonDefaults.buttonColors(
+                            containerColor = BlueNormal,
+                            contentColor = Color.White
                         ),
                         modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(vertical = 16.dp)
-                            .semantics { contentDescription = "lupa password" }
+                            .fillMaxWidth(fraction = 0.5f)
+                            .semantics { contentDescription = "Tombol Login" }
                     )
-                    HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = BlueNormal)
-                    Spacer(modifier = Modifier.height(120.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        ButtonComponent(
-                            onClick = {
-                                if (username.isNotEmpty() && password.isNotEmpty()) {
-                                    login(username, password)
-                                } else {
-                                    // Handle empty fields TODO
-                                }
-                            },
-                            label = "Login",
-                            buttonColor = ButtonDefaults.buttonColors(
-                                containerColor = BlueNormal,
-                                contentColor = Color.White
-                            ),
-                            modifier = Modifier
-                                .fillMaxWidth(fraction = 0.5f)
-                                .semantics { contentDescription = "Tombol Login" }
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        ButtonComponent(
-                            onClick = { showBiometricLoginBottomSheet = true },
-                            label = "Biometric",
-                            buttonColor = ButtonDefaults.buttonColors(
-                                containerColor = Color.White,
-                                contentColor = BlueNormal
-                            ),
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.Fingerprint,
-                                    contentDescription = "Fingerprint Icon",
-                                    modifier = Modifier
-                                        .size(24.dp)
-                                        .fillMaxWidth(fraction = 0.5f)
-                                        .semantics { contentDescription = "Tombol login biometrik" },
-                                )
-                            }
-                        )
-                    }
-
-                    if (showBiometricLoginBottomSheet) {
-                        BiometricLoginBottomSheet(
-                            onDismissRequest = { showBiometricLoginBottomSheet = false },
-                            sheetState = sheetState,
-                            modifier = Modifier,
-                        )
-                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    ButtonComponent(
+                        onClick = { showBiometricLoginBottomSheet = true },
+                        label = "Biometrik",
+                        buttonColor = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = BlueNormal,
+                        ),
+                        isBordered = true,
+                        modifier = Modifier.semantics {
+                            contentDescription = "Tombol login biometrik"
+                        },
+                        leadingIcon = {
+                            Icon(
+                                Icons.Outlined.Fingerprint,
+                                contentDescription = "Fingerprint Icon",
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .fillMaxWidth(fraction = 0.5f),
+                            )
+                        }
+                    )
                 }
+
+                if (showBiometricLoginBottomSheet) {
+                    BiometricLoginBottomSheet(
+                        onDismissRequest = { showBiometricLoginBottomSheet = false },
+                        sheetState = sheetState,
+                        modifier = Modifier,
+                    )
+                }
+
+            }
+            if (showErrorSnackbar) {
+                CustomSnackbar(
+                    message = errorMessage,
+                    onDismiss = { showErrorSnackbar = false },
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                )
             }
         }
     }
@@ -270,7 +289,7 @@ fun BiometricLoginBottomSheet(
                 text = "Konfirmasi Sidik Jari",
                 fontWeight = FontWeight(700),
                 fontSize = 20.sp,
-                color = BlueNormal,
+                color = RedError,
             )
             Text(
                 text = "Sentuh sensor sidik jari",
@@ -282,7 +301,7 @@ fun BiometricLoginBottomSheet(
             Icon(
                 imageVector = Icons.Rounded.Fingerprint,
                 contentDescription = "Fingerprint Icon",
-                tint = BlueNormal,
+                tint = Color.Gray,
                 modifier = modifier
                     .size(160.dp)
                     .align(Alignment.CenterHorizontally)

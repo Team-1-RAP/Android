@@ -1,5 +1,6 @@
 package com.team1.simplebank.ui.compose_components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.team1.simplebank.colors_for_composable.BlueNormal
 
 @Composable
 fun ButtonComponent(
@@ -24,15 +26,24 @@ fun ButtonComponent(
     label: String,
     buttonColor: ButtonColors,
     leadingIcon: @Composable (() -> Unit)? = null,
+    isBordered: Boolean = false,
 ) {
     Button(
         onClick = onClick,
         shape = RoundedCornerShape(16.dp),
         colors = buttonColor,
         modifier = modifier,
+        border = if (isBordered) {
+            BorderStroke(
+                width = 2.dp,
+                color = BlueNormal
+            )
+        } else {
+            null
+        }
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .height(32.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,

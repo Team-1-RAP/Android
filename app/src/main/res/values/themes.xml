@@ -2,16 +2,25 @@
     <!-- Base application theme. -->
     <style name="Theme.SimpleBank" parent="Theme.MaterialComponents.DayNight.NoActionBar">">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/blue_status_bar</item>
+
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/black</item>
+        <item name="popupMenuBackground">@drawable/custom_pop_up_background</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+
+    </style>
+
+    <style name="PopupMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:popupBackground">@drawable/custom_pop_up_background</item>
     </style>
 
     <style name="button_faq_color" parent="TextAppearance.AppCompat.Widget.Button.Colored">
@@ -22,8 +31,23 @@
         <item name="backgroundTint">@color/light_blue</item>
     </style>
 
+
+    <style name="BlackSearchViewTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/black</item>
+        <item name="colorControlActivated">@android:color/black</item>
+        <item name="colorControlNormal">@color/primary_color</item>
+        <item name="colorControlHighlight">@android:color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/calibri</item>
+
+    </style>
+
+
+
+
     <!--    parent text content-->
-    <style name="TextContent">
+    <style name="TextContent" parent="Theme.SimpleBank">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -48,60 +72,59 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextContent.TitleSmall.White">
+    <style name="TextContent.TitleSmall.Bold.Light">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="TextContent.TitleSmall.Black">
-        <item name="android:textColor">@color/black</item>
-    </style>
 
-    <style name="TextContent.TitleSmall.Bold.White">
-        <item name="android:textColor">@color/white</item>
-    </style>
 
     <!--Medium-->
     <style name="TextContent.TitleMedium">
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="TextContent.TitleMedium.Light">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TextContent.TitleMedium.Black_71">
+        <item name="android:textColor">@color/black_71</item>
+    </style>
 
     <style name="TextContent.TitleMedium.Bold">
         <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="TextContent.TitleMedium.White">
+    <style name="TextContent.TitleMedium.Bold.Light">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="TextContent.TitleMedium.Black">
-        <item name="android:textColor">@color/black</item>
+    <style name="TextContent.TitleMedium.ShadowBlue">
+        <item name="android:textColor">@color/shadow_of_blue</item>
+    </style>
+    <style name="TextContent.TitleMedium.ShadowBlue.Bold">
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextContent.TitleMedium.Bold.White">
-        <item name="android:textColor">@color/white</item>
-    </style>
     <!--Large-->
     <style name="TextContent.TitleLarge">
         <item name="android:textSize">19sp</item>
     </style>
 
+    <style name="TextContent.TitleLarge.Light">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="TextContent.TitleLarge.Bold">
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="TextContent.TitleLarge.White">
+
+    <style name="TextContent.TitleLarge.Bold.Light">
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="TextContent.TitleLarge.Black">
-        <item name="android:textColor">@color/black</item>
+    <style name="TextContent.TitleSuperLarge">
+        <item name="android:textSize">21sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
-
-    <style name="TextContent.TitleLarge.Bold.White">
-        <item name="android:textColor">@color/white</item>
-    </style>
-    <style name="TextContent.TitleLarge.Bold.Black">
-        <item name="android:textColor">@color/black</item>
-    </style>
-
 
 </resources>

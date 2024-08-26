@@ -4,14 +4,16 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.transition.AutoTransition
@@ -26,6 +28,7 @@ import com.team1.simplebank.common.utils.Converter.toRupiah
 import com.team1.simplebank.databinding.FragmentHomeBinding
 import com.team1.simplebank.ui.HomeActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -45,30 +48,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.userAccount.collect {
-                    when (it) {
-                        is ResourceState.Loading -> {
-                            binding.progressbar.visibility = View.VISIBLE
-                            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
-                        }
-
-                        is ResourceState.Success -> {
-                            isDataSuccess(it.data[0])
-                        }
-
-                        is ResourceState.Error -> {
-                            Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
-                        is ResourceState.Idle -> {}
-                    }
-                }
-            }
-        }*/
-
         //data user, saldo, nomor rekening
         viewModel.userAccountsDetails.observe(viewLifecycleOwner) {
             when (it) {
@@ -80,6 +59,7 @@ class HomeFragment : Fragment() {
                     val data = it.data[0]
                     isDataSuccess(data)
                     copyNumberAccount(data.cardNumber)
+                    viewModel.saveNoAccount(data.noAccount)
                 }
 
                 is ResourceState.Error -> {
@@ -89,10 +69,49 @@ class HomeFragment : Fragment() {
                 is ResourceState.Idle -> {}
             }
         }
-        //state UI untuk tombol tampilkan lebih dan sedikit
-        viewModel.isShowMoreOrLessVisible.observe(viewLifecycleOwner) {
-            showMoreOrLessInformation(it)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.amounts.collect{
+                    when(it){
+                        ResourceState.Loading -> {
+                            binding.progressbarIncomeExpense.visibility = View.VISIBLE
+                            binding.layoutIncomeAmount.visibility = View.INVISIBLE
+                            binding.layoutExpenseAmount.visibility = View.INVISIBLE
+                        }
+                        is ResourceState.Success -> {
+                            val data = it.data
+                            binding.apply {
+                                progressbarIncomeExpense.visibility = View.GONE
+                                layoutIncomeAmount.visibility = View.VISIBLE
+                                layoutExpenseAmount.visibility = View.VISIBLE
+                                incomeAmount2.text = getString(R.string.balance_format, data.income.toRupiah())
+                                expenseAmount2.text = getString(R.string.balance_format, data.expense.toRupiah())
+                            }
+                        }
+                        is ResourceState.Error -> {
+                            Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT).show()
+                        }
+                        ResourceState.Idle -> {}
+
+                    }
+                }
+            }
         }
+
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.noAccount.collect{
+                    if (it!=null){
+                        viewModel.getAmounts(it)
+                    }
+                }
+            }
+        }
+
+        //state UI untuk tombol tampilkan lebih dan sedikit
 
         viewModel.isShowOrHideBalanceValue.observe(viewLifecycleOwner){
             showOrHideBalance(it)
@@ -108,21 +127,12 @@ class HomeFragment : Fragment() {
         binding.btnHelpdesk.setOnClickListener {
             Toast.makeText(requireContext(), "Helpdesk", Toast.LENGTH_SHORT).show()
         }
-
-        binding.btnShowMore2.setOnClickListener {
-            viewModel.toggleShowMoreOrLessInformation(true)
-        }
-
-        binding.btnShowLess2.setOnClickListener {
-            viewModel.toggleShowMoreOrLessInformation(false)
-        }
         binding.btnShowOrHideBalance.setOnClickListener{
             with(binding){
                 val isState = accountBalance2.visibility==View.GONE
                 viewModel.toggleShowOrHideBalance(isState)
             }
         }
-
     }
 
     private fun showOrHideBalance(input:Boolean){
@@ -157,12 +167,11 @@ class HomeFragment : Fragment() {
                 layoutAccountNumber.visibility = View.VISIBLE
                 numberAccount2.text = getString(R.string.number_account, listData.cardNumber)
                 layoutAccountBalance.visibility = View.VISIBLE
-                accountBalance2.text = listData.balance.toRupiah()
+                accountBalance2.text = getString(R.string.balance_format, listData.balance.toRupiah())
 
             }
         }
     }
-
 
     //menampilkan recyclerview
     private fun showRecyclerView() {
@@ -179,15 +188,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    //menampilkan tombol tampilkan lebih dan sedikit
-    private fun showMoreOrLessInformation(visible: Boolean) {
-        with(binding) {
-            btnShowMore2.visibility = if (visible) View.GONE else View.VISIBLE
-            incomeExpenseLayout.visibility = if (visible) View.VISIBLE else View.GONE
-            btnShowLess2.visibility = if (visible) View.VISIBLE else View.GONE
-        }
-    }
-
     //tombol menu beranda
     private fun clicked(idMenu: Menu) {
         when (idMenu.id) {
@@ -199,8 +199,7 @@ class HomeFragment : Fragment() {
             )
                 .show()
 
-            3 -> Toast.makeText(requireContext(), R.string.transfer_title, Toast.LENGTH_SHORT)
-                .show()
+            3 -> findNavController().navigate(R.id.action_navigation_home_to_transferFragment)
 
             4 -> findNavController().navigate(R.id.action_navigation_home_to_virtualAccountFragment)
             5 -> Toast.makeText(requireContext(), R.string.gold_tube_title, Toast.LENGTH_SHORT)

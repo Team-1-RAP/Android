@@ -19,6 +19,13 @@
         <action
             android:id="@+id/action_navigation_home_to_topUpEWalletFragment"
             app:destination="@id/topUpEWalletFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_transferFragment"
+            app:destination="@id/transferFragment" />
+        <argument
+            android:name="ShowAppBar"
+            android:defaultValue="false"
+            />
     </fragment>
 
     <fragment
@@ -31,7 +38,12 @@
         android:id="@+id/navigation_qris"
         android:name="com.team1.simplebank.ui.qris.QrisFragment"
         android:label="@string/qris_title"
-        tools:layout="@layout/fragment_qris" />
+        tools:layout="@layout/fragment_qris">
+        <action
+            android:id="@+id/action_navigation_qris_to_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -53,4 +65,52 @@
         android:name="com.team1.simplebank.ui.home.top_up_e_wallet.TopUpEWalletFragment"
         android:label="fragment_top_up_e_wallet"
         tools:layout="@layout/fragment_top_up_e_wallet" />
+    <fragment
+        android:id="@+id/transferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.TransferFragment"
+        android:label="fragment_transfer"
+        tools:layout="@layout/fragment_transfer" >
+        <action
+            android:id="@+id/action_transferFragment_to_detailTransferFragment"
+            app:destination="@id/detailTransferFragment" />
+        <action
+            android:id="@+id/action_transferFragment_to_newAccountTransferFragment"
+            app:destination="@id/newAccountTransferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.DetailTransferFragment"
+        android:label="fragment_detail_transfer"
+        tools:layout="@layout/fragment_detail_transfer" >
+        <action
+            android:id="@+id/action_detailTransferFragment_to_confirmationTransferFragment"
+            app:destination="@id/confirmationTransferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newAccountTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.NewAccountTransferFragment"
+        android:label="fragment_new_account_transfer"
+        tools:layout="@layout/fragment_new_account_transfer" >
+        <action
+            android:id="@+id/action_newAccountTransferFragment_to_detailTransferFragment"
+            app:destination="@id/detailTransferFragment" />
+        <action
+            android:id="@+id/action_newAccountTransferFragment_to_confirmationTransferFragment"
+            app:destination="@id/confirmationTransferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmationTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.ConfirmationTransferFragment"
+        android:label="ConfirmationTransferFragment"
+        tools:layout="@layout/fragment_confirmation_transfer"
+        >
+        <action
+            android:id="@+id/action_confirmationTransferFragment_to_resultTransferFragment"
+            app:destination="@id/resultTransferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultTransferFragment"
+        android:name="com.team1.simplebank.ui.home.transfer.ResultTransferFragment"
+        android:label="fragment_result_transfer"
+        tools:layout="@layout/fragment_result_transfer" />
 </navigation>
