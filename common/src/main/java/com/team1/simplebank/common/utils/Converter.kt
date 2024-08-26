@@ -18,7 +18,8 @@ object Converter {
         val localID = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(localID)
         val result = formatRupiah.format(this)
-        return result
+        return result.replace("Rp","Rp.")
+
     }
     fun Double.toRupiah(): String {
         val decimalFormatSymbols = DecimalFormatSymbols(Locale("in", "ID")).apply {

@@ -33,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Daftar Baru"
+        android:fontFamily="@font/inter_bold"
         android:text="Daftar Baru"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/btn_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,9 +78,10 @@
             android:id="@+id/autocomplete_item_source_account"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/inter_regular"
             android:inputType="none"
             android:paddingVertical="10dp"
-            android:paddingStart="48dp"
+            android:paddingStart="28dp"
             android:text="Pilih rekening sumber"
             android:textAlignment="viewStart"
             android:textColor="@color/white"
@@ -91,10 +92,10 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title_choose_destination_bank"
         style="@style/TextContent.TitleMedium"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:fontFamily="@font/inter_regular"
         android:text="Pilih Bank Tujuan"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -121,8 +122,11 @@
             android:layout_height="match_parent"
             android:drawableStart="@drawable/destination_bank_icon"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter_regular"
             android:hint="Pilih Bank"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:text="BCA"
+            android:textColor="@color/primary_color" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,8 +135,8 @@
         style="@style/TextContent.TitleMedium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="18dp"
+        android:fontFamily="@font/inter_regular"
         android:text="Masukkan Rekening Tujuan"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -157,9 +161,9 @@
             style="@style/TextContent.TitleMedium"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:drawableStart="@drawable/destination_account_number_icon"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/inter_regular"
             android:hint="12345678"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -170,6 +174,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:fontFamily="@font/inter_regular"
         android:text="Keterangan"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -195,7 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawablePadding="10dp"
-
+            android:fontFamily="@font/inter_regular"
             android:hint="Keterangan"
             android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -208,6 +213,7 @@
         android:layout_marginTop="51dp"
         android:backgroundTint="@color/white"
         android:insetTop="0dp"
+        android:fontFamily="@font/inter_regular"
         android:insetBottom="0dp"
         android:text="Simpan Rek."
         app:layout_constraintEnd_toStartOf="@id/btn_next"
@@ -227,6 +233,7 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="Selanjutnya"
+        android:fontFamily="@font/inter_regular"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toEndOf="@id/btn_save_account_number"
@@ -239,11 +246,10 @@
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

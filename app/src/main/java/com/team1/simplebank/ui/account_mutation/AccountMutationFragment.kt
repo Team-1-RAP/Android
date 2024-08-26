@@ -57,6 +57,7 @@ class AccountMutationFragment : Fragment() {
         spinnerClicked()
 
         binding.autocompleteItemMonth.setDropDownBackgroundDrawable(resources.getDrawable(R.drawable.custom_pop_up_background))
+        binding.autocompleteTypeTranscation.setDropDownBackgroundDrawable(resources.getDrawable(R.drawable.custom_pop_up_background))
 
 
         viewLifecycleOwner.lifecycleScope.launch {

@@ -33,10 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Transfer"
+        android:fontFamily="@font/inter_bold"
         android:text="Transfer"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/btn_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,10 +59,11 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title_choose_destination_bank"
-        style="@style/TextContent.TitleMedium.Bold"
+        style="@style/TextContent.TitleMedium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_semibold"
         android:text="Rekening Tujuan"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -93,8 +94,8 @@
                 android:background="@drawable/background_text_rounded_corner"
                 android:backgroundTint="@color/dark_red"
                 android:gravity="center"
-                android:text="A"
                 android:maxLines="1"
+                android:text="A"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
+                android:fontFamily="@font/calibri"
                 android:maxLines="1"
                 android:text="Anton Pamungkas"
                 app:layout_constraintBottom_toTopOf="@id/account_number_and_destination_bank"
@@ -118,6 +120,7 @@
                 style="@style/TextContent.TitleMedium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/calibri"
                 android:maxLines="1"
                 android:text="@string/destination_bank_and_account_number"
                 app:layout_constraintBottom_toBottomOf="@+id/icon_username_destination_bank"
@@ -148,10 +151,21 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:fontFamily="@font/calibri"
         android:text="Masukkan Nominal"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/layout_card_destination_bank" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/required_input_nominal_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/calibri"
+        android:text="Minimal transfer Rp.10.000"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/title_transfer_total_amount"
+        app:layout_constraintTop_toBottomOf="@id/title_transfer_total_amount" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_layout_transfer_total_amount"
@@ -164,18 +178,19 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/title_transfer_total_amount"
+        app:layout_constraintTop_toBottomOf="@id/required_input_nominal_title"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/text_input_transfer_total_amount"
             style="@style/TextContent.TitleMedium"
             android:layout_width="match_parent"
-            android:padding="10dp"
             android:layout_height="match_parent"
             android:drawableStart="@drawable/icon_currency"
             android:drawablePadding="10dp"
-            android:hint="Rp. 1.000.000" />
+            android:fontFamily="@font/inter_regular"
+            android:hint="Rp. 1.000.000"
+            android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -184,6 +199,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:fontFamily="@font/calibri"
         android:text="Masukkan Keterangan"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -209,8 +225,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawablePadding="10dp"
-            android:padding="10dp"
-            android:hint="Keterangan" />
+            android:fontFamily="@font/inter_regular"
+            android:hint="Keterangan"
+            android:padding="10dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -219,6 +236,8 @@
         android:layout_width="141dp"
         android:layout_height="41dp"
         android:layout_marginTop="51dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/inter_regular"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="Kembali"
@@ -236,6 +255,7 @@
         android:layout_width="141dp"
         android:layout_height="41dp"
         android:backgroundTint="@color/primary_color"
+        android:fontFamily="@font/inter_regular"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="Selanjutnya"

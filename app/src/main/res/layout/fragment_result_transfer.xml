@@ -54,10 +54,11 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title_result_transfer"
-                style="@style/TextContent.TitleMedium.Bold"
+                style="@style/TextContent.TitleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pembayaran Berhasil!"
+                android:fontFamily="@font/plusjakartasans_semibold"
                 app:layout_constraintStart_toStartOf="@id/image_result_transfer"
                 app:layout_constraintTop_toBottomOf="@id/image_result_transfer" />
 
@@ -65,6 +66,7 @@
                 android:id="@+id/time_result_confirmation_transfer"
                 style="@style/TextContent.TitleMedium"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/plusjakartasans_regular"
                 android:layout_height="wrap_content"
                 android:text="15:32:06 WIB"
                 app:layout_constraintStart_toStartOf="@id/title_result_transfer"
@@ -86,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:fontFamily="@font/plusjakartasans_regular"
                 android:text="26 Juli 2024"
                 app:layout_constraintStart_toEndOf="@id/ellipse_result_transfer"
                 app:layout_constraintTop_toBottomOf="@id/title_result_transfer" />
@@ -96,6 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Transfer"
+                android:fontFamily="@font/inter_bold"
                 app:layout_constraintStart_toStartOf="@id/time_result_confirmation_transfer"
                 app:layout_constraintTop_toBottomOf="@id/time_result_confirmation_transfer" />
 
@@ -116,24 +120,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="Rekening tujuan"
                 app:layout_constraintStart_toStartOf="@id/line_top_result_transfer"
                 app:layout_constraintTop_toBottomOf="@id/line_top_result_transfer" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name_account_number_destination"
-                style="@style/TextContent.TitleLarge.Bold"
+                style="@style/TextContent.TitleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="KENDAL JENNER"
+                android:fontFamily="@font/inter_bold"
                 app:layout_constraintStart_toStartOf="@id/title_account_number_destination"
                 app:layout_constraintTop_toBottomOf="@id/title_account_number_destination" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name_bank_and_account_number"
-                style="@style/TextContent.TitleLarge.Bold"
+                style="@style/TextContent.TitleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
                 android:text="@string/destination_bank_and_account_number"
                 app:layout_constraintStart_toStartOf="@id/name_account_number_destination"
                 app:layout_constraintTop_toBottomOf="@id/name_account_number_destination"
@@ -147,6 +154,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="28dp"
                 android:text="Detail Transaksi"
+                android:fontFamily="@font/inter_regular"
                 app:layout_constraintStart_toStartOf="@id/name_bank_and_account_number"
                 app:layout_constraintTop_toBottomOf="@id/name_bank_and_account_number" />
 
@@ -155,6 +163,7 @@
                 style="@style/TextContent.TitleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
                 android:text="Total Transaksi"
                 app:layout_constraintStart_toStartOf="@id/title_detail_transaction"
                 app:layout_constraintTop_toBottomOf="@id/title_detail_transaction" />
@@ -164,6 +173,7 @@
                 style="@style/TextContent.TitleSmall.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/plusjakartasans_semibold"
                 android:layout_marginEnd="41dp"
                 android:text="@string/balance_format"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -188,13 +198,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="Sumber Dana"
                 app:layout_constraintStart_toStartOf="@id/line_bottom_result_transfer"
                 app:layout_constraintTop_toBottomOf="@id/line_bottom_result_transfer" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name_account_number_source"
-                style="@style/TextContent.TitleLarge.Bold"
+                style="@style/TextContent.TitleLarge"
+                android:fontFamily="@font/inter_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Adilla Wulandari"
@@ -207,6 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/destination_bank_and_account_number"
+                android:fontFamily="@font/plusjakartasans_regular"
                 app:layout_constraintStart_toStartOf="@id/name_account_number_source"
                 app:layout_constraintTop_toBottomOf="@id/name_account_number_source" />
 
@@ -218,7 +231,7 @@
                 android:layout_marginTop="20dp"
                 android:text="ID transaksi"
                 app:layout_constraintEnd_toStartOf="@id/id_transaction"
-
+                android:fontFamily="@font/inter_regular"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@id/name_bank_and_account_number_source"
                 app:layout_constraintTop_toBottomOf="@id/name_bank_and_account_number_source" />
@@ -231,6 +244,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 android:text="1238978123792139201"
+                android:fontFamily="@font/inter_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/title_id_transaction"
                 app:layout_constraintTop_toBottomOf="@id/name_bank_and_account_number_source" />
@@ -255,7 +269,9 @@
                 android:layout_marginTop="27dp"
                 android:gravity="center"
                 android:insetTop="0dp"
+                android:backgroundTint="@color/white"
                 android:insetBottom="0dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Simpan Rek."
                 android:textAlignment="center"
                 app:icon="@drawable/icon_save_transfer_account_no_fill_color_stroke_blue"
@@ -279,6 +295,7 @@
                 android:backgroundTint="@color/primary_color"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="Bagikan"
                 app:icon="@drawable/icon_share_transfer"
                 app:iconGravity="start"

@@ -33,10 +33,11 @@
         android:id="@+id/materialTextView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/talkback_profile"
-        android:text="@string/account_mutation"
+        android:contentDescription="@string/title_account_mutation"
+        android:fontFamily="@font/calibrib"
+        android:text="@string/title_account_mutation"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/btn_back"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,25 +49,24 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="150dp"
+        android:minWidth="170dp"
         app:boxStrokeColor="@color/box_stroke_color"
         app:boxStrokeWidth="1dp"
         app:endIconTint="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/spinner_item_type_transcation_new"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar_background"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge">
 
         <AutoCompleteTextView
             android:id="@+id/autocomplete_item_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
             android:inputType="none"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingVertical="8dp"
             android:text="Pilih Bulan"
-            android:textAlignment="viewStart"
             android:textSize="16sp"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -76,30 +76,28 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="150dp"
-        app:endIconTint="@color/black"
+        android:minWidth="170dp"
         app:boxStrokeColor="@color/box_stroke_color"
         app:boxStrokeWidth="1dp"
+        app:endIconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/spinner_item_month_new"
         app:layout_constraintTop_toBottomOf="@id/appbar_background"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium">
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge">
 
         <AutoCompleteTextView
             android:id="@+id/autocomplete_type_transcation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            android:textSize="16sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textStyle="bold"
-            android:text="Pemasukan"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:inputType="none"
+            android:paddingVertical="8dp"
+            android:text="Tipe Transaksi"
             android:textAlignment="viewStart"
-            />
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <androidx.recyclerview.widget.RecyclerView

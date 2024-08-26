@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -136,10 +137,12 @@ class MutationPagerAdapterV2 :
             val mutationType = item.mutationType
             if (mutationType == "PENGELUARAN") {
                 binding.iconItem.setImageResource(R.drawable.expense_icon_mutation)
-                binding.amountExpenseOrIncome.setTextColor(Color.RED)
+                val color = ContextCompat.getColor(binding.root.context, R.color.holo_red)
+                binding.amountExpenseOrIncome.setTextColor(color)
             } else if (mutationType == "PEMASUKAN") {
                 binding.iconItem.setImageResource(R.drawable.income_icon_mutation)
-                binding.amountExpenseOrIncome.setTextColor(Color.GREEN)
+                val color = ContextCompat.getColor(binding.root.context, R.color.holo_green)
+                binding.amountExpenseOrIncome.setTextColor(color)
             }
         }
     }
