@@ -21,8 +21,8 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
-        android:contentDescription="Kembali"
         android:background="@android:color/transparent"
+        android:contentDescription="Kembali"
         android:src="@drawable/icon_back"
         app:layout_constraintBottom_toBottomOf="@id/appbar_background"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="Transfer"
         android:text="Transfer"
+        android:fontFamily="@font/inter_bold"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -56,24 +57,25 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/search_user_transfer"
         android:layout_width="0dp"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Cari Rekening"
+        android:layout_marginTop="10dp"
         android:searchIcon="@drawable/search_icon"
+        android:theme="@style/BlackSearchViewTheme"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/appbar_background"
-     />
+        app:queryHint="Cari rekening...." />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title_list_user_transfer"
-        style="@style/TextContent.TitleMedium.Bold"
+        style="@style/TextContent.TitleMedium"
         android:layout_width="0dp"
         android:layout_marginTop="26dp"
+        android:fontFamily="@font/inter_semibold"
         android:text="Rekening Tersimpan"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -83,13 +85,13 @@
         android:id="@+id/rv_user_transfer_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="26dp"
-        tools:listitem="@layout/layout_item_user_transfer"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="26dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_new_user_transfer"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/title_list_user_transfer" />
+        app:layout_constraintTop_toBottomOf="@id/title_list_user_transfer"
+        tools:listitem="@layout/layout_item_user_transfer" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_new_user_transfer"
@@ -100,7 +102,7 @@
         android:insetBottom="0dp"
         android:letterSpacing="0.05"
         android:text="Transfer Baru"
-
+        android:fontFamily="@font/inter_regular"
         app:backgroundTint="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"

@@ -48,30 +48,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.userAccount.collect {
-                    when (it) {
-                        is ResourceState.Loading -> {
-                            binding.progressbar.visibility = View.VISIBLE
-                            Toast.makeText(requireContext(), "loading", Toast.LENGTH_SHORT).show()
-                        }
-
-                        is ResourceState.Success -> {
-                            isDataSuccess(it.data[0])
-                        }
-
-                        is ResourceState.Error -> {
-                            Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-
-                        is ResourceState.Idle -> {}
-                    }
-                }
-            }
-        }*/
-
         //data user, saldo, nomor rekening
         viewModel.userAccountsDetails.observe(viewLifecycleOwner) {
             when (it) {
@@ -196,7 +172,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 
     //menampilkan recyclerview
     private fun showRecyclerView() {

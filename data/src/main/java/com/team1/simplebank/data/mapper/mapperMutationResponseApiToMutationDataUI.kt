@@ -1,18 +1,21 @@
 package com.team1.simplebank.data.mapper
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.synrgy.xdomain.model.MutationDataUI
 import com.team1.simplebank.data.remote.response.BEJ.ItemPagingData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
+@SuppressLint("SimpleDateFormat")
 suspend fun convertToDateUI(date: String):String{
     return withContext(Dispatchers.Default){
         val inputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
         val outputDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("in", "ID"))
-        val dateConvert = outputDateFormat.format(inputDateFormat.parse(date))
+        val dateConvert = outputDateFormat.format(inputDateFormat.parse(date) as Date)
         dateConvert
     }
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -91,16 +92,16 @@ class DetailTransferFragment : Fragment() {
 
     private fun btnClicked() {
         binding.btnNext.setOnClickListener {
+
             val totalTransferInput = binding.textInputTransferTotalAmount.text.toString()
-            viewModel.merAllDataTransfer(totalTransferInput.toInt())
-            findNavController().navigate(R.id.action_detailTransferFragment_to_confirmationTransferFragment)
+            if (totalTransferInput.isEmpty()) {
+                Toast.makeText(requireContext(), "Nominal Kosong", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.merAllDataTransfer(totalTransferInput.toInt())
+                findNavController().navigate(R.id.action_detailTransferFragment_to_confirmationTransferFragment)
+
+            }
         }
-
-        binding.btnBack.setOnClickListener {
-
-        }
-
-
     }
 
     private fun setupDataDestinationBank(data: ValidationTransferModel) {

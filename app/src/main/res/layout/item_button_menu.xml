@@ -27,7 +27,8 @@
 
         <TextView
             android:id="@+id/text_icon"
-            style="@style/TextContent.TitleSmall"
+            style="@style/TextContent.TitleMedium"
+            android:fontFamily="@font/calibri"
             android:layout_width="65dp"
             android:layout_marginTop="5dp"
             android:maxLines="2"
@@ -41,16 +42,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView><!--
-
-<LinearLayout
-android:id="@+id/layout_icon_item"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:background="@drawable/rounded_corner_item_menu"
-android:orientation="vertical"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toTopOf="parent">
-
-</LinearLayout>-->
+</com.google.android.material.card.MaterialCardView>

@@ -26,7 +26,6 @@
             app:layout_constraintGuide_end="8dp" />
 
 
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/appbar_background"
             android:layout_width="match_parent"
@@ -37,31 +36,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="Kembali"
-            android:src="@drawable/icon_back"
-            app:layout_constraintBottom_toBottomOf="@id/appbar_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/materialTextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Konfirmasi Transfer"
+            android:fontFamily="@font/inter_bold"
             android:text="Konfirmasi Transfer"
             android:textColor="@color/white"
             android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintBottom_toBottomOf="@id/appbar_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
+            app:layout_constraintTop_toTopOf="@id/appbar_background" />
 
 
         <com.google.android.material.card.MaterialCardView
@@ -82,9 +70,10 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title_source_number_account"
-                    style="@style/TextContent.TitleLarge.Bold"
+                    style="@style/TextContent.TitleLarge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Rekening Sumber"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,6 +99,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
+                    android:fontFamily="@font/calibri"
                     android:maxLines="1"
                     android:text="Anton Pamungkas"
                     app:layout_constraintBottom_toTopOf="@id/source_account_number_and_destination_bank"
@@ -122,6 +112,7 @@
                     style="@style/TextContent.TitleMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/calibri"
                     android:maxLines="1"
                     android:text="@string/destination_bank_and_account_number"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_username_source_number_account"
@@ -131,10 +122,11 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title_destination_number_account"
-                    style="@style/TextContent.TitleLarge.Bold"
+                    style="@style/TextContent.TitleLarge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Rekening Tujuan"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -160,6 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
+                    android:fontFamily="@font/calibri"
                     android:maxLines="1"
                     android:text="KENDALL JENNER"
                     app:layout_constraintBottom_toTopOf="@id/destination_account_number_and_destination_bank"
@@ -172,6 +165,7 @@
                     style="@style/TextContent.TitleMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/calibri"
                     android:maxLines="1"
                     android:text="@string/destination_bank_and_account_number"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_username_destination_number_account"
@@ -185,6 +179,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/calibri"
                     android:text="Nominal"
                     app:layout_constraintEnd_toStartOf="@id/nominal_transfer"
                     app:layout_constraintStart_toStartOf="parent"
@@ -195,7 +190,9 @@
                     style="@style/TextContent.TitleMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/calibri"
                     android:text="@string/balance_format"
+
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toBottomOf="@id/title_amount_transfer"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -209,7 +206,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/calibri"
                     android:text="Biaya Admin"
+
                     app:layout_constraintEnd_toStartOf="@id/fee_admin"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title_amount_transfer" />
@@ -219,7 +218,9 @@
                     style="@style/TextContent.TitleMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/calibri"
                     android:text="@string/balance_format"
+
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toBottomOf="@id/title_fee_admin"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -232,6 +233,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/calibri"
+
                     android:text="Total Transfer"
                     app:layout_constraintEnd_toStartOf="@id/total_transfer"
                     app:layout_constraintStart_toStartOf="parent"
@@ -242,6 +245,7 @@
                     style="@style/TextContent.TitleSuperLarge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/calibri"
                     android:text="@string/balance_format"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toBottomOf="@id/title_total_transfer"
@@ -255,6 +259,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/calibri"
                     android:text="Keterangan"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -282,6 +287,8 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="48dp"
             android:text="PIN Transaksi"
+            android:fontFamily="@font/calibri"
+
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/cardview_confirmation_transfer" />
@@ -307,9 +314,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawablePadding="10dp"
-                android:padding="0dp"
                 android:hint="Masukkan PIN"
-                android:inputType="numberDecimal" />
+                android:fontFamily="@font/calibri"
+
+                android:inputType="numberDecimal"
+                android:padding="0dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -322,6 +331,8 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="Kembali"
+            android:fontFamily="@font/inter_regular"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_transfer"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -340,6 +351,7 @@
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="Transfer"
+            android:fontFamily="@font/inter_regular"
             app:layout_constraintEnd_toEndOf="@+id/text_layout_password_transaction"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toEndOf="@id/btn_save_account_number"
@@ -352,13 +364,12 @@
             android:id="@+id/progressbar_tranfer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:elevation="20dp"
             android:visibility="gone"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
 

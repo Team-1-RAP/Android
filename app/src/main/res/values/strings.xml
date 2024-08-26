@@ -15,6 +15,7 @@
     <!--Beranda-->
     <string name="home_page">Beranda</string>
     <string name="account_mutation">Mutasi</string>
+    <string name="title_account_mutation">Mutasi Rekening</string>
     <string name="qris_title">QRIS</string>
     <string name="profile_title">Profil</string>
     <string name="Hey">Hai, </string>
@@ -90,7 +91,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="balance_format">%s</string>
-    <string name="hide_balance">*****</string>
+    <string name="hide_balance">IDR. *****</string>
     <string name="show_more">Tampilkan lebih</string>
     <string name="konfirmasi">Konfirmasi</string>
     <string name="apakah_anda_benar_benar_ingin_logout_dari_akun_anda">Apakah Anda benar-benar ingin logout dari akun Anda?</string>

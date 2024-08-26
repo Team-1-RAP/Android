@@ -31,6 +31,9 @@ class TransferFragment : Fragment() {
         binnding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_transferFragment_to_detailTransferFragment)
         }
+
     }
+
+
 
 }

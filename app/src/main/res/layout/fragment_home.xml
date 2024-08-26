@@ -48,7 +48,8 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/hey_title"
-            style="@style/TextContent.TitleMedium"
+            style="@style/TextContent.TitleMedium.Light"
+            android:fontFamily="@font/calibri"
             android:text="@string/Hey"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/user_full_name"
@@ -58,7 +59,8 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/user_full_name"
-            style="@style/TextContent.TitleMedium.Bold"
+            style="@style/TextContent.TitleLarge.Light"
+            android:fontFamily="@font/calibri"
             android:text="@string/user_full_name"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/simple_bank_logo"
@@ -89,6 +91,7 @@
             android:textAllCaps="false"
             android:textSize="13sp"
             app:icon="@drawable/question_logo"
+            app:iconTint="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/simple_bank_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/simple_bank_logo" />
@@ -106,9 +109,11 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/number_account_2"
+                style="@style/TextContent.TitleMedium.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
+                android:fontFamily="@font/calibri"
                 android:text="@string/number_account"
                 android:visibility="visible" />
 
@@ -128,21 +133,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="@id/layout_account_number"
             app:layout_constraintTop_toBottomOf="@id/layout_account_number">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/account_balance_2"
-                style="@style/TextContent.TitleLarge.Bold"
+                style="@style/TextContent.TitleLarge.Bold.Light"
                 android:layout_marginStart="25dp"
+                android:fontFamily="@font/calibri"
                 android:text="@string/balance_amount"
                 android:visibility="gone" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/hide_account_balance"
-                style="@style/TextContent.TitleMedium.Bold"
+                style="@style/TextContent.TitleLarge.Bold.Light"
                 android:layout_marginStart="25dp"
+                android:fontFamily="@font/calibri"
                 android:text="@string/hide_balance"
                 android:visibility="visible" />
 
@@ -183,8 +190,8 @@
                     android:id="@+id/layout_income_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/logo_income_2"
@@ -200,6 +207,7 @@
                         style="@style/TextContent.TitleMedium.ShadowBlue"
                         android:layout_alignBaseline="@id/logo_income_2"
                         android:layout_toEndOf="@id/logo_income_2"
+                        android:fontFamily="@font/inter_regular"
                         android:text="@string/income_title" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -207,6 +215,7 @@
                         style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
                         android:layout_below="@id/income_title_2"
                         android:layout_toEndOf="@id/logo_income_2"
+                        android:fontFamily="@font/calibrib"
                         android:text="@string/income_amount" />
                 </RelativeLayout>
 
@@ -221,8 +230,8 @@
                     android:id="@+id/layout_expense_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/logo_expense_2"
@@ -238,6 +247,7 @@
                         style="@style/TextContent.TitleMedium.ShadowBlue"
                         android:layout_alignBaseline="@id/logo_expense_2"
                         android:layout_toEndOf="@id/logo_expense_2"
+                        android:fontFamily="@font/inter_regular"
                         android:text="@string/expense_title" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -245,6 +255,7 @@
                         style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
                         android:layout_below="@id/expense_title_2"
                         android:layout_toEndOf="@id/logo_expense_2"
+                        android:fontFamily="@font/calibrib"
                         android:text="@string/expense_amount" />
                 </RelativeLayout>
             </LinearLayout>
@@ -254,6 +265,7 @@
             android:id="@+id/digital_service_title"
             style="@style/TextContent.TitleLarge.Bold"
             android:layout_marginTop="26.5dp"
+            android:fontFamily="@font/calibrib"
             android:text="@string/digital_service_title"
             android:textColor="@color/dark_blue_primary"
             app:layout_constraintStart_toStartOf="@id/cardview_beranda"

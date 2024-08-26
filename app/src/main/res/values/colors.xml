@@ -34,5 +34,7 @@
     <color name="black_71">#B5000000</color>
     <color name="blue_status_bar">#FF0A3967</color>
 
+    <color name="holo_red">#CB3A31</color>
+    <color name="holo_green">#34C759</color>
 
 </resources>

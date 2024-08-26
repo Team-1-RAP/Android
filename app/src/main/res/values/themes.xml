@@ -31,6 +31,21 @@
         <item name="backgroundTint">@color/light_blue</item>
     </style>
 
+
+    <style name="BlackSearchViewTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/black</item>
+        <item name="colorControlActivated">@android:color/black</item>
+        <item name="colorControlNormal">@color/primary_color</item>
+        <item name="colorControlHighlight">@android:color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/calibri</item>
+
+    </style>
+
+
+
+
     <!--    parent text content-->
     <style name="TextContent" parent="Theme.SimpleBank">
         <item name="android:layout_width">wrap_content</item>
@@ -93,8 +108,18 @@
         <item name="android:textSize">19sp</item>
     </style>
 
+    <style name="TextContent.TitleLarge.Light">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="TextContent.TitleLarge.Bold">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextContent.TitleLarge.Bold.Light">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="TextContent.TitleSuperLarge">
