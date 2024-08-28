@@ -10,6 +10,7 @@ plugins {
     id("com.google.dagger.hilt.android")
 
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 
 
 }
@@ -88,6 +89,10 @@ dependencies {
     
     //qr
     implementation ("com.google.zxing:core:3.5.1")
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
     //cameraX
     implementation(libs.androidx.camera.core)
