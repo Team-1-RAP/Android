@@ -49,6 +49,7 @@
         android:textAllCaps="false"
         android:textColor="@color/dark_blue_primary"
         android:textSize="14.sp"
+        android:backgroundTint="@color/white"
         app:layout_constraintTop_toBottomOf="@id/alertMessage"
         app:layout_constraintStart_toStartOf="parent"/>
 
