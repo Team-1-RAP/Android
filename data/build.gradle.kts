@@ -16,8 +16,12 @@ android {
         minSdk = 26
 
 
-        buildConfigField("String", "BASE_URL", "\"https://simple-bank-server-avi4q6gcnq-uc.a.run.app/api/\"",)
-        buildConfigField("String", "BASE_URL_FSW", "\"https://simplebank.my.id\"",)
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"https://simple-bank-server-avi4q6gcnq-uc.a.run.app/api/\"",
+        )
+        buildConfigField("String", "BASE_URL_FSW", "\"https://simplebank.my.id\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -32,7 +36,7 @@ android {
             )
         }
     }
-    buildFeatures{
+    buildFeatures {
         buildConfig = true
     }
     compileOptions {
@@ -64,7 +68,7 @@ dependencies {
     implementation(libs.coroutines.test)
 
     //jwtDecoder
-    implementation (libs.jwtdecode)
+    implementation(libs.jwtdecode)
 
     //di-hilt
     implementation(libs.hilt.android)
@@ -87,6 +91,11 @@ dependencies {
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //room
+    implementation(libs.androidx.roomRuntime)
+    implementation(libs.androidx.roomCoroutines)
+    ksp(libs.androidx.roomCompilerKsp)
 
 
 }

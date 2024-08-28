@@ -328,6 +328,8 @@
         android:contentDescription="@string/talkback_profile_logout"
         android:letterSpacing="0.05"
         android:text="@string/logout"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
         app:backgroundTint="@null"
         app:icon="@drawable/icon_logout"
         app:iconPadding="10dp"

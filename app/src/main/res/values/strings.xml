@@ -121,6 +121,42 @@
 
     <!--bagian virtual account-->
 
+
+    <!--    Transfer-->
+    <string name="timeResultFormat">%s %s</string>
+
+    <!--  Talkback Transfer  -->
+    <string name="talkback_btn_back">Kembali</string>
+    <string name="talkback_title_transfer">Transfer</string>
+    <string name="talkback_title_add_new_account">Daftar baru</string>
+    <string name="talkback_find_no_account">Cari rekening</string>
+    <string name="talkback_title_no_account_saved">Rekening Tersimpan</string>
+    <string name="talkback_btn_transfer">Transfer</string>
+    <string name="talkback_spinner_choose_account">Pilih rekening</string>
+    <string name="talkback_title_bank_destination">Pilih bank tujuan</string>
+    <string name="talkback_input_bank">Pilih Bank</string>
+    <string name="talkback_title_input_destination_no_account">Masukkan Rekening Tujuan</string>
+    <string name="talkback_input_destination_no_account">No Rekening</string>
+    <string name="talkback_title_description">Keterangan</string>
+    <string name="talkback_input_description">Keterangan</string>
+    <string name="talkback_btn_save_no_account">Simpan rekening</string>
+    <string name="talkback_btn_next">Selanjutnya</string>
+    <string name="talkback_destination_no_account">Rekening Tujuan</string>
+    <string name="talkback_title_input_nominal">Masukkan Nominal</string>
+    <string name="talkback_title_warning_input_nominal">Minimal transfer Rp.10.000</string>
+    <string name="talkback_title_input_description">Masukkan Keterangan</string>
+    <string name="talkback_title_page_confirmation_transfer">Konfirmasi Transfer</string>
+    <string name="talkback_title_no_account_sourced">Rekening Sumber</string>
+    <string name="talkback_title_no_account_destination">Rekening Tujuan</string>
+    <string name="talkback_title_nominal">Nominal</string>
+    <string name="talkback_title_admin_fee">Biaya Admin</string>
+    <string name="talkback_title_total_transfer">Total Transfer</string>
+    <string name="talkback_title_pin_transaction">PIN Transaksi</string>
+
+
+
+
+
     <!--    spinner -->
     <string-array name="months_array">
         <item>Januari</item>

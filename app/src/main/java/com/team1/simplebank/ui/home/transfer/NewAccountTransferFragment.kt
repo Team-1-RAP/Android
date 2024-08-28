@@ -1,12 +1,15 @@
 package com.team1.simplebank.ui.home.transfer
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +21,7 @@ import com.team1.simplebank.R
 import com.team1.simplebank.common.handler.ResourceState
 import com.team1.simplebank.databinding.FragmentNewAccountTransferBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -25,6 +29,8 @@ class NewAccountTransferFragment : Fragment() {
 
     private lateinit var binding: FragmentNewAccountTransferBinding
     private val viewModel: TransferSharedViewModel by activityViewModels<TransferSharedViewModel>()
+    private var isValidNoAccount: Boolean = false
+    private var isValidDescription: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +46,18 @@ class NewAccountTransferFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        binding.textInputNumberAccountDestination.addTextChangedListener(textWatcher())
+        binding.textInputTransferInformation.addTextChangedListener(textWatcher())
+
+        viewModel.dataButtonState.observe(viewLifecycleOwner) {
+            Log.d("DataState", "data button state = $it")
+            buttonState(it)
+        }
+        dataAccountChoosing()
+
         binding.btnNext.setOnClickListener {
             val noAccount = binding.textInputNumberAccountDestination.text
+            binding.textInputNumberAccountDestination.contentDescription = noAccount
             Log.d("noAccount", "onViewCreated: $noAccount")
 
             viewModel.cekValidationTransfer(
@@ -50,41 +66,91 @@ class NewAccountTransferFragment : Fragment() {
                 onLoading = { onLoading(it) },
                 onResult = { isValid(it) })
         }
+        getAllDataSourceChoosing()
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
 
-        viewModel.getAllDataSourceAccount.observe(viewLifecycleOwner){
-            when(it){
+    //digunakan untuk mengisi nilai dari button state, apakah sudah terisi belum untuk button sumber rekening
+    // jika belum maka kembali false, jika sudah kembali true
+    private fun dataAccountChoosing() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.dataSourceAccountChoosing.collect {
+                    when (it) {
+                        ResourceState.Loading -> {
+
+                        }
+
+                        is ResourceState.Success -> {
+                            viewModel.setButtonState(isValidNoAccount, isValidDescription)
+                        }
+
+                        is ResourceState.Error -> {
+
+                        }
+
+                        ResourceState.Idle -> {
+                            viewModel.setButtonState(isValidNoAccount, isValidDescription)
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getAllDataSourceChoosing() {
+
+        viewModel.getAllDataSourceAccount.observe(viewLifecycleOwner) {
+            when (it) {
                 ResourceState.Loading -> {
                     //loading data bila msih ngeload
                 }
+
                 is ResourceState.Success -> {
                     spinnerClicked(it.data)
                 }
+
                 is ResourceState.Error -> {
-                    Toast.makeText(requireContext(), "Data Sumber Rekening Kosong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Data Sumber Rekening Kosong",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
                 ResourceState.Idle -> {
                     //do nothing
                 }
 
             }
         }
-
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.getDataForSourceAccountSpinner.observe(viewLifecycleOwner){
-            when(it){
+        viewModel.dataForSpinner.observe(viewLifecycleOwner) {
+            when (it) {
                 ResourceState.Loading -> {
                     //nanti loading kalo datanya ga ada
+
                 }
+
                 is ResourceState.Success -> {
                     spinnerSetup(it.data)
                 }
+
                 is ResourceState.Error -> {
-                    Toast.makeText(requireContext(), "Data sumber rekening kosong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Data sumber rekening kosong",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
                 ResourceState.Idle -> {
                     //do nothing
                 }
@@ -93,7 +159,7 @@ class NewAccountTransferFragment : Fragment() {
         }
     }
 
-    private fun spinnerSetup(dataItems:List<String>){
+    private fun spinnerSetup(dataItems: List<String>) {
         val spinnerAdapterSourceAccount = ArrayAdapter(
             requireContext(),
             R.layout.spinner_list_item,
@@ -101,13 +167,16 @@ class NewAccountTransferFragment : Fragment() {
         )
         binding.autocompleteItemSourceAccount.setAdapter(spinnerAdapterSourceAccount)
         binding.autocompleteItemSourceAccount.setDropDownBackgroundDrawable(resources.getDrawable(R.drawable.custom_pop_up_background))
-
     }
 
-    private fun spinnerClicked(dataItems:List<SourceAccountModel>) {
+    private fun spinnerClicked(dataItems: List<SourceAccountModel>) {
         binding.autocompleteItemSourceAccount.setOnItemClickListener { parent, view, position, id ->
             val data = dataItems[position]
-            viewModel.setDataSourceAccountChose(fullName = data.fullName, accountType = data.accountType, noAccount = data.noAccount,)
+            viewModel.setDataSourceAccountChose(
+                fullName = data.fullName,
+                accountType = data.accountType,
+                noAccount = data.noAccount,
+            )
             Toast.makeText(requireContext(), data.noAccount, Toast.LENGTH_SHORT).show()
         }
     }
@@ -125,9 +194,71 @@ class NewAccountTransferFragment : Fragment() {
     // Fungsi untuk mengisi callback apabila data telah melawati status loading
     private fun isValid(state: Boolean) {
         if (state) {
-            findNavController().navigate(R.id.action_newAccountTransferFragment_to_detailTransferFragment)
+            val descriptionArgs = binding.textInputTransferInformation.text.toString()
+            val action =
+                NewAccountTransferFragmentDirections.actionNewAccountTransferFragmentToDetailTransferFragment(
+                    descriptionArgs
+                )
+            findNavController().navigate(action)
         } else {
             Toast.makeText(requireContext(), "Data Salah", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    //cek validasi inputan oleh user
+
+    private fun textWatcher(): TextWatcher {
+        return object : TextWatcher {
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                when (s) {
+                    binding.textInputNumberAccountDestination.text -> {
+                        isValidNoAccount = validateInputNoAccount(s)
+                        binding.textInputNumberAccountDestination.contentDescription = s.toString()
+                    }
+
+                    binding.textInputTransferInformation.text -> {
+                        isValidDescription = validateDescription(s)
+                        binding.textInputTransferInformation.contentDescription = s.toString()
+
+                    }
+                }
+
+                viewModel.setButtonState(isValidNoAccount, isValidDescription)
+            }
+        }
+    }
+
+    private fun validateInputNoAccount(inputNoAccount: Editable?): Boolean {
+        val inputLength = inputNoAccount?.length ?: 0
+        val isValid = inputLength >= 8
+        binding.textLayoutDestinationNumberAccount.error =
+            if (isValid) "" else "Input Must be 8 digits"
+        return isValid
+    }
+
+    private fun validateDescription(inputDescription: Editable?): Boolean {
+        val isValid = inputDescription?.isNotEmpty()!!
+        binding.textLayoutTransferInformation.error = if (isValid) "" else "Input can't empty"
+        return isValid
+    }
+
+    private fun buttonState(isValid: Boolean) {
+        with(binding.btnNext){
+            isEnabled = isValid
+            setBackgroundColor(
+                if (isValid) requireContext().getColor(R.color.primary_color)
+                else requireContext().getColor(R.color.disable_color)
+            )
         }
     }
 }

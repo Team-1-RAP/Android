@@ -4,6 +4,8 @@ import com.synrgy.xdomain.model.DataBankModel
 import com.synrgy.xdomain.model.ResultTransferModel
 import com.synrgy.xdomain.model.SourceAccountModel
 import com.synrgy.xdomain.model.ValidationTransferModel
+import com.team1.simplebank.common.utils.Converter.mapperDateTimeToDateTransferResult
+import com.team1.simplebank.common.utils.Converter.mapperDateTimeToTimeTransferResult
 import com.team1.simplebank.data.remote.response.BEJ.DataGetAllBankResponse
 import com.team1.simplebank.data.remote.response.BEJ.DataItem
 import com.team1.simplebank.data.remote.response.BEJ.ResultTransferData
@@ -85,6 +87,7 @@ fun mapperTransferResultResponseToTransferResultModel(data: ResultTransferData):
         recipientBankNoAccount = data.recipientBankAccountNo,
         recipientFullName = data.recipientFullName,
         noRef = data.noRef,
-        date = data.date
+        date = mapperDateTimeToDateTransferResult(data.date),
+        time = mapperDateTimeToTimeTransferResult(data.date)
     )
 }

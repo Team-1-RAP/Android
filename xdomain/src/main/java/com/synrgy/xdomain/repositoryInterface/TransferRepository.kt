@@ -13,5 +13,4 @@ interface TransferRepository {
     suspend fun getDataForSpinnerSourceAccount(): Flow<ResourceState<List<String>>>
     suspend fun validationAccountTransfer(idBank: Int, noAccount: String): Flow<ResourceState<ValidationTransferModel>>
     suspend fun transfer(accountNo: String, recipientAccountNo: String, recipientBankName: String, amount: Int, pin: String, description: String): Flow<ResourceState<ResultTransferModel>>
-
 }

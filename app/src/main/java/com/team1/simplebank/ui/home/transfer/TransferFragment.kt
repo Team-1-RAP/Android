@@ -29,9 +29,8 @@ class TransferFragment : Fragment() {
             findNavController().navigate(R.id.action_transferFragment_to_newAccountTransferFragment)
         }
         binnding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_transferFragment_to_detailTransferFragment)
+            findNavController().navigateUp()
         }
-
     }
 
 

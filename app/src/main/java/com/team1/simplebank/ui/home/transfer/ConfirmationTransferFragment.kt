@@ -39,11 +39,6 @@ class ConfirmationTransferFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnTransfer.setOnClickListener {
-            findNavController().navigate(R.id.action_confirmationTransferFragment_to_resultTransferFragment)
-        }
-
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.mergeAllDataTransfer.collect {
@@ -61,7 +56,8 @@ class ConfirmationTransferFragment : Fragment() {
 
                         is ResourceState.Error -> {
                             Log.d("Error MergeAllData", " ${it.exception}")
-                            Toast.makeText(requireContext(), "Tidak Ada Data", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Tidak Ada Data", Toast.LENGTH_SHORT)
+                                .show()
                         }
 
                         ResourceState.Idle -> {
@@ -72,30 +68,61 @@ class ConfirmationTransferFragment : Fragment() {
                 }
             }
         }
+        binding.btnTransfer.setOnClickListener {
+            findNavController().navigate(R.id.action_confirmationTransferFragment_to_resultTransferFragment)
+        }
+
+        binding.btnBackBottom.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun setupDataUI(item: ConfirmationTransferModel) {
         with(binding) {
             iconUsernameSourceNumberAccount.text = splitWordIntoOneLetter(item.fullUserNameSender)
+            iconUsernameSourceNumberAccount.contentDescription =
+                splitWordIntoOneLetter(item.fullUserNameSender)
             transferSourceAccountUsername.text = item.fullUserNameSender
+            transferSourceAccountUsername.contentDescription = item.fullUserNameSender
             sourceAccountNumberAndDestinationBank.text = getString(
+                R.string.destination_bank_and_account_number,
+                item.accountTypeSender,
+                item.accountNumberSender
+            )
+            sourceAccountNumberAndDestinationBank.contentDescription = getString(
                 R.string.destination_bank_and_account_number,
                 item.accountTypeSender,
                 item.accountNumberSender
             )
 
             iconUsernameDestinationNumberAccount.text = splitWordIntoOneLetter(item.fullName)
+            iconUsernameDestinationNumberAccount.contentDescription =
+                splitWordIntoOneLetter(item.fullName)
             transferDestinationAccountUsername.text = item.fullName
+            transferDestinationAccountUsername.contentDescription = item.fullName
             destinationAccountNumberAndDestinationBank.text = getString(
+                R.string.destination_bank_and_account_number,
+                item.bankDestination,
+                item.accountNumber
+            )
+            destinationAccountNumberAndDestinationBank.contentDescription = getString(
                 R.string.destination_bank_and_account_number,
                 item.bankDestination,
                 item.accountNumber
             )
 
             nominalTransfer.text = getString(R.string.balance_format, item.totalTransfer.toRupiah())
+            nominalTransfer.contentDescription =
+                getString(R.string.balance_format, item.totalTransfer.toRupiah())
             feeAdmin.text = getString(R.string.balance_format, item.adminFee.toRupiah())
+            feeAdmin.contentDescription =
+                getString(R.string.balance_format, item.adminFee.toRupiah())
             totalTransfer.text =
                 getString(R.string.balance_format, item.totalTransferWithAdmin.toRupiah())
+            totalTransfer.contentDescription =
+                getString(R.string.balance_format, item.totalTransferWithAdmin.toRupiah())
+            transferDescription.text = item.description
+            transferDescription.contentDescription = item.description
 
         }
     }
@@ -103,8 +130,8 @@ class ConfirmationTransferFragment : Fragment() {
     private fun btnTransferClicked(data: ConfirmationTransferModel) {
         binding.btnTransfer.setOnClickListener {
             val inputPin = binding.textInputPasswordTransaction.text.toString()
+            binding.textInputPasswordTransaction.contentDescription = inputPin
             transferInput(inputPin, data)
-
         }
     }
 
