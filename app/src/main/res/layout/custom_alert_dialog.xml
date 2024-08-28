@@ -45,7 +45,6 @@
         app:strokeColor="@color/dark_blue_primary"
         app:cornerRadius="8.dp"
         tools:text="@string/actionButtonLabel"
-        android:backgroundTint="@color/white"
         android:textAllCaps="false"
         android:textColor="@color/dark_blue_primary"
         android:textSize="14.sp"
