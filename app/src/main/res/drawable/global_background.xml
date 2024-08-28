@@ -39,8 +39,5 @@
         <item android:color="#000080" android:offset="1.0"/>
       </gradient>
     </path>
-
-    // Add more shapes here
-
   </group>
 </vector>

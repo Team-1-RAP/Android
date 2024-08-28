@@ -10,6 +10,7 @@ junit = "4.13.2"
 fragment_version = "1.8.1"
 material3 = "1.2.1"
 materialIconsExtendedAndroid = "1.6.8"
+mockitoCore = "5.11.0"
 nav_version = "2.7.7"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -96,6 +97,7 @@ hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", ve
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidCompiler" }
 
 ### api ###
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_version" }
 retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_version" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }

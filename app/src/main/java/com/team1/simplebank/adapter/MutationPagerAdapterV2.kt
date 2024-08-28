@@ -132,8 +132,7 @@ class MutationPagerAdapterV2 :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(item: MutationDataUI.Item) {
-            binding.transferDetail.text = item.transactionType
-            binding.transferDetail.contentDescription = item.transactionType
+            binding.transferTitle.text = item.transactionType
             binding.transferDetail.text = "${item.type} - ${item.recipientName}"
             binding.transferDetail.contentDescription = "${item.type} - ${item.recipientName}"
             binding.amountExpenseOrIncome.text = item.amount.toRupiah()

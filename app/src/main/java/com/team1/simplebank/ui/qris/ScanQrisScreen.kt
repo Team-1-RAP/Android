@@ -151,19 +151,19 @@ fun ScanQrisScreen(
             )
         }
 
-        CustomTonalIconButton(
-            modifier = modifier
-                .padding(start = 48.dp, bottom = 24.dp)
-                .align(Alignment.BottomStart),
-            icon = if (isButtonGalleryActive) Icons.Filled.Panorama else Icons.Outlined.Panorama,
-            onClick = {
-                galleryLauncher.launch("image/*")
-                isButtonGalleryActive = true
-            },
-            talkBackLabel = "ambil dari galeri",
-            containerColor = if (isButtonGalleryActive) BlueNormal else Color.White,
-            contentColor = if (isButtonGalleryActive) Color.White else BlueNormal
-        )
+//        CustomTonalIconButton(
+//            modifier = modifier
+//                .padding(start = 48.dp, bottom = 24.dp)
+//                .align(Alignment.BottomStart),
+//            icon = if (isButtonGalleryActive) Icons.Filled.Panorama else Icons.Outlined.Panorama,
+//            onClick = {
+//                galleryLauncher.launch("image/*")
+//                isButtonGalleryActive = true
+//            },
+//            talkBackLabel = "ambil dari galeri",
+//            containerColor = if (isButtonGalleryActive) BlueNormal else Color.White,
+//            contentColor = if (isButtonGalleryActive) Color.White else BlueNormal
+//        )
 
         CustomTonalIconButton(
             modifier = modifier
