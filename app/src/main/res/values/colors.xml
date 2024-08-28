@@ -28,6 +28,8 @@
     <color name="primary_color">#0066AE</color>
     <color name="blue_transfer">#127DCD</color>
 
+    <color name="disable_color">#808080</color>
+
     <color name="dark_blue_primary">#0A3967</color>
     <color name="shadow_of_blue">#1454FB</color>
 

@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.synrgy.xdomain.model.ResultTransferModel
 import com.team1.simplebank.R
 import com.team1.simplebank.common.handler.ResourceState
@@ -62,26 +64,60 @@ class ResultTransferFragment : Fragment() {
             }
         }
 
+        btnBackClicked()
     }
 
     private fun setupDataUI(data: ResultTransferModel) {
         with(binding) {
             nameAccountNumberDestination.text = data.recipientFullName
+            nameAccountNumberDestination.contentDescription = data.recipientFullName
+
+            timeResultConfirmationTransfer.text = getString(R.string.timeResultFormat, data.time, "WIB")
+            timeResultConfirmationTransfer.contentDescription = getString(R.string.timeResultFormat, data.time, "WIB")
+
+            dateResultConfirmationTransfer.text = data.date
+            dateResultConfirmationTransfer.contentDescription = data.date
+
             nameBankAndAccountNumber.text = getString(
                 R.string.destination_bank_and_account_number,
                 data.recipientBankName,
                 data.recipientBankNoAccount
             )
+            nameBankAndAccountNumber.contentDescription = getString(
+                R.string.destination_bank_and_account_number,
+                data.recipientBankName,
+                data.recipientBankNoAccount
+            )
+
             theNumberOfTransaction.text = getString(R.string.balance_format, data.amount.toRupiah())
+            theNumberOfTransaction.contentDescription = getString(R.string.balance_format, data.amount.toRupiah())
 
             nameAccountNumberSource.text = data.sourceFullName
+            nameAccountNumberSource.contentDescription = data.sourceFullName
             nameBankAndAccountNumberSource.text = getString(
                 R.string.destination_bank_and_account_number,
                 data.sourceBankName,
                 data.sourceAccount
             )
+            nameBankAndAccountNumberSource.contentDescription = getString(
+                R.string.destination_bank_and_account_number,
+                data.sourceBankName,
+                data.sourceAccount
+            )
             idTransaction.text = data.transactionId
+            idTransaction.contentDescription = data.transactionId
 
         }
     }
+
+    private fun btnBackClicked(){
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack(R.id.navigation_home, false)
+                }
+            })
+    }
+
 }
