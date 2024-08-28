@@ -228,6 +228,7 @@
         android:fontFamily="@font/inter_regular"
         android:insetBottom="0dp"
         android:text="Simpan Rek."
+        android:enabled="false"
         app:layout_constraintEnd_toStartOf="@id/btn_next"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@id/guideline_start"

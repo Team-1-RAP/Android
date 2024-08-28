@@ -17,8 +17,8 @@ interface TransferDao {
     suspend fun deleteItemData(noAccount:String)
 
     @Query("SELECT EXISTS (SELECT*FROM TransferEntity where noAccount = :noAccount)")
-    suspend fun isItemDataExist(noAccount:String)
+    suspend fun isItemDataExist(noAccount:String):Boolean
 
-    @Query("SELECT * FROM TransferEntity ORDER BY id ASC")
-    fun getAllDataNoAccountSaved(): Flow<List<TransferEntity>>
+    @Query("SELECT * FROM TransferEntity ORDER BY userName ASC")
+    fun getAllDataNoAccountSaved(): Flow<List<TransferEntity>>?
 }
