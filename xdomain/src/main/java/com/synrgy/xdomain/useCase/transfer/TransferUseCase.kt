@@ -1,6 +1,7 @@
 package com.synrgy.xdomain.useCase.transfer
 
 import com.synrgy.xdomain.model.DataBankModel
+import com.synrgy.xdomain.model.DataUserDestinationLocalModel
 import com.synrgy.xdomain.model.ResultTransferModel
 import com.synrgy.xdomain.model.SourceAccountModel
 import com.synrgy.xdomain.model.TypeAccountModel
@@ -47,5 +48,17 @@ class TransferUseCase @Inject constructor(val transferRepository: TransferReposi
             pin,
             description
         )
+    }
+    suspend fun getAllDataAccountTransferLocal():Flow<ResourceState<List<DataUserDestinationLocalModel>>>{
+        return transferRepository.getAllDataNoAccountLocal()
+    }
+    suspend fun insertDataAccountTransfer(usernmae:String,fullName:String, bankName:String, bankId:Int, noAccount: String,adminFee:Int){
+        transferRepository.insertNoAccount(usernmae,fullName,bankName,bankId,noAccount,adminFee)
+    }
+    suspend fun isItemDataNoAccountExists(noAccount: String):Boolean{
+        return transferRepository.isItemNoAccountExist(noAccount)
+    }
+    suspend fun deleteItemNoAccount(noAccount: String){
+        return transferRepository.deleteItemNoAccount(noAccount)
     }
 }

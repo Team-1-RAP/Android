@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -66,7 +67,7 @@ class HomeActivityViewModel @Inject constructor(
         }
     }
 
-    val userAccountsDetails: LiveData<ResourceState<List<AccountModel>>> = liveData {
+    val userAccountsDetails: Flow<ResourceState<List<AccountModel>>> = flow {
         getUserAccountUseCase.getUserAccounts().collect {
             when (it) {
                 is ResourceState.Loading -> {

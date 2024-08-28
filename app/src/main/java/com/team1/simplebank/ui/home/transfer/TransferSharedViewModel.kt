@@ -6,27 +6,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.synrgy.xdomain.model.AccountModel
 import com.synrgy.xdomain.model.ConfirmationTransferModel
+import com.synrgy.xdomain.model.DataUserDestinationLocalModel
 import com.synrgy.xdomain.model.ResultTransferModel
 import com.synrgy.xdomain.model.SourceAccountModel
-import com.synrgy.xdomain.model.TypeAccountModel
 import com.synrgy.xdomain.model.ValidationTransferModel
 import com.synrgy.xdomain.useCase.transfer.TransferUseCase
+import com.synrgy.xdomain.useCase.user.GetUserAccountUseCase
 import com.team1.simplebank.common.handler.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TransferSharedViewModel @Inject constructor
-    (private val transferUseCase: TransferUseCase) : ViewModel() {
+    (private val transferUseCase: TransferUseCase,private val getUserAccountUseCase: GetUserAccountUseCase) : ViewModel() {
 
     private var _dataValidationTransferSuccess: MutableStateFlow<ResourceState<ValidationTransferModel>> =
         MutableStateFlow(ResourceState.Idle)
@@ -58,8 +59,33 @@ class TransferSharedViewModel @Inject constructor
     private var _dataButtonState: MutableLiveData<Boolean> = MutableLiveData()
     val dataButtonState: LiveData<Boolean> = _dataButtonState
 
+    private var _userAccountSource:MutableLiveData<ResourceState<List<AccountModel>>> = MutableLiveData()
+    val userAccountSource:LiveData<ResourceState<List<AccountModel>>> = _userAccountSource
+
     init {
         setDataForSourceAccountSpinner()
+    }
+    fun userAccountsDetailsInProfileFragment() {
+        viewModelScope.launch {
+            getUserAccountUseCase.getUserAccounts().collect {
+                when (it) {
+                    is ResourceState.Loading -> {
+                        _userAccountSource.value = (ResourceState.Loading)
+                    }
+
+                    is ResourceState.Success -> {
+                        _userAccountSource.value= (ResourceState.Success(it.data))
+                    }
+
+                    is ResourceState.Error -> {
+                        _userAccountSource.value = (ResourceState.Error(it.exception))
+                    }
+
+                    else -> {}
+                }
+            }
+        }
+
     }
 
     fun setButtonState(isValidNoAccount: Boolean, isValidDescription: Boolean) {
@@ -125,7 +151,6 @@ class TransferSharedViewModel @Inject constructor
         noAccount: String,
         onLoading: (Boolean) -> Unit,
         onResult: (Boolean) -> Unit
-
     ) {
         viewModelScope.launch {
             transferUseCase.validationAccountTransfer(id, noAccount).collect {
@@ -160,6 +185,8 @@ class TransferSharedViewModel @Inject constructor
         }
     }
 
+
+    //bisa buat local juga
     fun setDataSourceAccountChose(fullName: String, accountType: String, noAccount: String) {
         _dataSourceAccountChoosing.value = ResourceState.Loading
         try {
@@ -175,11 +202,34 @@ class TransferSharedViewModel @Inject constructor
         }
     }
 
+    //database lokal
+    fun setDataNoAccountDestinationToLocalDB(data: DataUserDestinationLocalModel) {
+        viewModelScope.launch {
+            _dataValidationTransferSuccess.value = ResourceState.Loading
+            try {
+                _dataValidationTransferSuccess.value = ResourceState.Success(
+                    ValidationTransferModel(
+                        username = data.userName,
+                        fullName = data.fullName,
+                        bankDestination = data.bankName,
+                        bankId = data.bankId.toString(),
+                        accountNumber = data.noAccount,
+                        adminFee = data.adminFee
+                    )
+                )
+            } catch (e: Exception) {
+                _dataValidationTransferSuccess.value = ResourceState.Error(e.localizedMessage)
+            }
+        }
+    }
+
+    //end database lokal
+
     fun merAllDataTransfer(totalTransferInput: Int, description: String) {
         viewModelScope.launch {
             combine(
-                dataValidationTransferSuccess,
-                dataSourceAccountChoosing,
+                _dataValidationTransferSuccess,
+                _dataSourceAccountChoosing,
             ) { validationSuccess, dataSourceAccountChoosing ->
                 Pair(validationSuccess, dataSourceAccountChoosing)
             }.collect { (validationSuccess, dataSourceAccountChoosing) ->
@@ -270,6 +320,59 @@ class TransferSharedViewModel @Inject constructor
             }
         }
     }
+
+
+    fun insertTransferNewAccount(
+        userName: String,
+        fullName: String,
+        bankName: String,
+        bankId: Int,
+        noAccount: String,
+        adminFee: Int
+    ) {
+        viewModelScope.launch {
+            transferUseCase.insertDataAccountTransfer(
+                userName,
+                fullName,
+                bankName,
+                bankId,
+                noAccount,
+                adminFee
+            )
+        }
+    }
+
+    val getAllDataAccountTransferLocal: Flow<ResourceState<List<DataUserDestinationLocalModel>>> =
+        flow {
+            transferUseCase.getAllDataAccountTransferLocal().collect {
+                when (it) {
+                    ResourceState.Loading -> {
+                        emit(ResourceState.Loading)
+                    }
+
+                    is ResourceState.Success -> {
+                        emit(ResourceState.Success(it.data))
+                    }
+
+                    is ResourceState.Error -> {
+                        emit(ResourceState.Error(it.exception))
+                    }
+
+                    ResourceState.Idle -> {
+                        //do nothing
+                    }
+
+                }
+            }
+        }
+
+    fun deleteItemNoAccount(noAccount: String) {
+        viewModelScope.launch {
+            transferUseCase.deleteItemNoAccount(noAccount)
+        }
+    }
+
+
 }
 
 

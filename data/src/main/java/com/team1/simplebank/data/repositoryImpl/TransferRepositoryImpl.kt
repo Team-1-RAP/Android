@@ -1,22 +1,28 @@
 package com.team1.simplebank.data.repositoryImpl
 
 import com.synrgy.xdomain.model.DataBankModel
+import com.synrgy.xdomain.model.DataUserDestinationLocalModel
 import com.synrgy.xdomain.model.ResultTransferModel
 import com.synrgy.xdomain.model.SourceAccountModel
 import com.synrgy.xdomain.model.ValidationTransferModel
 import com.synrgy.xdomain.repositoryInterface.TransferRepository
 import com.team1.simplebank.common.handler.ResourceState
+import com.team1.simplebank.data.local.TransferDao
+import com.team1.simplebank.data.local.entity.TransferEntity
 import com.team1.simplebank.data.mapper.mapGetAllBankResponseToDataBankModel
 import com.team1.simplebank.data.mapper.mapperBankValidationResponseToValidationTransferModel
 import com.team1.simplebank.data.mapper.mapperGetSourceAccountResponseToSourceAccountModel
 import com.team1.simplebank.data.mapper.mapperGetSourceAccountToDataSpinnerSourceAccount
 import com.team1.simplebank.data.mapper.mapperTransferResultResponseToTransferResultModel
+import com.team1.simplebank.data.mapper.toDataUserDestinationLocalModel
 import com.team1.simplebank.data.remote.api.ApiService
 import com.team1.simplebank.data.remote.api.FSW.ApiServiceFromFSW
 import com.team1.simplebank.data.remote.request.BEJ.TransferRequest
 import com.team1.simplebank.data.remote.request.FSW.BankValidationRequest
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -24,6 +30,7 @@ import javax.inject.Inject
 class TransferRepositoryImpl @Inject constructor(
     val apiService: ApiService,
     val apiServiceFromFSW: ApiServiceFromFSW,
+    val transferDao: TransferDao
 ) :
     TransferRepository {
     override suspend fun getAllDataBank(): Flow<ResourceState<List<DataBankModel>>> {
@@ -145,5 +152,43 @@ class TransferRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun insertNoAccount(
+        userName:String,
+        fullName: String,
+        bankName: String,
+        bankId: Int,
+        noAccount: String,
+        adminFee:Int
+    ) {
+        val dataInput = TransferEntity(userName=userName,fullName=fullName, bankName = bankName, bankId = bankId, noAccount = noAccount, adminFee = adminFee)
+        transferDao.insertData(dataInput)
+    }
+
+    override suspend fun getAllDataNoAccountLocal(): Flow<ResourceState<List<DataUserDestinationLocalModel>>> {
+        return flow {
+            emit(ResourceState.Loading)
+            try {
+                val responseLocal = transferDao.getAllDataNoAccountSaved()
+                if (responseLocal != null){
+                    emitAll(responseLocal.map {
+                        ResourceState.Success(it.toDataUserDestinationLocalModel())
+                    })
+                }
+            }catch (e:HttpException){
+                emit(ResourceState.Error(e.localizedMessage ?: "An Expected Error"))
+
+            }catch (e:Exception){
+                emit(ResourceState.Error(e.localizedMessage ?: "An Expected Error"))
+            }
+        }
+    }
+
+    override suspend fun isItemNoAccountExist(noAccount: String): Boolean {
+        return transferDao.isItemDataExist(noAccount)
+    }
+
+    override suspend fun deleteItemNoAccount(noAccount: String) {
+        transferDao.deleteItemData(noAccount)
+    }
 
 }

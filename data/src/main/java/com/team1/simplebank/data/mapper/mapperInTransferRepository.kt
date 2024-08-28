@@ -1,11 +1,13 @@
 package com.team1.simplebank.data.mapper
 
 import com.synrgy.xdomain.model.DataBankModel
+import com.synrgy.xdomain.model.DataUserDestinationLocalModel
 import com.synrgy.xdomain.model.ResultTransferModel
 import com.synrgy.xdomain.model.SourceAccountModel
 import com.synrgy.xdomain.model.ValidationTransferModel
 import com.team1.simplebank.common.utils.Converter.mapperDateTimeToDateTransferResult
 import com.team1.simplebank.common.utils.Converter.mapperDateTimeToTimeTransferResult
+import com.team1.simplebank.data.local.entity.TransferEntity
 import com.team1.simplebank.data.remote.response.BEJ.DataGetAllBankResponse
 import com.team1.simplebank.data.remote.response.BEJ.DataItem
 import com.team1.simplebank.data.remote.response.BEJ.ResultTransferData
@@ -90,4 +92,17 @@ fun mapperTransferResultResponseToTransferResultModel(data: ResultTransferData):
         date = mapperDateTimeToDateTransferResult(data.date),
         time = mapperDateTimeToTimeTransferResult(data.date)
     )
+}
+
+fun List<TransferEntity>.toDataUserDestinationLocalModel():List<DataUserDestinationLocalModel>{
+    return this.map {
+        DataUserDestinationLocalModel(
+            userName = it.userName,
+            fullName = it.fullName,
+            bankName = it.bankName,
+            bankId = it.bankId,
+            noAccount = it.noAccount,
+            adminFee = it.adminFee
+        )
+    }
 }

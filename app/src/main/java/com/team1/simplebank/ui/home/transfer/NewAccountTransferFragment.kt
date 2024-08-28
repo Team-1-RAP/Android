@@ -16,6 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.synrgy.xdomain.model.SourceAccountModel
 import com.team1.simplebank.R
 import com.team1.simplebank.common.handler.ResourceState
@@ -23,6 +24,7 @@ import com.team1.simplebank.databinding.FragmentNewAccountTransferBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 @AndroidEntryPoint
 class NewAccountTransferFragment : Fragment() {
@@ -55,6 +57,12 @@ class NewAccountTransferFragment : Fragment() {
         }
         dataAccountChoosing()
 
+        getAllDataSourceChoosing()
+
+       buttonClicked()
+    }
+
+    private fun buttonClicked(){
         binding.btnNext.setOnClickListener {
             val noAccount = binding.textInputNumberAccountDestination.text
             binding.textInputNumberAccountDestination.contentDescription = noAccount
@@ -66,12 +74,16 @@ class NewAccountTransferFragment : Fragment() {
                 onLoading = { onLoading(it) },
                 onResult = { isValid(it) })
         }
-        getAllDataSourceChoosing()
+        binding.btnSaveAccountNumber.setOnClickListener {
+            getResponseDataSavedValidation()
+            Snackbar.make(requireContext(),binding.root,"Data Berhasil Disimpan",Snackbar.LENGTH_SHORT).show()
+        }
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
     }
+
 
     //digunakan untuk mengisi nilai dari button state, apakah sudah terisi belum untuk button sumber rekening
     // jika belum maka kembali false, jika sudah kembali true
@@ -177,7 +189,6 @@ class NewAccountTransferFragment : Fragment() {
                 accountType = data.accountType,
                 noAccount = data.noAccount,
             )
-            Toast.makeText(requireContext(), data.noAccount, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -224,6 +235,11 @@ class NewAccountTransferFragment : Fragment() {
                     binding.textInputNumberAccountDestination.text -> {
                         isValidNoAccount = validateInputNoAccount(s)
                         binding.textInputNumberAccountDestination.contentDescription = s.toString()
+                        viewModel.cekValidationTransfer(
+                            1,
+                            s.toString(),
+                            onLoading = {},
+                            onResult = { stateButtonSaveNoAccount(it) })
                     }
 
                     binding.textInputTransferInformation.text -> {
@@ -238,11 +254,77 @@ class NewAccountTransferFragment : Fragment() {
         }
     }
 
+    //data setelah save rekening berhasil
+    private fun getResponseDataSavedValidation() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.dataValidationTransferSuccess.collect {
+                    when (it) {
+                        ResourceState.Loading -> {
+                            //do nothing
+                        }
+
+                        is ResourceState.Success -> {
+                            saveDataNoAccountToLocal(
+                                it.data.username,
+                                it.data.fullName,
+                                it.data.bankDestination,
+                                it.data.bankId.toInt(),
+                                it.data.accountNumber,
+                                it.data.adminFee
+                            )
+                        }
+
+                        is ResourceState.Error -> {
+
+                        }
+                        ResourceState.Idle -> {
+
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun saveDataNoAccountToLocal(
+        username:String,
+        fullName: String,
+        bankName: String,
+        bankId: Int,
+        noAccount: String,
+        adminFee:Int
+    ) {
+        viewModel.insertTransferNewAccount(
+            userName = username,
+            fullName=fullName,
+            bankName = bankName,
+            bankId = bankId,
+            noAccount = noAccount,
+            adminFee = adminFee
+        )
+    }
+
+    private fun stateButtonSaveNoAccount(state: Boolean) {
+        with(binding.btnSaveAccountNumber) {
+            isEnabled = state
+            setBackgroundColor(
+                if (state) requireContext().getColor(R.color.primary_color)
+                else requireContext().getColor(R.color.white)
+            )
+            setTextColor(
+                if (state) requireContext().getColor(R.color.gray)
+                else requireContext().getColor(R.color.primary_color)
+            )
+        }
+    }
+
     private fun validateInputNoAccount(inputNoAccount: Editable?): Boolean {
         val inputLength = inputNoAccount?.length ?: 0
-        val isValid = inputLength >= 8
+        val isValid = inputLength >= 4
         binding.textLayoutDestinationNumberAccount.error =
-            if (isValid) "" else "Input Must be 8 digits"
+            if (isValid) "" else "Input Must be 4 digits"
         return isValid
     }
 
@@ -252,8 +334,9 @@ class NewAccountTransferFragment : Fragment() {
         return isValid
     }
 
+
     private fun buttonState(isValid: Boolean) {
-        with(binding.btnNext){
+        with(binding.btnNext) {
             isEnabled = isValid
             setBackgroundColor(
                 if (isValid) requireContext().getColor(R.color.primary_color)

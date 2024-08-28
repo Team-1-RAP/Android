@@ -6,15 +6,18 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "TransferEntity")
 data class TransferEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo("id")
-    val id: Int?=null,
+
+    @ColumnInfo("userName")
+    val userName:String,
     @ColumnInfo("fullName")
     val fullName: String,
     @ColumnInfo("bankName")
     val bankName: String,
     @ColumnInfo("bankId")
-    val bankId: String,
+    val bankId: Int,
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo("noAccount")
     val noAccount: String,
+    @ColumnInfo("adminFee")
+    val adminFee:Int
 )
