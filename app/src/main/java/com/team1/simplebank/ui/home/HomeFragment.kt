@@ -49,49 +49,64 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //data user, saldo, nomor rekening
-        viewModel.userAccountsDetails.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResourceState.Loading -> {
-                    binding.progressbar.visibility = View.VISIBLE
-                }
 
-                is ResourceState.Success -> {
-                    val data = it.data[0]
-                    isDataSuccess(data)
-                    copyNumberAccount(data.cardNumber)
-                    viewModel.saveNoAccount(data.noAccount)
-                }
 
-                is ResourceState.Error -> {
-                    Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT).show()
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.userAccountsDetails.collect {
+                    when (it) {
+                        is ResourceState.Loading -> {
+                            binding.progressbar.visibility = View.VISIBLE
+                            binding.layoutAccountBalance.visibility = View.GONE
 
-                is ResourceState.Idle -> {}
+                        }
+
+                        is ResourceState.Success -> {
+                            val data = it.data[0]
+                            isDataSuccess(data)
+                            copyNumberAccount(data.cardNumber)
+                            viewModel.saveNoAccount(data.noAccount)
+                        }
+
+                        is ResourceState.Error -> {
+                            Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        is ResourceState.Idle -> {}
+                    }
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.amounts.collect{
-                    when(it){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.amounts.collect {
+                    when (it) {
                         ResourceState.Loading -> {
                             binding.progressbarIncomeExpense.visibility = View.VISIBLE
                             binding.layoutIncomeAmount.visibility = View.INVISIBLE
                             binding.layoutExpenseAmount.visibility = View.INVISIBLE
                         }
+
                         is ResourceState.Success -> {
                             val data = it.data
                             binding.apply {
                                 progressbarIncomeExpense.visibility = View.GONE
                                 layoutIncomeAmount.visibility = View.VISIBLE
                                 layoutExpenseAmount.visibility = View.VISIBLE
-                                incomeAmount2.text = getString(R.string.balance_format, data.income.toRupiah())
-                                expenseAmount2.text = getString(R.string.balance_format, data.expense.toRupiah())
+                                incomeAmount2.text =
+                                    getString(R.string.balance_format, data.income.toRupiah())
+                                expenseAmount2.text =
+                                    getString(R.string.balance_format, data.expense.toRupiah())
                             }
                         }
+
                         is ResourceState.Error -> {
-                            Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), it.exception, Toast.LENGTH_SHORT)
+                                .show()
                         }
+
                         ResourceState.Idle -> {}
 
                     }
@@ -102,9 +117,9 @@ class HomeFragment : Fragment() {
 
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.noAccount.collect{
-                    if (it!=null){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.noAccount.collect {
+                    if (it != null) {
                         viewModel.getAmounts(it)
                     }
                 }
@@ -113,7 +128,7 @@ class HomeFragment : Fragment() {
 
         //state UI untuk tombol tampilkan lebih dan sedikit
 
-        viewModel.isShowOrHideBalanceValue.observe(viewLifecycleOwner){
+        viewModel.isShowOrHideBalanceValue.observe(viewLifecycleOwner) {
             showOrHideBalance(it)
         }
 
@@ -127,17 +142,17 @@ class HomeFragment : Fragment() {
         binding.btnHelpdesk.setOnClickListener {
             Toast.makeText(requireContext(), "Helpdesk", Toast.LENGTH_SHORT).show()
         }
-        binding.btnShowOrHideBalance.setOnClickListener{
-            with(binding){
-                val isState = accountBalance2.visibility==View.GONE
+        binding.btnShowOrHideBalance.setOnClickListener {
+            with(binding) {
+                val isState = accountBalance2.visibility == View.GONE
                 viewModel.toggleShowOrHideBalance(isState)
             }
         }
     }
 
-    private fun showOrHideBalance(input:Boolean){
-        with(binding){
-            accountBalance2.visibility = if(input) View.VISIBLE else View.GONE
+    private fun showOrHideBalance(input: Boolean) {
+        with(binding) {
+            accountBalance2.visibility = if (input) View.VISIBLE else View.GONE
             hideAccountBalance.visibility = if (input) View.GONE else View.VISIBLE
             btnShowOrHideBalance.setImageResource(if (input) R.drawable.show_logo else R.drawable.hide_logo)
         }
@@ -159,7 +174,7 @@ class HomeFragment : Fragment() {
         listData.let {
             binding.apply {
                 progressbar.visibility = View.GONE
-                heyTitle.visibility=View.VISIBLE
+                heyTitle.visibility = View.VISIBLE
                 userFullName.apply {
                     visibility = View.VISIBLE
                     text = listData.fullName
@@ -167,7 +182,8 @@ class HomeFragment : Fragment() {
                 layoutAccountNumber.visibility = View.VISIBLE
                 numberAccount2.text = getString(R.string.number_account, listData.cardNumber)
                 layoutAccountBalance.visibility = View.VISIBLE
-                accountBalance2.text = getString(R.string.balance_format, listData.balance.toRupiah())
+                accountBalance2.text =
+                    getString(R.string.balance_format, listData.balance.toRupiah())
 
             }
         }

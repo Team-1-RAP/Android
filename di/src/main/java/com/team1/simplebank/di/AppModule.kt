@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.room.Room
 import com.synrgy.xdomain.repositoryInterface.IAuthRepository
 import com.synrgy.xdomain.repositoryInterface.IQrisRepository
 import com.synrgy.xdomain.repositoryInterface.IUserRepository
@@ -11,6 +12,8 @@ import com.synrgy.xdomain.repositoryInterface.MutationRepository
 import com.synrgy.xdomain.repositoryInterface.TransferRepository
 import com.team1.simplebank.data.BuildConfig
 import com.team1.simplebank.data.dataStore.AuthDataStore
+import com.team1.simplebank.data.local.SimpleBankDatabase
+import com.team1.simplebank.data.local.TransferDao
 import com.team1.simplebank.data.remote.api.ApiService
 import com.team1.simplebank.data.remote.api.FSW.ApiServiceFromFSW
 import com.team1.simplebank.data.repositoryImpl.AuthRepositoryImpl
@@ -18,7 +21,6 @@ import com.team1.simplebank.data.repositoryImpl.MutationRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.TransferRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.QrisRepositoryImpl
 import com.team1.simplebank.data.repositoryImpl.UserRepositoryImpl
-import com.team1.simplebank.data.repositoryImpl.pagingsource.MutationPagingSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,12 +59,27 @@ object AppModule {
         return AuthDataStore(dataStore)
     }
 
+    @Singleton
+    @Provides
+    fun provideDataBase(@ApplicationContext context: Context): SimpleBankDatabase {
+        return Room.databaseBuilder(
+            context, SimpleBankDatabase::class.java, "transferDao.db"
+        ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideTransferDao(db:SimpleBankDatabase):TransferDao{
+        return db.transferDao()
+    }
+
 
     @Singleton
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
+
 
     @Singleton
     @Provides
@@ -148,17 +165,20 @@ object AppModule {
     @Provides
     fun provideNewAccountTransferRepository(
         apiService: ApiService,
-        apiServiceFromFSW: ApiServiceFromFSW
+        apiServiceFromFSW: ApiServiceFromFSW,
+        transferDao: TransferDao
     ): TransferRepository {
-        return TransferRepositoryImpl(apiService, apiServiceFromFSW)
+        return TransferRepositoryImpl(apiService, apiServiceFromFSW,transferDao)
     }
+
     @Singleton
     @Provides
     fun provideQrisRepository(
-        apiService : ApiService
-    ) : IQrisRepository {
+        apiService: ApiService
+    ): IQrisRepository {
         return QrisRepositoryImpl(apiService)
     }
+
 
 
 

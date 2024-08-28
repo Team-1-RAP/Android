@@ -30,12 +30,12 @@
         android:maxLines="1"
         android:text="Anton Pamungkas"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_save_transfer_account"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete_transfer_account"
         app:layout_constraintStart_toEndOf="@id/icon_name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btn_save_transfer_account"
+        android:id="@+id/btn_delete_transfer_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
