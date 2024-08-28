@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "519673585146",
+    "project_id": "simplebank-11900",
+    "storage_bucket": "simplebank-11900.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519673585146:android:2e9bd58359682376f11843",
+        "android_client_info": {
+          "package_name": "com.team1.simplebank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPBiOlNv-eZk7tPp9FkQp7Y2HqSxbWrKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

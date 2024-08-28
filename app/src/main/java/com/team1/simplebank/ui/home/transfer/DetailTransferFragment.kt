@@ -100,10 +100,10 @@ class DetailTransferFragment : Fragment() {
         btnClicked()
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
         binding.btnBackBottomDetailTransfer.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
 
     }

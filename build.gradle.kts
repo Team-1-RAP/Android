@@ -12,7 +12,7 @@ plugins {
     id("com.google.dagger.hilt.android") version "2.51" apply false
 
     id("land.sungbin.dependency.graph.plugin") version "1.1.0"
-}
+    id("com.google.gms.google-services") version "4.4.2" apply false}
 
 dependencyGraphConfig{
     projectName = null

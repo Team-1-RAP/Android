@@ -101,5 +101,4 @@ object Converter {
             //format date (Date) ke dalam output format
             return outputFormat.format(date ?: Date()) // Handle potential null values
         }
-
 }
