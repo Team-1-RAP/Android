@@ -52,28 +52,47 @@ class TransferSharedViewModel @Inject constructor
     val dataResultTransfer: StateFlow<ResourceState<ResultTransferModel>> =
         _dataResultTransfer.asStateFlow()
 
+    private var _dataForSpinner: MutableLiveData<ResourceState<List<String>>> = MutableLiveData()
+    val dataForSpinner: LiveData<ResourceState<List<String>>> = _dataForSpinner
 
-    //data untuk spinner source account
-    val getDataForSourceAccountSpinner: LiveData<ResourceState<List<String>>> = liveData {
-        transferUseCase.getDataSpinnerSourceAccount().collect {
-            when (it) {
-                ResourceState.Loading -> {
-                    emit(ResourceState.Loading)
+    private var _dataButtonState: MutableLiveData<Boolean> = MutableLiveData()
+    val dataButtonState: LiveData<Boolean> = _dataButtonState
+
+    init {
+        setDataForSourceAccountSpinner()
+    }
+
+    fun setButtonState(isValidNoAccount: Boolean, isValidDescription: Boolean) {
+        val isAccountChosen = _dataSourceAccountChoosing.value is ResourceState.Success
+        val result = ((isValidNoAccount && isValidDescription) && isAccountChosen)
+        _dataButtonState.value = result
+    }
+
+    private fun setDataForSourceAccountSpinner() {
+        viewModelScope.launch {
+            transferUseCase.getDataSpinnerSourceAccount().collect {
+                when (it) {
+                    ResourceState.Loading -> {
+                        _dataForSpinner.value = ResourceState.Loading
+                    }
+
+                    is ResourceState.Success -> {
+                        _dataForSpinner.value = (ResourceState.Success(it.data))
+                    }
+
+                    is ResourceState.Error -> {
+                        _dataForSpinner.value = (ResourceState.Error(it.exception))
+                    }
+
+                    ResourceState.Idle -> {}
+
                 }
-
-                is ResourceState.Success -> {
-                    emit(ResourceState.Success(it.data))
-                }
-
-                is ResourceState.Error -> {
-                    emit(ResourceState.Error(it.exception))
-                }
-
-                ResourceState.Idle -> {}
-
             }
         }
     }
+
+
+    //data untuk spinner source account
 
 
     val getAllDataSourceAccount: LiveData<ResourceState<List<SourceAccountModel>>> = liveData {
@@ -150,12 +169,13 @@ class TransferSharedViewModel @Inject constructor
                 noAccount = noAccount
             )
             _dataSourceAccountChoosing.value = ResourceState.Success(dataSourceAccountChoosing)
+            //setButtonState(isValidNoAccount = true, isValidDescription = true)
         } catch (e: Exception) {
             _dataSourceAccountChoosing.value = ResourceState.Error("Data Nothing")
         }
     }
 
-    fun merAllDataTransfer(totalTransferInput: Int) {
+    fun merAllDataTransfer(totalTransferInput: Int, description: String) {
         viewModelScope.launch {
             combine(
                 dataValidationTransferSuccess,
@@ -182,7 +202,7 @@ class TransferSharedViewModel @Inject constructor
                             adminFee = validationSuccess.data.adminFee,
                             totalTransfer = totalTransferInput,
                             totalTransferWithAdmin = resultTotal,
-                            description = "Aku mau ngirim"
+                            description = description
                         )
                         _mergeAllDataTransfer.value = ResourceState.Success(dataResult)
                     }

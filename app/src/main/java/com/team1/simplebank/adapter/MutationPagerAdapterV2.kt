@@ -124,6 +124,7 @@ class MutationPagerAdapterV2 :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(header: MutationDataUI.Header) {
             binding.headersTitle.text = header.date
+            binding.headersTitle.contentDescription = header.date
         }
     }
 
@@ -133,14 +134,18 @@ class MutationPagerAdapterV2 :
         fun bind(item: MutationDataUI.Item) {
             binding.transferTitle.text = item.transactionType
             binding.transferDetail.text = "${item.type} - ${item.recipientName}"
+            binding.transferDetail.contentDescription = "${item.type} - ${item.recipientName}"
             binding.amountExpenseOrIncome.text = item.amount.toRupiah()
+            binding.amountExpenseOrIncome.contentDescription = item.amount.toRupiah()
             val mutationType = item.mutationType
             if (mutationType == "PENGELUARAN") {
                 binding.iconItem.setImageResource(R.drawable.expense_icon_mutation)
+                binding.iconItem.contentDescription = "Pengeluaran"
                 val color = ContextCompat.getColor(binding.root.context, R.color.holo_red)
                 binding.amountExpenseOrIncome.setTextColor(color)
             } else if (mutationType == "PEMASUKAN") {
                 binding.iconItem.setImageResource(R.drawable.income_icon_mutation)
+                binding.iconItem.contentDescription = "Pemasukan"
                 val color = ContextCompat.getColor(binding.root.context, R.color.holo_green)
                 binding.amountExpenseOrIncome.setTextColor(color)
             }

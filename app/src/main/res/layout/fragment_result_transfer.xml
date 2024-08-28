@@ -58,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pembayaran Berhasil!"
+                android:contentDescription="Pembayan Berhasil"
                 android:fontFamily="@font/plusjakartasans_semibold"
                 app:layout_constraintStart_toStartOf="@id/image_result_transfer"
                 app:layout_constraintTop_toBottomOf="@id/image_result_transfer" />
@@ -68,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:fontFamily="@font/plusjakartasans_regular"
                 android:layout_height="wrap_content"
-                android:text="15:32:06 WIB"
+                android:text="@string/timeResultFormat"
                 app:layout_constraintStart_toStartOf="@id/title_result_transfer"
                 app:layout_constraintTop_toBottomOf="@id/title_result_transfer" />
 
@@ -99,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Transfer"
+                android:contentDescription="Transfer"
                 android:fontFamily="@font/inter_bold"
                 app:layout_constraintStart_toStartOf="@id/time_result_confirmation_transfer"
                 app:layout_constraintTop_toBottomOf="@id/time_result_confirmation_transfer" />
@@ -122,6 +124,7 @@
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/inter_regular"
                 android:text="Rekening tujuan"
+                android:contentDescription="@string/talkback_title_no_account_destination"
                 app:layout_constraintStart_toStartOf="@id/line_top_result_transfer"
                 app:layout_constraintTop_toBottomOf="@id/line_top_result_transfer" />
 
@@ -153,6 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="28dp"
+                android:contentDescription="Detail Transaksi"
                 android:text="Detail Transaksi"
                 android:fontFamily="@font/inter_regular"
                 app:layout_constraintStart_toStartOf="@id/name_bank_and_account_number"
@@ -164,6 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_regular"
+                android:contentDescription="Total Transaksi"
                 android:text="Total Transaksi"
                 app:layout_constraintStart_toStartOf="@id/title_detail_transaction"
                 app:layout_constraintTop_toBottomOf="@id/title_detail_transaction" />
@@ -198,6 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
+                android:contentDescription="Sumber Dana"
                 android:fontFamily="@font/inter_regular"
                 android:text="Sumber Dana"
                 app:layout_constraintStart_toStartOf="@id/line_bottom_result_transfer"
@@ -230,6 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="ID transaksi"
+                android:contentDescription="ID Transaksi"
                 app:layout_constraintEnd_toStartOf="@id/id_transaction"
                 android:fontFamily="@font/inter_regular"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -256,6 +263,7 @@
                 android:layout_marginTop="55dp"
                 android:text="Copyright © 2024 - Simple Bank"
                 android:textSize="11sp"
+                android:contentDescription="Copy Right Simple Bank"
                 app:layout_constraintEnd_toEndOf="@id/id_transaction"
                 app:layout_constraintStart_toStartOf="@id/title_id_transaction"
                 app:layout_constraintTop_toBottomOf="@id/id_transaction" />
@@ -268,6 +276,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="27dp"
                 android:gravity="center"
+                android:contentDescription="@string/talkback_btn_save_no_account"
                 android:insetTop="0dp"
                 android:backgroundTint="@color/white"
                 android:insetBottom="0dp"
@@ -301,6 +310,7 @@
                 app:iconGravity="start"
                 app:iconPadding="10dp"
                 app:iconTint="@null"
+                android:contentDescription="Bagikan"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toEndOf="@id/btn_save_account_number"

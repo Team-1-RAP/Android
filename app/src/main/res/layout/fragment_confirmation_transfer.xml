@@ -41,7 +41,7 @@
             android:id="@+id/materialTextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Konfirmasi Transfer"
+            android:contentDescription="@string/talkback_title_page_confirmation_transfer"
             android:fontFamily="@font/inter_bold"
             android:text="Konfirmasi Transfer"
             android:textColor="@color/white"
@@ -75,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:text="Rekening Sumber"
+                    android:contentDescription="@string/talkback_title_no_account_sourced"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -128,6 +129,7 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/inter_bold"
                     android:text="Rekening Tujuan"
+                    android:contentDescription="@string/talkback_title_no_account_destination"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/icon_username_source_number_account" />
@@ -181,6 +183,7 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/calibri"
                     android:text="Nominal"
+                    android:contentDescription="@string/talkback_title_nominal"
                     app:layout_constraintEnd_toStartOf="@id/nominal_transfer"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/icon_username_destination_number_account" />
@@ -208,6 +211,7 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/calibri"
                     android:text="Biaya Admin"
+                    android:contentDescription="@string/talkback_title_admin_fee"
 
                     app:layout_constraintEnd_toStartOf="@id/fee_admin"
                     app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/calibri"
-
+                    android:contentDescription="@string/talkback_title_total_transfer"
                     android:text="Total Transfer"
                     app:layout_constraintEnd_toStartOf="@id/total_transfer"
                     app:layout_constraintStart_toStartOf="parent"
@@ -261,6 +265,7 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/calibri"
                     android:text="Keterangan"
+                    android:contentDescription="@string/talkback_title_description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title_total_transfer" />
@@ -271,7 +276,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Keterangan Tarnsfer"
+                    android:hint="Keterangan Transfer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title_description" />
@@ -316,13 +321,12 @@
                 android:drawablePadding="10dp"
                 android:hint="Masukkan PIN"
                 android:fontFamily="@font/calibri"
-
                 android:inputType="numberDecimal"
                 android:padding="0dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save_account_number"
+            android:id="@+id/btn_back_bottom"
             style="@style/TextContent.TitleMedium.ShadowBlue.Bold"
             android:layout_width="141dp"
             android:layout_height="41dp"
@@ -330,6 +334,7 @@
             android:layout_marginBottom="50dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+            android:contentDescription="@string/talkback_btn_back"
             android:text="Kembali"
             android:fontFamily="@font/inter_regular"
             android:backgroundTint="@color/white"
@@ -350,12 +355,13 @@
             android:backgroundTint="@color/primary_color"
             android:insetTop="0dp"
             android:insetBottom="0dp"
+            android:contentDescription="@string/talkback_btn_transfer"
             android:text="Transfer"
             android:fontFamily="@font/inter_regular"
             app:layout_constraintEnd_toEndOf="@+id/text_layout_password_transaction"
             app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toEndOf="@id/btn_save_account_number"
-            app:layout_constraintTop_toTopOf="@id/btn_save_account_number"
+            app:layout_constraintStart_toEndOf="@id/btn_back_bottom"
+            app:layout_constraintTop_toTopOf="@id/btn_back_bottom"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
             app:strokeColor="@color/primary_color"
             app:strokeWidth="1dp" />

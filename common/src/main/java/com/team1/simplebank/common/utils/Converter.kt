@@ -7,20 +7,24 @@ import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 object Converter {
     fun Int.toRupiah(): String {
         val localID = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(localID)
         val result = formatRupiah.format(this)
-        return result.replace("Rp","Rp.")
+        return result.replace("Rp", "Rp.")
 
     }
+
     fun Double.toRupiah(): String {
         val decimalFormatSymbols = DecimalFormatSymbols(Locale("in", "ID")).apply {
             groupingSeparator = '.'
@@ -74,4 +78,28 @@ object Converter {
             calendar.get(Calendar.MONTH) + 1
         }
     }
+
+    fun mapperDateTimeToDateTransferResult(dateFormat: String): String {
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val outputDateFormat = SimpleDateFormat("dd MMMM yyyy", Locale("in", "ID"))
+        val dateConvert = outputDateFormat.format(inputDateFormat.parse(dateFormat) as Date)
+        return dateConvert
+    }
+
+    fun mapperDateTimeToTimeTransferResult(dateFormat: String): String {
+            //casting input date format (string) ke Date
+            val inputDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+            inputDateFormat.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+
+            //casting+split output date format (string) ke Date (ambil waktunya saja)
+            val outputFormat = SimpleDateFormat("HH:mm:ss", Locale("in", "ID"))
+            outputFormat.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+
+            //format dateFormat(inputan) menjadi DateInputFormat
+            val date = inputDateFormat.parse(dateFormat)
+
+            //format date (Date) ke dalam output format
+            return outputFormat.format(date ?: Date()) // Handle potential null values
+        }
+
 }

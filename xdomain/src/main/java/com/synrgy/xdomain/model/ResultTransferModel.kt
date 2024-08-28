@@ -11,5 +11,6 @@ data class ResultTransferModel(
     val recipientBankNoAccount: String,
     val recipientFullName: String,
     val noRef: String,
-    val date: String
+    val date: String,
+    val time:String,
 )

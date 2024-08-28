@@ -85,6 +85,11 @@
         <action
             android:id="@+id/action_detailTransferFragment_to_confirmationTransferFragment"
             app:destination="@id/confirmationTransferFragment" />
+        <argument
+            android:name="descriptionArgs"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/newAccountTransferFragment"
@@ -112,5 +117,7 @@
         android:id="@+id/resultTransferFragment"
         android:name="com.team1.simplebank.ui.home.transfer.ResultTransferFragment"
         android:label="fragment_result_transfer"
-        tools:layout="@layout/fragment_result_transfer" />
+        tools:layout="@layout/fragment_result_transfer" >
+
+    </fragment>
 </navigation>
