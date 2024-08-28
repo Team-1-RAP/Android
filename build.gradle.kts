@@ -14,7 +14,6 @@ plugins {
     id("land.sungbin.dependency.graph.plugin") version "1.1.0"
     id("com.google.gms.google-services") version "4.4.2" apply false
     id("com.google.firebase.firebase-perf") version "1.4.2" apply false
-    id("com.google.firebase.crashlytics") version "3.0.2" apply false
 }
 
 
@@ -29,8 +28,7 @@ dependencyGraphConfig{
 buildscript {
     dependencies {
         classpath (libs.hilt.android.gradle.plugin)
-        val nav_version = "2.7.7"
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
 
     }
 

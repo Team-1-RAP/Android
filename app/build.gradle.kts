@@ -12,7 +12,6 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
 
-
 }
 
 android {
@@ -37,6 +36,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     buildFeatures{
         compose = true
@@ -94,7 +94,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.perf)
-    implementation(libs.firebase.crashlytics)
+
 
 
     //cameraX
